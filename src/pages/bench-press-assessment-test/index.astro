@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PPPCta from '../../components/PPPCta.astro';
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bench Press Assessment Test",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
+  "datePublished": "2026-01-04",
+  "dateModified": "2026-01-04",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-assessment-test/"
+};
+---
+
+<BaseLayout
+  title="Bench Press Assessment Test | Modern Men's Fitness"
+  description="Bench Press Assessment Test — Expert guide by Jordan Hoppel, strength coach with 16 years experience and 1,300+ athletes coached."
+  canonical="https://modernmensfitness.com/bench-press-assessment-test/"
+  schema={articleSchema}
+  pageType="article"
+  publishDate="2026-01-04"
+  modifiedDate="2026-01-04"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-tools/">Tools</a> <span>›</span>
+        <span>Bench Press Assessment Test</span>
+      </nav>
+      <span class="eyebrow">Tools</span>
+      <h1>Bench Press Assessment Test</h1>
+      <div class="page-meta mono">
+        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · 2026-01
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+
+        <PPPCta variant="soft" utmContent="bench-press-assessment-test-top" />
+
+        <p>This guide covers bench press assessment test from a coaching perspective — based on 16 years of working with 1,300+ athletes at 5 Star Fitness in Scottsdale, Arizona.</p>
+
+        <h2>Key Points</h2>
+        <ul>
+          <li>Understanding the root cause is always the first step</li>
+          <li>Most fixes require addressing both technique and programming simultaneously</li>
+          <li>Consistent application of the correct fix over 4-6 weeks produces measurable results</li>
+        </ul>
+
+        <PPPCta variant="mid" utmContent="bench-press-assessment-test-mid" context="The Primal Press Protocol's built-in tools auto-calculate every training weight for all 12 weeks from your 1RM. One number in. Everything else is done." />
+
+        <h2>The Coach's Perspective</h2>
+        <p>After working with hundreds of lifters on this exact issue, the pattern is consistent: most people apply generic fixes to specific problems. The right approach is diagnosing what's actually happening first — then prescribing the correct solution.</p>
+
+        <p>If you want a systematic approach to diagnosing and fixing your specific bench press limiter, the Primal Press Protocol walks you through the entire diagnostic framework on Day 1.</p>
+
+        <PPPCta variant="hard" utmContent="bench-press-assessment-test-bottom" />
+
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Tools Resources</h5>
+            <a href="/bench-press-tools/" class="sidebar-link">
+              <span>Back to Tools</span><span>→</span>
+            </a>
+            <a href="/bench-press-standards/" class="sidebar-link">
+              <span>Strength Standards</span><span>→</span>
+            </a>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link">
+              <span>1RM Calculator</span><span>→</span>
+            </a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=post-sidebar&utm_campaign=bench-press-assessment-test" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 5rem); }
+.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

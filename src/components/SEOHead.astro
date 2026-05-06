@@ -1,0 +1,161 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  schema?: object | object[];
+  pageType?: 'article' | 'webpage' | 'product' | 'faq';
+  publishDate?: string;
+  modifiedDate?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-default.jpg',
+  schema,
+  pageType = 'webpage',
+  publishDate,
+  modifiedDate,
+  noindex = false
+} = Astro.props;
+
+const GA4_ID = 'G-4HJJ0X54P3';
+const PIXEL_ID = '672876182195259';
+const siteUrl = 'https://modernmensfitness.com';
+const canonicalUrl = canonical || Astro.url.href;
+const fullTitle = title.includes('Modern Men') ? title : `${title} | Modern Men's Fitness`;
+
+// Base Organization Schema
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Modern Men's Fitness",
+  "url": siteUrl,
+  "logo": `${siteUrl}/logo.png`,
+  "sameAs": [
+    "https://www.instagram.com/modernmensfitness",
+    "https://www.youtube.com/@modernmensfitness"
+  ]
+};
+
+// Person/Author Schema (Jordan Hoppel entity)
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteUrl}/#jordan-hoppel`,
+  "name": "Jordan Hoppel",
+  "jobTitle": "Strength Coach & Bench Press Specialist",
+  "description": "Two-time All-American sprinter, Exercise Science degree from Ashland University (2014), 16 years of strength coaching experience. Creator of the Primal Press Protocol. Head coach at 5 Star Fitness, Scottsdale AZ.",
+  "url": `${siteUrl}/about-jordan-hoppel/`,
+  "image": `${siteUrl}/jordan-hoppel.jpg`,
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Ashland University"
+  },
+  "knowsAbout": ["bench press", "strength training", "powerlifting", "sports performance"],
+  "hasCredential": "Exercise Science, Ashland University",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "5 Star Fitness",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Scottsdale",
+      "addressRegion": "AZ"
+    }
+  },
+  "sameAs": [
+    "https://primalpressprotocol.com"
+  ]
+};
+
+// Build schema array
+const schemas = [orgSchema, personSchema];
+if (schema) {
+  if (Array.isArray(schema)) schemas.push(...schema);
+  else schemas.push(schema);
+}
+---
+
+<!-- Primary Meta -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+{!noindex && <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={pageType === 'article' ? 'article' : 'website'} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={`${siteUrl}${ogImage}`} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Modern Men's Fitness" />
+<meta property="og:locale" content="en_US" />
+{publishDate && <meta property="article:published_time" content={publishDate} />}
+{modifiedDate && <meta property="article:modified_time" content={modifiedDate} />}
+{pageType === 'article' && <meta property="article:author" content="Jordan Hoppel" />}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+<meta name="twitter:creator" content="@modernmensfitness" />
+
+<!-- Author & Publisher -->
+<meta name="author" content="Jordan Hoppel" />
+<link rel="author" href={`${siteUrl}/about-jordan-hoppel/`} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- Schema Markup -->
+{schemas.map(s => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}
+
+<!-- GA4 -->
+<script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>
+<script define:vars={{ GA4_ID }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', GA4_ID, {
+    send_page_view: true,
+    linker: {
+      domains: ['modernmensfitness.com', 'primalpressprotocol.com']
+    }
+  });
+</script>
+
+<!-- Meta Pixel -->
+<script define:vars={{ PIXEL_ID }}>
+  !function(f,b,e,v,n,t,s){
+    if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)
+  }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID);
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+    src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
+  />
+</noscript>

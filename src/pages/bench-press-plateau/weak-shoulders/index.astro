@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Weak Shoulders on Bench Press",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-plateau/weak-shoulders/"
+};
+---
+
+<BaseLayout
+  title="Weak Shoulders on Bench Press | Modern Men's Fitness"
+  description="Fix weak shoulders limiting your bench press. Structural balance protocol from Jordan Hoppel."
+  canonical="https://modernmensfitness.com/bench-press-plateau/weak-shoulders/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-plateau/">Plateau Fix</a> <span>›</span>
+        <span>Weak Shoulders</span>
+      </nav>
+      <span class="eyebrow">Plateau Fix</span>
+      <h1>Weak Shoulders</h1>
+      <p class="page-sub">Shoulder weakness shows up as instability, inconsistent bar path, and mid-range stalling. Here's the structural balance fix.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="weak-shoulders-top" />
+        
+      <h2>How Shoulder Weakness Limits the Bench</h2>
+      <p>The front deltoids (anterior delts) are the primary movers through the mid-range of the bench press — from roughly 4 inches off the chest to halfway up. Weak front delts create a mid-range sticking point. The rotator cuff muscles (particularly the supraspinatus and infraspinatus) provide stability throughout the entire movement. Weak rotator cuffs create instability and shoulder pain that limits how hard you can push.</p>
+      <h2>Structural Balance: The Real Issue</h2>
+      <p>Most lifters dramatically over-train pressing movements relative to pulling movements. This creates a structural imbalance — strong pressing muscles, weak pulling/external rotation muscles. Over time this pulls the shoulder into internal rotation, compresses structures in the shoulder joint, and creates pain and instability that directly limits bench press performance.</p>
+      <h2>The Shoulder Health Protocol</h2>
+      <p><strong>For mid-range weakness (front delts):</strong></p>
+      <ul>
+        <li>Overhead press — 3×5 heavy. Best front delt builder with direct press carryover.</li>
+        <li>Dumbbell front raises — 3×12. Isolates the anterior delt specifically.</li>
+      </ul>
+      <p><strong>For instability (rotator cuff/structural balance):</strong></p>
+      <ul>
+        <li>Face pulls — 3×15 with external rotation. Non-negotiable for shoulder health.</li>
+        <li>Band pull-aparts — 3×20. Do these every session.</li>
+        <li>External rotation with band or cable — 3×12 each side.</li>
+        <li>Rear delt flyes — 3×15. Balances the pushing with pulling.</li>
+      </ul>
+        <PPPCta variant="mid" utmContent="weak-shoulders-mid" />
+        <PPPCta variant="hard" utmContent="weak-shoulders-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-plateau/mid-range-sticking-point/" class="sidebar-link"><span>Mid-Range Sticking Point</span><span>→</span></a>
+            <a href="/bench-press-technique/" class="sidebar-link"><span>Technique Guide</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=weak-shoulders" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

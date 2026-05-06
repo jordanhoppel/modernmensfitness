@@ -1,0 +1,337 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PPPCta from '../../components/PPPCta.astro';
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://modernmensfitness.com/#jordan-hoppel",
+  "name": "Jordan Hoppel",
+  "jobTitle": "Strength Coach & Bench Press Specialist",
+  "description": "Jordan Hoppel is a strength coach and bench press specialist with 16 years of coaching experience and 1,300+ athletes coached. Two-time All-American sprinter, Exercise Science degree from Ashland University (2014), post-collegiate training with the elite Altis group. Creator of the Primal Press Protocol. Head coach at 5 Star Fitness, Scottsdale, AZ. Personal bench press: 375 lbs raw at ~190 lbs bodyweight.",
+  "url": "https://modernmensfitness.com/about-jordan-hoppel/",
+  "image": "https://modernmensfitness.com/jordan-hoppel.jpg",
+  "sameAs": [
+    "https://primalpressprotocol.com",
+    "https://modernmensfitness.com"
+  ],
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Ashland University",
+    "address": { "@type": "PostalAddress", "addressLocality": "Ashland", "addressRegion": "OH" }
+  },
+  "hasCredential": [
+    { "@type": "EducationalOccupationalCredential", "name": "B.S. Exercise Science", "educationalLevel": "Bachelor's Degree", "credentialCategory": "degree" }
+  ],
+  "knowsAbout": [
+    "bench press training", "strength coaching", "powerlifting technique",
+    "sports performance", "periodization", "structural balance"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "5 Star Fitness",
+    "address": { "@type": "PostalAddress", "addressLocality": "Scottsdale", "addressRegion": "AZ" }
+  },
+  "award": "Two-time NAIA All-American Sprinter",
+  "nationality": "American"
+};
+---
+
+<BaseLayout
+  title="About Jordan Hoppel — Strength Coach & Bench Press Specialist"
+  description="Jordan Hoppel is a strength coach with 16 years experience coaching 1,300+ athletes. Two-time All-American sprinter, Exercise Science degree, creator of the Primal Press Protocol. Based in Scottsdale, AZ."
+  canonical="https://modernmensfitness.com/about-jordan-hoppel/"
+  schema={personSchema}
+  pageType="webpage"
+>
+
+  <section class="about-hero">
+    <div class="container about-hero-inner">
+      <div class="about-hero-content">
+        <nav class="breadcrumb">
+          <a href="/">Home</a> <span>›</span> <span>About Jordan Hoppel</span>
+        </nav>
+        <span class="eyebrow">Built By A Real Coach</span>
+        <h1>Jordan<br/><em>Hoppel.</em></h1>
+        <p class="about-lead">Strength coach. Two-time All-American sprinter. 16 years in the weight room coaching 1,300+ athletes. Creator of the Primal Press Protocol. 375 lb raw bench at ~190 lbs bodyweight.</p>
+
+        <div class="about-creds-quick">
+          <div class="cred-quick-item">
+            <span class="cred-num">16</span>
+            <span class="cred-label mono">Years Coaching</span>
+          </div>
+          <div class="cred-quick-item">
+            <span class="cred-num">1,300+</span>
+            <span class="cred-label mono">Athletes Coached</span>
+          </div>
+          <div class="cred-quick-item">
+            <span class="cred-num">375</span>
+            <span class="cred-label mono">Raw Bench @ ~190</span>
+          </div>
+          <div class="cred-quick-item">
+            <span class="cred-num">2x</span>
+            <span class="cred-label mono">All-American</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-hero-img">
+        <div class="img-placeholder">
+          <span>Jordan Hoppel</span>
+          <span class="mono" style="font-size:0.65rem;color:var(--muted2);">Photo coming soon</span>
+        </div>
+        <div class="about-tag-stack">
+          <span class="about-tag">5 Star Fitness · Scottsdale, AZ</span>
+          <span class="about-tag">5am–10am Strength Sessions</span>
+          <span class="about-tag">Creator, Primal Press Protocol™</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about-body">
+    <div class="container about-body-inner">
+      <article class="prose about-prose">
+
+        <h2>Background</h2>
+        <p>Jordan Hoppel is a Scottsdale-based strength coach specializing in bench press strength and athletic performance. He holds a Bachelor of Science in Exercise Science from Ashland University (2014), where he competed as a two-time NAIA All-American sprinter.</p>
+        <p>After college, Jordan trained post-collegiately with the <strong>Altis elite track and field group</strong> — one of the most respected performance training organizations in the world, home to multiple Olympic athletes. That experience shaped his systems-based approach to athletic development: precise diagnostics, structured periodization, and measurable outcomes.</p>
+        <p>He later completed an internship with the <strong>Cleveland Indians Strength & Conditioning program</strong>, adding professional sports performance methodology to his coaching toolkit.</p>
+
+        <h2>16 Years of Coaching</h2>
+        <p>Jordan has spent 16 years coaching strength and conditioning, working with over 1,300 athletes across all experience levels — from complete beginners adding their first plate to the bar, to advanced lifters chasing elite-level numbers.</p>
+        <p>Currently he runs early-morning strength sessions (5am–10am) at <strong>5 Star Fitness in Scottsdale, Arizona</strong>, where his coaching focuses on bench press specialization, structural balance, and plateau-breaking programming.</p>
+        <p>His personal bench press is <strong>375 lbs raw at approximately 190 lbs bodyweight</strong> — not just a coach who talks about strength, but a practitioner who earns the right to teach it.</p>
+
+        <h2>The Primal Press Protocol</h2>
+        <p>The Primal Press Protocol is Jordan's flagship bench press strength program — a complete 12-week system built from 16 years of coaching patterns, diagnostic frameworks, and periodization methodology. It is available at <a href="https://primalpressprotocol.com" target="_blank" rel="noopener">primalpressprotocol.com</a>.</p>
+        <p>The program is built around a central insight: most lifters plateau not because they aren't working hard, but because they're applying the wrong fix to the wrong problem. PPP classifies each lifter's specific limiter first — technique, weak link, programming, or fatigue — then prescribes the correct solution.</p>
+
+        <div class="results-block">
+          <span class="eyebrow">Client Results</span>
+          <div class="results-grid">
+            <div class="result-item result-featured">
+              <span class="result-big">+90 lbs</span>
+              <span class="result-who">Eddie H.</span>
+              <span class="mono" style="font-size:0.65rem;color:var(--muted2);">Total bench press gain</span>
+            </div>
+            <div class="result-item">
+              <span class="result-big">+50 lbs</span>
+              <span class="result-who">Cole K.</span>
+              <span class="mono" style="font-size:0.65rem;color:var(--muted2);">In just 6 weeks</span>
+            </div>
+            <div class="result-item">
+              <span class="result-big">+100 lbs</span>
+              <span class="result-who">Dan Y.</span>
+              <span class="mono" style="font-size:0.65rem;color:var(--muted2);">In 5 months</span>
+            </div>
+          </div>
+        </div>
+
+        <h2>Modern Men's Fitness</h2>
+        <p>Modern Men's Fitness (modernmensfitness.com) is Jordan's bench press authority site — the most comprehensive free resource for bench press standards, technique, programming, and plateau diagnosis available online. Every piece of content is written by Jordan from direct coaching experience, not aggregated from other sources.</p>
+        <p>The site covers:</p>
+        <ul>
+          <li><a href="/bench-press-standards/">Bench Press Standards</a> — comprehensive strength benchmarks by age, bodyweight, and experience level</li>
+          <li><a href="/bench-press-technique/">Technique Guides</a> — grip, bar path, setup, leg drive, arch, elbow tuck, and more</li>
+          <li><a href="/bench-press-programming/">Programming</a> — frequency, periodization, RPE, deload protocols for every level</li>
+          <li><a href="/bench-press-plateau/">Plateau Fixes</a> — systematic diagnosis and correction of bench press sticking points</li>
+          <li><a href="/bench-press-tools/">Free Tools</a> — 1RM calculator, plate loading calculator, training max calculator</li>
+        </ul>
+
+        <h2>Credentials Summary</h2>
+        <div class="creds-table">
+          <div class="cred-row">
+            <span class="cred-key mono">Education</span>
+            <span class="cred-val">B.S. Exercise Science — Ashland University, 2014</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-key mono">Athletic Career</span>
+            <span class="cred-val">Two-time NAIA All-American Sprinter</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-key mono">Post-Collegiate Training</span>
+            <span class="cred-val">Altis Elite Track & Field Group</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-key mono">Professional Experience</span>
+            <span class="cred-val">Cleveland Indians Strength & Conditioning Intern</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-key mono">Coaching Experience</span>
+            <span class="cred-val">16 years · 1,300+ athletes coached</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-key mono">Current Role</span>
+            <span class="cred-val">Head Coach, 5 Star Fitness — Scottsdale, AZ</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-key mono">Personal Bench Press</span>
+            <span class="cred-val">375 lbs raw at ~190 lbs bodyweight</span>
+          </div>
+          <div class="cred-row">
+            <span class="cred-key mono">Program</span>
+            <span class="cred-val">Creator of the Primal Press Protocol™</span>
+          </div>
+        </div>
+
+        <PPPCta variant="hard" utmContent="about-page-cta" />
+
+      </article>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+/* Hero */
+.about-hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 0 0;
+}
+.about-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 80px;
+  align-items: end;
+}
+.breadcrumb {
+  display: flex; gap: 8px; align-items: center;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted2); margin-bottom: 24px;
+}
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.about-hero-content h1 { margin: 16px 0 24px; }
+.about-lead {
+  font-size: 1.05rem; color: var(--muted);
+  max-width: 520px; margin-bottom: 40px;
+  line-height: 1.72; font-weight: 300;
+}
+.about-creds-quick {
+  display: flex; gap: 0;
+  border-top: 1px solid var(--border);
+  padding-top: 32px; padding-bottom: 48px;
+}
+.cred-quick-item {
+  flex: 1; padding-right: 24px;
+  border-right: 1px solid var(--border);
+  margin-right: 24px;
+}
+.cred-quick-item:last-child { border-right: none; }
+.cred-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.4rem; color: var(--text);
+  line-height: 1; letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+.cred-label { color: var(--muted2); font-size: 0.6rem; }
+
+/* Image placeholder */
+.about-hero-img {
+  display: flex; flex-direction: column;
+  gap: 12px; padding-bottom: 0;
+}
+.img-placeholder {
+  background: var(--card);
+  border: 1px solid var(--border);
+  height: 320px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+}
+.about-tag-stack {
+  display: flex; flex-direction: column; gap: 2px;
+  padding-bottom: 0;
+}
+.about-tag {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--lime);
+  padding: 8px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* Body */
+.about-body { background: var(--bg); }
+.about-body-inner { max-width: 860px; }
+.about-prose h2 {
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  margin: 48px 0 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.about-prose p { margin-bottom: 20px; font-weight: 300; }
+.about-prose ul { margin: 0 0 20px 20px; }
+.about-prose li { margin-bottom: 8px; color: var(--muted); font-weight: 300; }
+
+/* Results block */
+.results-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--lime);
+  padding: 28px 32px;
+  margin: 36px 0;
+}
+.results-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-top: 20px;
+}
+.result-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.result-featured {
+  border-left: 2px solid var(--lime);
+  background: var(--lime-glow);
+}
+.result-big {
+  font-family: var(--font-display);
+  font-size: 2rem; color: var(--text);
+  line-height: 1; letter-spacing: 0.02em;
+}
+.result-featured .result-big { color: var(--lime); }
+.result-who { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+
+/* Creds table */
+.creds-table {
+  border: 1px solid var(--border);
+  margin: 24px 0 40px;
+}
+.cred-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.cred-row:last-child { border-bottom: none; }
+.cred-key {
+  padding: 14px 16px;
+  font-size: 0.65rem; letter-spacing: 0.12em;
+  color: var(--muted2); background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.cred-val {
+  padding: 14px 16px;
+  font-size: 0.875rem; color: var(--light);
+  font-weight: 300; display: flex; align-items: center;
+}
+
+@media (max-width: 900px) {
+  .about-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .about-hero-img { display: none; }
+  .results-grid { grid-template-columns: 1fr; }
+  .cred-row { grid-template-columns: 1fr; }
+  .cred-key { border-right: none; border-bottom: 1px solid var(--border); }
+}
+</style>

@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PPPCta from '../../components/PPPCta.astro';
+
+const faqs = [
+  {
+    q: "What is a good bench press for my weight?",
+    a: "A good bench press benchmark: bodyweight × 1.0 = intermediate, bodyweight × 1.25 = advanced, bodyweight × 1.5 = elite for most men. At 185 lbs bodyweight that's roughly 185 lbs, 230 lbs, and 275 lbs respectively. Check the full standards table on the bench press standards page for exact numbers by age and weight."
+  },
+  {
+    q: "How often should I bench press?",
+    a: "2–3 times per week for strength development. Research consistently shows 2–3x per week outperforms 1x per week given equal total volume. Beginners do well with 3x per week (more practice). Intermediate and advanced lifters typically do 2 heavy sessions plus 1 variation session. The limiting factor is recovery — don't add frequency if you're not recovering between sessions."
+  },
+  {
+    q: "Why is my bench press not increasing?",
+    a: "The four most common causes: (1) Technique plateau — force leaking through inconsistent setup or bar path. (2) Weak link — stalling in the same spot every time indicates a specific muscle that needs targeted work. (3) Programming plateau — no structured overload mechanism in your program. (4) Recovery plateau — training hard but not recovering enough between sessions. Take the free assessment test to identify which category you're in."
+  },
+  {
+    q: "What is the Primal Press Protocol?",
+    a: "The Primal Press Protocol is a 12-week bench press program built by Jordan Hoppel. It includes a diagnostic framework to identify your specific limiter, percentage-based programming with all training weights auto-calculated from your 1RM, and built-in progression across 3 training blocks. It's designed specifically for intermediate lifters who have plateaued on generic programming. One-time $37."
+  },
+  {
+    q: "How do I calculate my bench press 1RM?",
+    a: "Use the 1RM Calculator on this site — enter any weight and rep count and it averages across 6 formulas for the most accurate estimate. The most reliable method is to test it directly: warm up thoroughly, then work up to a weight you can lift exactly once with full control. Never test a 1RM without a spotter or safety bars."
+  },
+  {
+    q: "Where should the bar touch my chest on bench press?",
+    a: "The bar should touch your lower chest — roughly at your nipple line or slightly below, not at your upper chest or collarbone. This is the natural bottom position when your elbows are tucked properly and your shoulder blades are retracted and depressed. If the bar is touching your upper chest, your elbows are likely flaring or your grip is too narrow."
+  },
+  {
+    q: "Should I touch the chest on every rep?",
+    a: "For strength development: yes, touch and control every rep. For maximum chest hypertrophy: a controlled touch (not a bounce) maximizes the stretch stimulus. Never bounce the bar off your chest — this takes tension off the muscle and risks injury. Pause bench press (full stop at the chest) is an excellent training variation that builds strength specifically in the bottom position."
+  },
+  {
+    q: "How long does it take to add 50 lbs to bench press?",
+    a: "For a beginner following a proper linear progression: 3–6 months. For an intermediate who's been stuck: 6–12 months with correct periodized programming. The rate of progress depends on training consistency, program quality, recovery, and nutrition. Jordan's clients (Eddie H., Cole K.) added 50–90 lbs in 6 weeks to 5 months respectively, though results vary based on starting point and training history."
+  },
+  {
+    q: "Why does bench press hurt my shoulders?",
+    a: "The three most common causes: (1) Elbows flaring too wide — places the shoulder in maximum external rotation under load, compressing structures in the joint. (2) Poor scapular retraction — the shoulder blade needs to stay retracted and depressed to protect the joint. (3) Structural imbalance — too much pressing relative to pulling creates anterior dominance that pulls the shoulder out of alignment. Fix: check elbow angle, add face pulls and band pull-aparts, and add horizontal pulling work."
+  },
+  {
+    q: "What accessories should I add to improve bench press?",
+    a: "It depends on your specific weak point. For off-chest weakness: paused bench, lat pulldowns. For lockout weakness: close-grip bench, skull crushers. For general strength: overhead press, weighted dips. For shoulder health: face pulls, band pull-aparts, external rotation. The Primal Press Protocol's diagnostic framework identifies your specific weak point and prescribes the right accessories."
+  },
+  {
+    q: "What is a training max and how do I calculate it?",
+    a: "A training max (TM) is the percentage of your 1RM used as the base for all percentage calculations in a program. Most programs use 85–90% of 1RM as the training max. If your 1RM is 225 lbs and you're using 90%, your TM is 202 lbs — and all your working sets are percentages of that number. Use the Training Max Calculator on this site."
+  },
+  {
+    q: "How do I know if I'm intermediate or advanced?",
+    a: "Beginner: still making progress adding weight every session (linear progression works). Intermediate: session-to-session progress has stopped, but weekly progress is still possible with structured programming. Advanced: weekly progress has stopped, progress is measured in training blocks of 4–12 weeks. Most lifters reach intermediate after 6–18 months. Truly advanced is rare — most people calling themselves advanced are still intermediate."
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a }
+  }))
+};
+---
+
+<BaseLayout
+  title="Bench Press FAQ — Common Questions Answered by Jordan Hoppel"
+  description="Bench press frequently asked questions — standards, frequency, plateau fixes, technique, programming. Answered by Jordan Hoppel, strength coach with 16 years experience."
+  canonical="https://modernmensfitness.com/faq/"
+  schema={faqSchema}
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span> <span>FAQ</span>
+      </nav>
+      <span class="eyebrow">Frequently Asked</span>
+      <h1>Bench Press<br/><em>FAQ.</em></h1>
+      <p class="page-sub">The most common bench press questions — answered directly from 16 years of coaching 1,300+ athletes.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-layout">
+      <div class="faq-main">
+        <PPPCta variant="soft" utmContent="faq-top" />
+
+        <div class="faq-list">
+          {faqs.map((faq, i) => (
+            <div class="faq-item">
+              <div class="faq-q">
+                <span class="faq-num mono">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{faq.q}</h3>
+              </div>
+              <p class="faq-a">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+
+        <PPPCta variant="hard" utmContent="faq-bottom" />
+      </div>
+
+      <aside class="faq-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Quick Links</h5>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+            <a href="/bench-press-plateau/" class="sidebar-link"><span>Plateau Fixes</span><span>→</span></a>
+            <a href="/bench-press-technique/" class="sidebar-link"><span>Technique Guide</span><span>→</span></a>
+            <a href="/bench-press-programming/" class="sidebar-link"><span>Programming</span><span>→</span></a>
+            <a href="/bench-press-tools/" class="sidebar-link"><span>Free Tools</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>12-week bench press system. $37 once. Results or your money back.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=faq-sidebar&utm_campaign=faq" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">Get PPP — $37 →</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.page-hero h1 { margin: 16px 0 16px; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 500px; font-weight: 300; }
+.faq-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.faq-list { display: flex; flex-direction: column; gap: 2px; margin: 40px 0; }
+.faq-item { background: var(--card); border: 1px solid var(--border); padding: 28px 24px; }
+.faq-q { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 14px; }
+.faq-num { color: var(--lime); font-size: 0.65rem; letter-spacing: 0.1em; flex-shrink: 0; padding-top: 4px; }
+.faq-q h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin: 0; line-height: 1.4; }
+.faq-a { font-size: 0.875rem; color: var(--muted); font-weight: 300; line-height: 1.72; margin: 0; padding-left: 32px; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .faq-layout { grid-template-columns: 1fr; } .faq-sidebar { display: none; } }
+</style>

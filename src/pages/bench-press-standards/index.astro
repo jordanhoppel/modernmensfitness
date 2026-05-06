@@ -1,0 +1,819 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PPPCta from '../../components/PPPCta.astro';
+
+const standardsSchema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Bench Press Standards by Age, Weight & Experience Level (2026)",
+    "description": "Complete bench press strength standards for men and women by bodyweight, age, and experience level. Includes beginner through elite benchmarks in lbs and kg.",
+    "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Modern Men's Fitness",
+      "url": "https://modernmensfitness.com"
+    },
+    "datePublished": "2025-12-30",
+    "dateModified": "2026-04-01",
+    "mainEntityOfPage": "https://modernmensfitness.com/bench-press-standards/"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a good bench press for a man?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A good bench press for an average man is bodyweight for 1 rep (intermediate level). For a 180 lb man, that's 180 lbs. Elite lifters press 1.5-2x bodyweight. Beginners typically start at 50-75% of bodyweight."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the average bench press for a 40 year old man?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The average untrained 40 year old man can bench press approximately 135-155 lbs. An intermediate 40 year old lifter at 180 lbs bodyweight typically benches 185-225 lbs. Strength standards decline approximately 1% per year after age 35."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much should I bench press for my weight?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As a general benchmark: Beginner = 0.5x bodyweight, Novice = 0.75x bodyweight, Intermediate = 1.0x bodyweight, Advanced = 1.25x bodyweight, Elite = 1.5x+ bodyweight. These ratios apply to a 1-rep max with full range of motion."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is benching 225 lbs good?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "225 lbs (two 45-lb plates per side) is an intermediate to advanced bench press for most men. For a 175 lb man it represents 1.28x bodyweight — advanced level. For a 220 lb man it's approximately 1x bodyweight — intermediate level."
+        }
+      }
+    ]
+  }
+];
+
+// Standards data
+const maleByWeight = [
+  { bw: '114 lbs (52kg)', beg: 75, nov: 105, int: 145, adv: 190, elite: 240 },
+  { bw: '123 lbs (56kg)', beg: 80, nov: 115, int: 155, adv: 205, elite: 260 },
+  { bw: '132 lbs (60kg)', beg: 90, nov: 125, int: 170, adv: 220, elite: 280 },
+  { bw: '148 lbs (67kg)', beg: 100, nov: 140, int: 190, adv: 250, elite: 315 },
+  { bw: '165 lbs (75kg)', beg: 110, nov: 155, int: 210, adv: 275, elite: 350 },
+  { bw: '181 lbs (82kg)', beg: 120, nov: 170, int: 230, adv: 300, elite: 380 },
+  { bw: '198 lbs (90kg)', beg: 130, nov: 185, int: 250, adv: 325, elite: 415 },
+  { bw: '220 lbs (100kg)', beg: 145, nov: 200, int: 270, adv: 355, elite: 450 },
+  { bw: '242 lbs (110kg)', beg: 155, nov: 215, int: 290, adv: 380, elite: 480 },
+  { bw: '275+ lbs (125kg+)', beg: 165, nov: 230, int: 310, adv: 405, elite: 510 },
+];
+
+const byAge = [
+  { age: '20–29', mult: 1.0, note: 'Peak strength years' },
+  { age: '30–39', mult: 0.97, note: '~3% decline from peak' },
+  { age: '40–49', mult: 0.90, note: '~10% decline from peak' },
+  { age: '50–59', mult: 0.82, note: '~18% decline from peak' },
+  { age: '60–69', mult: 0.72, note: '~28% decline from peak' },
+  { age: '70+',   mult: 0.62, note: '~38% decline from peak' },
+];
+
+const femaleByWeight = [
+  { bw: '97 lbs (44kg)',  beg: 40, nov: 60,  int: 80,  adv: 110, elite: 140 },
+  { bw: '105 lbs (48kg)', beg: 45, nov: 65,  int: 85,  adv: 115, elite: 150 },
+  { bw: '114 lbs (52kg)', beg: 50, nov: 70,  int: 95,  adv: 125, elite: 160 },
+  { bw: '123 lbs (56kg)', beg: 55, nov: 75,  int: 100, adv: 135, elite: 170 },
+  { bw: '132 lbs (60kg)', beg: 60, nov: 80,  int: 110, adv: 145, elite: 185 },
+  { bw: '148 lbs (67kg)', beg: 65, nov: 90,  int: 120, adv: 160, elite: 205 },
+  { bw: '165 lbs (75kg)', beg: 70, nov: 100, int: 135, adv: 175, elite: 220 },
+  { bw: '181+ lbs (82kg+)', beg: 80, nov: 110, int: 145, adv: 190, elite: 240 },
+];
+---
+
+<BaseLayout
+  title="Bench Press Standards by Age, Weight & Experience Level (2026)"
+  description="Complete bench press strength standards for men and women. Find exactly where you rank by bodyweight, age, and experience level — beginner through elite. Updated 2026."
+  canonical="https://modernmensfitness.com/bench-press-standards/"
+  schema={standardsSchema}
+  pageType="article"
+  publishDate="2025-12-30"
+  modifiedDate="2026-04-01"
+>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <span>Bench Press Standards</span>
+      </nav>
+      <span class="accent-line"></span>
+      <h1>Bench Press Standards</h1>
+      <p class="page-hero-sub">By Age, Bodyweight & Experience Level (2026) — Men & Women</p>
+      <div class="page-meta">
+        <span>By <a href="/about-jordan-hoppel/">Jordan Hoppel</a></span>
+        <span>·</span>
+        <span>Updated April 2026</span>
+        <span>·</span>
+        <span>16 min read</span>
+      </div>
+      <!-- Quick Nav -->
+      <div class="quick-nav">
+        <span class="quick-nav-label">Jump to:</span>
+        <a href="#men-by-weight">Men by Weight</a>
+        <a href="#by-age">By Age</a>
+        <a href="#women">Women</a>
+        <a href="#bodyweight-ratio">Bodyweight Ratio</a>
+        <a href="#faq">FAQ</a>
+        <a href="#improve">How to Improve</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="standards-layout">
+    <div class="container standards-inner">
+
+      <!-- Article Body -->
+      <article class="prose standards-article">
+
+        <p class="intro-text">Whether you're trying to figure out if your bench press is good, setting a realistic goal, or benchmarking yourself against other lifters — this is the most comprehensive bench press standards reference available. Every table below is based on real-world strength data and 16 years of coaching experience.</p>
+
+        <!-- Level Definitions -->
+        <div class="level-defs">
+          <h2>Experience Level Definitions</h2>
+          <p>Before diving into the tables, here's exactly what each level means:</p>
+          <div class="level-grid">
+            <div class="level-card level-beg">
+              <span class="level-label">Beginner</span>
+              <p>Less than 6 months of consistent training. Still learning movement patterns.</p>
+            </div>
+            <div class="level-card level-nov">
+              <span class="level-label">Novice</span>
+              <p>6–18 months training. Making consistent linear progress each session.</p>
+            </div>
+            <div class="level-card level-int">
+              <span class="level-label">Intermediate</span>
+              <p>1–3 years training. Progress measured weekly, not session to session.</p>
+            </div>
+            <div class="level-card level-adv">
+              <span class="level-label">Advanced</span>
+              <p>3–5+ years serious training. Progress is monthly. Requires periodization.</p>
+            </div>
+            <div class="level-card level-eli">
+              <span class="level-label">Elite</span>
+              <p>Top 5% of lifters. Years of dedicated strength training. Near genetic ceiling.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Soft CTA -->
+        <div class="cta-soft">
+          <span class="cta-soft-label">Not sure where you land?</span>
+          <p>Take the <a href="/bench-press-tools/assessment-test/">free bench press assessment</a> — 3 minutes to pinpoint your exact level and what's holding you back.</p>
+        </div>
+
+        <!-- Men by Bodyweight Table -->
+        <section id="men-by-weight">
+          <h2>Bench Press Standards for Men by Bodyweight (lbs)</h2>
+          <p>All values represent 1-rep max (1RM) with full range of motion — bar touching chest, arms locked out. These are raw standards (no bench shirt).</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Bodyweight</th>
+                  <th class="col-beg">Beginner</th>
+                  <th class="col-nov">Novice</th>
+                  <th class="col-int">Intermediate</th>
+                  <th class="col-adv">Advanced</th>
+                  <th class="col-eli">Elite</th>
+                </tr>
+              </thead>
+              <tbody>
+                {maleByWeight.map(row => (
+                  <tr>
+                    <td class="bw-col"><strong>{row.bw}</strong></td>
+                    <td class="col-beg">{row.beg}</td>
+                    <td class="col-nov">{row.nov}</td>
+                    <td class="col-int">{row.int}</td>
+                    <td class="col-adv">{row.adv}</td>
+                    <td class="col-eli">{row.elite}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">All values in lbs. 1-rep max, raw (no equipment). Based on data from 10,000+ lifters.</p>
+        </section>
+
+        <PPPCta variant="mid" utmContent="standards-mid-1" context="If you're stuck at intermediate and want to reach advanced — the Primal Press Protocol is the exact system Jordan's clients used to add 50–100 lbs." />
+
+        <!-- By Age Table -->
+        <section id="by-age">
+          <h2>Bench Press Standards by Age (Strength Multipliers)</h2>
+          <p>Strength peaks in your late 20s and declines gradually with age. Use the multipliers below to adjust the bodyweight table for your age group.</p>
+          <p><strong>How to use:</strong> Find your standard in the bodyweight table above, then multiply by the age factor below.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Age Group</th>
+                  <th>Multiplier</th>
+                  <th>Example: 180 lb Intermediate</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {byAge.map(row => (
+                  <tr>
+                    <td><strong>{row.age}</strong></td>
+                    <td>{row.mult}x</td>
+                    <td>{Math.round(230 * row.mult)} lbs</td>
+                    <td class="muted-cell">{row.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="insight-box">
+            <span class="insight-label">Coach's Note</span>
+            <p>Age-related strength decline is real but slower than most people think — and largely offset by intelligent programming. Jordan's oldest clients in their 50s and 60s are still adding weight to their bench with the right periodization approach.</p>
+          </div>
+        </section>
+
+        <!-- Women's Standards -->
+        <section id="women">
+          <h2>Bench Press Standards for Women by Bodyweight (lbs)</h2>
+          <p>Women's bench press standards reflect real physiological differences in upper body muscle mass distribution — not capability. Many women can and do press bodyweight at intermediate-to-advanced levels.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Bodyweight</th>
+                  <th class="col-beg">Beginner</th>
+                  <th class="col-nov">Novice</th>
+                  <th class="col-int">Intermediate</th>
+                  <th class="col-adv">Advanced</th>
+                  <th class="col-eli">Elite</th>
+                </tr>
+              </thead>
+              <tbody>
+                {femaleByWeight.map(row => (
+                  <tr>
+                    <td class="bw-col"><strong>{row.bw}</strong></td>
+                    <td class="col-beg">{row.beg}</td>
+                    <td class="col-nov">{row.nov}</td>
+                    <td class="col-int">{row.int}</td>
+                    <td class="col-adv">{row.adv}</td>
+                    <td class="col-eli">{row.elite}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Bodyweight Ratio -->
+        <section id="bodyweight-ratio">
+          <h2>Bench Press to Bodyweight Ratio Standards</h2>
+          <p>The simplest way to benchmark yourself across bodyweights:</p>
+
+          <div class="ratio-grid">
+            <div class="ratio-card">
+              <span class="ratio-num">0.5x</span>
+              <span class="ratio-level">Beginner</span>
+              <span class="ratio-ex">90 lb man → 45 lbs</span>
+            </div>
+            <div class="ratio-card">
+              <span class="ratio-num">0.75x</span>
+              <span class="ratio-level">Novice</span>
+              <span class="ratio-ex">180 lb man → 135 lbs</span>
+            </div>
+            <div class="ratio-card ratio-highlight">
+              <span class="ratio-num">1.0x</span>
+              <span class="ratio-level">Intermediate</span>
+              <span class="ratio-ex">180 lb man → 180 lbs</span>
+            </div>
+            <div class="ratio-card">
+              <span class="ratio-num">1.25x</span>
+              <span class="ratio-level">Advanced</span>
+              <span class="ratio-ex">180 lb man → 225 lbs</span>
+            </div>
+            <div class="ratio-card">
+              <span class="ratio-num">1.5x+</span>
+              <span class="ratio-level">Elite</span>
+              <span class="ratio-ex">180 lb man → 270+ lbs</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq">
+          <h2>Frequently Asked Questions</h2>
+
+          <div class="faq-list">
+            <details class="faq-item">
+              <summary>What is a good bench press for a man?</summary>
+              <p>A good bench press for the average man is being able to press your own bodyweight for 1 rep — this is the intermediate standard. For a 180 lb man, that's 180 lbs. If you can press 1.25x bodyweight, you're advanced. Below 0.75x bodyweight is novice territory.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>What is the average bench press for a 40 year old man?</summary>
+              <p>An untrained 40 year old man averages 135–155 lbs on the bench press. A trained intermediate 40 year old at 180 lbs bodyweight typically benches 185–210 lbs. Apply the 0.90x age multiplier to the standard for your bodyweight in the table above.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>Is 225 lbs a good bench press?</summary>
+              <p>Yes — 225 lbs (two 45-lb plates per side) is a meaningful milestone. For most men in the 165–185 lb range, it represents advanced-level strength. For heavier men (220+ lbs), it's intermediate. It puts you well above the average gym-goer.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>How long does it take to bench press 225 lbs?</summary>
+              <p>For most men starting from scratch, reaching 225 lbs takes 1.5–3 years of consistent, structured training. Factors that affect timeline: starting bodyweight, training frequency, programming quality, nutrition, and sleep. With a proper program like the Primal Press Protocol, intermediate lifters typically add 50+ lbs within 60–90 days.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>What is the bench press standard for a 50 year old man?</summary>
+              <p>Apply the 0.82x multiplier to the standard for your bodyweight. A 180 lb, 50 year old intermediate lifter would target approximately 189 lbs (230 × 0.82). Age-related decline is real but manageable with smart programming — Jordan coaches multiple clients in their 50s who continue to make strength gains.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>How much should I bench press for my weight?</summary>
+              <p>Use the bodyweight ratio as your guide: Beginner = 0.5x, Novice = 0.75x, Intermediate = 1.0x, Advanced = 1.25x, Elite = 1.5x+. Find your bodyweight in the table above for the exact lbs target at your experience level.</p>
+            </details>
+          </div>
+        </section>
+
+        <!-- How to Improve -->
+        <section id="improve">
+          <h2>How to Move Up the Standards Chart</h2>
+          <p>Knowing where you are is only useful if you know how to move forward. Here's the honest breakdown by level:</p>
+
+          <div class="improve-grid">
+            <div class="improve-card">
+              <span class="improve-level">Beginner → Novice</span>
+              <p>Linear progression works. Bench 3x/week, add 5 lbs every session. Focus entirely on technique — bar path, leg drive, scapular retraction.</p>
+              <a href="/bench-press-programming/beginners/">Beginner Program →</a>
+            </div>
+            <div class="improve-card">
+              <span class="improve-level">Novice → Intermediate</span>
+              <p>Linear progression slows. Move to weekly progression. Add volume and begin addressing weak points (off chest, lockout).</p>
+              <a href="/bench-press-programming/intermediate/">Intermediate Program →</a>
+            </div>
+            <div class="improve-card improve-highlight">
+              <span class="improve-level">Intermediate → Advanced</span>
+              <p>This is where most lifters plateau indefinitely. You need structured periodization, weak point diagnosis, and intelligent frequency management. This is exactly what the Primal Press Protocol addresses.</p>
+              <a href="https://primalpressprotocol.com?utm_source=modernmensfitness&utm_medium=standards&utm_campaign=improve-section" target="_blank" rel="noopener">Get The Primal Press Protocol →</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hard CTA -->
+        <PPPCta variant="hard" utmContent="standards-bottom-cta" />
+
+        <!-- Author Box -->
+        <div class="author-box">
+          <div class="author-info">
+            <h4>Written by Jordan Hoppel</h4>
+            <p>Two-time All-American sprinter · Exercise Science, Ashland University '14 · 16 years strength coaching · Creator of the Primal Press Protocol · Head coach at 5 Star Fitness, Scottsdale AZ</p>
+            <a href="/about-jordan-hoppel/">Full Bio →</a>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="standards-sidebar">
+        <div class="sidebar-sticky">
+
+          <div class="sidebar-widget">
+            <h5>Quick Standards Check</h5>
+            <p>Find your level instantly:</p>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-tool-link">
+              <span>1RM Calculator</span>
+              <span>→</span>
+            </a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-tool-link">
+              <span>Strength Assessment</span>
+              <span>→</span>
+            </a>
+            <a href="/bench-press-tools/plate-loading-calculator/" class="sidebar-tool-link">
+              <span>Plate Calculator</span>
+              <span>→</span>
+            </a>
+          </div>
+
+          <div class="sidebar-ppp">
+            <span class="sidebar-ppp-tag">The Program</span>
+            <h4>Primal Press Protocol</h4>
+            <p>Move from intermediate to advanced. The exact system Jordan's clients used.</p>
+            <div class="sidebar-proof">
+              <span>✓ Eddie H. +90 lbs</span>
+              <span>✓ Cole K. +50 lbs / 6 weeks</span>
+              <span>✓ Dan Y. +100 lbs / 5 months</span>
+            </div>
+            <a href="https://primalpressprotocol.com?utm_source=modernmensfitness&utm_medium=sidebar&utm_campaign=standards-sidebar" class="btn-primary sidebar-btn" target="_blank" rel="noopener">
+              Get PPP — $37
+            </a>
+          </div>
+
+          <div class="sidebar-widget">
+            <h5>Related Resources</h5>
+            <a href="/bench-press-plateau/" class="sidebar-tool-link">
+              <span>Fix Your Plateau</span><span>→</span>
+            </a>
+            <a href="/bench-press-technique/" class="sidebar-tool-link">
+              <span>Technique Guide</span><span>→</span>
+            </a>
+            <a href="/bench-press-programming/" class="sidebar-tool-link">
+              <span>Programming Guide</span><span>→</span>
+            </a>
+          </div>
+
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+/* Page Hero */
+.page-hero {
+  background: var(--charcoal);
+  border-bottom: 1px solid var(--steel);
+  padding: 48px 0 40px;
+}
+.breadcrumb {
+  font-family: var(--font-condensed);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.breadcrumb a { color: var(--muted); text-decoration: none; }
+.breadcrumb a:hover { color: var(--white); }
+.page-hero h1 { margin-bottom: 12px; }
+.page-hero-sub {
+  font-family: var(--font-condensed);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+.page-meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.page-meta a { color: var(--light); }
+.quick-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.quick-nav-label {
+  font-family: var(--font-condensed);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.quick-nav a {
+  font-family: var(--font-condensed);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--light);
+  background: var(--iron);
+  border: 1px solid var(--steel);
+  padding: 4px 12px;
+  transition: border-color 0.2s, color 0.2s;
+  text-decoration: none;
+}
+.quick-nav a:hover { border-color: var(--red); color: var(--white); }
+
+/* Layout */
+.standards-layout { padding: 60px 0; }
+.standards-inner {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Article */
+.intro-text {
+  font-size: 1.1rem;
+  color: var(--light);
+  border-left: 3px solid var(--red);
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+
+/* Level Definitions */
+.level-defs { margin: 40px 0; }
+.level-defs h2 { margin-bottom: 16px; }
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin-top: 20px;
+}
+.level-card {
+  background: var(--iron);
+  border: 1px solid var(--steel);
+  border-top: 3px solid var(--steel);
+  padding: 16px;
+}
+.level-card p { font-size: 0.8rem; color: var(--muted); margin: 0; }
+.level-beg { border-top-color: #555; }
+.level-nov { border-top-color: #7a7; }
+.level-int { border-top-color: #aa7; }
+.level-adv { border-top-color: #a74; }
+.level-eli { border-top-color: var(--red); }
+.level-label {
+  display: block;
+  font-family: var(--font-condensed);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+/* Table */
+.table-wrap { overflow-x: auto; margin: 24px 0; }
+.table-note {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 8px;
+  font-style: italic;
+}
+.bw-col { white-space: nowrap; }
+.muted-cell { color: var(--muted) !important; font-size: 0.875rem; }
+.col-beg { color: #888; }
+.col-nov { color: #9a9; }
+.col-int { color: #cc9; }
+.col-adv { color: #d84; }
+.col-eli { color: var(--red); font-weight: 700; }
+
+/* Insight Box */
+.insight-box {
+  background: var(--iron);
+  border: 1px solid var(--steel);
+  border-left: 4px solid var(--muted);
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.insight-label {
+  font-family: var(--font-condensed);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+.insight-box p { font-size: 0.9rem; color: var(--light); margin: 0; }
+
+/* Ratio Grid */
+.ratio-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin: 24px 0;
+}
+.ratio-card {
+  background: var(--iron);
+  border: 1px solid var(--steel);
+  padding: 20px 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ratio-highlight {
+  border-color: var(--red);
+  background: var(--steel);
+}
+.ratio-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--white);
+  line-height: 1;
+}
+.ratio-highlight .ratio-num { color: var(--red); }
+.ratio-level {
+  font-family: var(--font-condensed);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ratio-ex { font-size: 0.75rem; color: var(--muted); }
+
+/* FAQ */
+.faq-list { margin-top: 24px; }
+.faq-item {
+  border: 1px solid var(--steel);
+  border-bottom: none;
+  overflow: hidden;
+}
+.faq-item:last-child { border-bottom: 1px solid var(--steel); }
+.faq-item summary {
+  padding: 18px 20px;
+  font-family: var(--font-condensed);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  background: var(--iron);
+  transition: background 0.2s;
+}
+.faq-item summary:hover { background: var(--steel); }
+.faq-item summary::after { content: '+'; color: var(--red); font-size: 1.2rem; }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p {
+  padding: 16px 20px;
+  font-size: 0.95rem;
+  margin: 0;
+  background: var(--charcoal);
+}
+
+/* Improve Grid */
+.improve-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 24px;
+}
+.improve-card {
+  background: var(--iron);
+  border: 1px solid var(--steel);
+  padding: 24px;
+}
+.improve-highlight {
+  border-color: var(--red);
+  background: var(--steel);
+}
+.improve-level {
+  display: block;
+  font-family: var(--font-condensed);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.improve-card p {
+  font-size: 0.875rem;
+  color: var(--light);
+  margin-bottom: 16px;
+}
+.improve-card a {
+  font-family: var(--font-condensed);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--red);
+}
+
+/* Author Box */
+.author-box {
+  background: var(--iron);
+  border: 1px solid var(--steel);
+  border-left: 4px solid var(--red);
+  padding: 24px 28px;
+  margin-top: 48px;
+}
+.author-info h4 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.author-info p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.author-info a {
+  font-family: var(--font-condensed);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--red);
+}
+
+/* Sidebar */
+.standards-sidebar { position: relative; }
+.sidebar-sticky { position: sticky; top: 90px; display: flex; flex-direction: column; gap: 16px; }
+.sidebar-widget {
+  background: var(--iron);
+  border: 1px solid var(--steel);
+  padding: 20px;
+}
+.sidebar-widget h5 {
+  font-family: var(--font-condensed);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--steel);
+}
+.sidebar-widget p { font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+.sidebar-tool-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--steel);
+  font-size: 0.875rem;
+  color: var(--light);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.sidebar-tool-link:last-child { border-bottom: none; }
+.sidebar-tool-link:hover { color: var(--white); }
+
+.sidebar-ppp {
+  background: var(--charcoal);
+  border: 1px solid var(--red);
+  padding: 24px 20px;
+}
+.sidebar-ppp-tag {
+  font-family: var(--font-condensed);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+  display: block;
+  margin-bottom: 8px;
+}
+.sidebar-ppp h4 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.sidebar-ppp p { font-size: 0.85rem; color: var(--light); margin-bottom: 14px; }
+.sidebar-proof {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.sidebar-proof span {
+  font-family: var(--font-condensed);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.sidebar-btn {
+  width: 100%;
+  justify-content: center;
+  font-size: 0.85rem;
+  padding: 12px 20px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .standards-inner { grid-template-columns: 1fr; }
+  .standards-sidebar { display: none; }
+  .level-grid { grid-template-columns: repeat(3, 1fr); }
+  .ratio-grid { grid-template-columns: repeat(3, 1fr); }
+  .improve-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .level-grid { grid-template-columns: 1fr 1fr; }
+  .ratio-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>

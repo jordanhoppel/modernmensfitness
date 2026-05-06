@@ -1,0 +1,471 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const homepageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Modern Men's Fitness",
+  "url": "https://modernmensfitness.com",
+  "description": "The definitive bench press resource — standards, technique, programming, and the Primal Press Protocol.",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" }
+};
+---
+
+<BaseLayout
+  title="Modern Men's Fitness — Bench Press Authority"
+  description="The definitive bench press resource built by Jordan Hoppel — 16 years coaching, two-time All-American. Standards, technique, programming, and the Primal Press Protocol."
+  schema={homepageSchema}
+>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-inner">
+
+      <div class="trust-bar">
+        <span>🔒 Free Resources</span>
+        <span>✦ 16 Years Coaching</span>
+        <span>⚡ 1,300+ Lifters</span>
+        <span>👤 Two-Time All-American</span>
+      </div>
+
+      <h1>The Bench Press<br/><em>Authority.</em></h1>
+
+      <p class="hero-sub">Standards, technique, programming, and plateau fixes — built by Jordan Hoppel, strength coach with 16 years of real-world experience. <strong>The most comprehensive bench press resource online.</strong></p>
+
+      <div class="hero-cta-group">
+        <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=hero&utm_campaign=homepage" class="btn-primary" target="_blank" rel="noopener">
+          Get The Program — $37 →
+        </a>
+        <a href="/bench-press-standards/" class="btn-secondary">
+          Find my strength level ↓
+        </a>
+      </div>
+
+      <p class="hero-price-note mono">One-time payment · No subscription · 60-day guarantee</p>
+
+      <div class="hero-proof-row">
+        <div class="proof-badge"><strong>Eddie H.</strong>&nbsp;+90 lbs</div>
+        <div class="proof-badge"><strong>Cole K.</strong>&nbsp;+50 lbs in 6 weeks</div>
+        <div class="proof-badge"><strong>Dan Y.</strong>&nbsp;+100 lbs in 5 months</div>
+      </div>
+
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="container stats-inner">
+        <div class="stat-item">
+          <span class="stat-number">16</span>
+          <span class="stat-label">Years Coaching</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <span class="stat-number">1,300+</span>
+          <span class="stat-label">Lifters Coached</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <span class="stat-number">375</span>
+          <span class="stat-label">Raw Bench @ ~190</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <span class="stat-number">100+</span>
+          <span class="stat-label">Avg lbs Added</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROBLEM ═══ -->
+  <section class="section problem-section">
+    <div class="container">
+      <span class="eyebrow">The Real Problem</span>
+      <h2>You're Not Lazy.<br/><em>You're Misdiagnosed.</em></h2>
+      <p class="section-sub">You've been consistent. You've added volume. You've tried accessories. And your bench hasn't moved in months. <strong>The problem isn't effort — it's applying the wrong fix to the wrong problem.</strong></p>
+
+      <div class="vs-grid">
+        <div class="vs-col">
+          <div class="vs-header vs-bad-header">
+            <span class="vs-label mono">// Without Direction</span>
+          </div>
+          <ul class="vs-list">
+            <li><span class="vs-x">✕</span> Guessing what's actually holding you back</li>
+            <li><span class="vs-x">✕</span> Adding volume when technique is the real problem</li>
+            <li><span class="vs-x">✕</span> Following generic programs built for the average lifter</li>
+            <li><span class="vs-x">✕</span> Same max bench for 6+ months despite training hard</li>
+            <li><span class="vs-x">✕</span> No way to know if you're progressing correctly</li>
+            <li><span class="vs-x">✕</span> Stuck at intermediate with no clear path forward</li>
+          </ul>
+        </div>
+        <div class="vs-col vs-good">
+          <div class="vs-header vs-good-header">
+            <span class="vs-label mono">// With MMF + PPP</span>
+          </div>
+          <ul class="vs-list">
+            <li><span class="vs-check">✓</span> Exact standards benchmarks — know your level precisely</li>
+            <li><span class="vs-check">✓</span> Diagnostic framework finds your specific limiter first</li>
+            <li><span class="vs-check">✓</span> Technique, programming, and plateau fixes in one place</li>
+            <li><span class="vs-check">✓</span> Structured periodization built around your plateau type</li>
+            <li><span class="vs-check">✓</span> Every training weight auto-calculated from your 1RM</li>
+            <li><span class="vs-check">✓</span> $37 once — no subscription, yours forever</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PILLARS ═══ -->
+  <section class="section pillars-section">
+    <div class="container">
+      <span class="eyebrow">Free Resource Library</span>
+      <h2>Everything You Need<br/>to <em>Build Your Bench.</em></h2>
+
+      <div class="pillars-grid">
+        <a href="/bench-press-standards/" class="pillar-card pillar-featured">
+          <div class="pillar-num mono">01</div>
+          <h3>Bench Press Standards</h3>
+          <p>Find exactly where you rank by age, bodyweight, and experience level — beginner through elite.</p>
+          <span class="btn-ghost">Explore Standards →</span>
+        </a>
+        <a href="/bench-press-technique/" class="pillar-card">
+          <div class="pillar-num mono">02</div>
+          <h3>Technique Mastery</h3>
+          <p>Grip, bar path, leg drive, arch, setup — every technical detail that separates good lifters from great ones.</p>
+          <span class="btn-ghost">Explore Technique →</span>
+        </a>
+        <a href="/bench-press-programming/" class="pillar-card">
+          <div class="pillar-num mono">03</div>
+          <h3>Programming</h3>
+          <p>Frequency, periodization, RPE, wave loading — structured programs from beginner to elite.</p>
+          <span class="btn-ghost">Explore Programming →</span>
+        </a>
+        <a href="/bench-press-plateau/" class="pillar-card">
+          <div class="pillar-num mono">04</div>
+          <h3>Plateau Fixes</h3>
+          <p>Diagnose exactly what's holding you back — off chest, lockout, mid-range — and fix it with the right approach.</p>
+          <span class="btn-ghost">Fix My Plateau →</span>
+        </a>
+        <a href="/bench-press-tools/" class="pillar-card">
+          <div class="pillar-num mono">05</div>
+          <h3>Tools & Calculators</h3>
+          <p>1RM calculator, plate loader, training max, strength assessment — everything you need at the bar. Free.</p>
+          <span class="btn-ghost">Use Free Tools →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ AUTHORITY ═══ -->
+  <section class="section authority-section">
+    <div class="container authority-inner">
+      <div class="authority-content">
+        <span class="eyebrow">Built By A Real Coach</span>
+        <h2>Jordan Hoppel</h2>
+        <p class="authority-lead">Strength coach with <strong>16 years coaching 1,300+ athletes</strong>. Two-time All-American sprinter. Former intern with the Cleveland Indians Strength & Conditioning program. Elite post-collegiate training background with the Altis track group. 375 lb raw bench at ~190 bodyweight.</p>
+        <p>Every resource on this site is built from real coaching experience — not recycled internet content. The same frameworks used every morning at 5am in Scottsdale power this site and the Primal Press Protocol.</p>
+
+        <ul class="cred-list">
+          <li><span class="cred-check">✓</span> 2x All-American Sprinter</li>
+          <li><span class="cred-check">✓</span> Cleveland Indians S&amp;C Intern</li>
+          <li><span class="cred-check">✓</span> Altis Elite Training Group</li>
+          <li><span class="cred-check">✓</span> B.S. Exercise Science — Ashland University</li>
+          <li><span class="cred-check">✓</span> 16 Years in the Weight Room</li>
+        </ul>
+
+        <a href="/about-jordan-hoppel/" class="btn-secondary">Full background →</a>
+      </div>
+
+      <div class="results-col">
+        <span class="eyebrow">Real Results</span>
+        <div class="result-card">
+          <span class="result-num">+90 lbs</span>
+          <span class="result-name">Eddie H.</span>
+          <span class="result-detail mono">Total bench press gain</span>
+        </div>
+        <div class="result-card result-featured">
+          <span class="result-num">+50 lbs</span>
+          <span class="result-name">Cole K.</span>
+          <span class="result-detail mono">In just 6 weeks</span>
+        </div>
+        <div class="result-card">
+          <span class="result-num">+100 lbs</span>
+          <span class="result-name">Dan Y.</span>
+          <span class="result-detail mono">In 5 months</span>
+        </div>
+        <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=results&utm_campaign=homepage" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;margin-top:4px;">
+          Get The Primal Press Protocol — $37
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BOTTOM CTA ═══ -->
+  <section class="section bottom-cta">
+    <div class="container">
+      <div class="bottom-cta-inner">
+        <div class="bottom-cta-left">
+          <span class="eyebrow">Ready to stop guessing?</span>
+          <h2>Add 50–100 lbs<br/>to Your <em>Bench Press.</em></h2>
+          <p>The Primal Press Protocol — 12-week periodized program, diagnostic framework, auto-calculated training weights, barbell calculator, structural balance analysis, HD exercise library. One-time $37. No subscription. 60-day guarantee.</p>
+        </div>
+        <div class="bottom-cta-right">
+          <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=bottom-cta&utm_campaign=homepage" class="btn-primary" target="_blank" rel="noopener">
+            Get Full Access — $37 →
+          </a>
+          <p class="guarantee-text mono">🛡️ 60-Day Stronger Guarantee<br/>No subscription · Instant access</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+/* ═══ HERO ═══ */
+.hero {
+  position: relative;
+  padding: 96px 0 0;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+.hero-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 80% 40%, rgba(184,255,0,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; }
+
+.trust-bar {
+  display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 36px;
+}
+.trust-bar span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--muted2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+}
+
+.hero h1 { margin-bottom: 24px; }
+.hero-sub {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--muted);
+  max-width: 500px;
+  margin-bottom: 32px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+.hero-cta-group {
+  display: flex; flex-direction: column;
+  align-items: flex-start; gap: 12px;
+  margin-bottom: 16px;
+}
+.hero-price-note { color: var(--muted2); margin-bottom: 36px; display: block; }
+.hero-proof-row {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding-bottom: 64px;
+}
+
+/* Stats bar */
+.stats-bar {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+}
+.stats-inner {
+  display: flex; align-items: center;
+}
+.stat-item { flex: 1; padding: 0 32px; }
+.stat-item:first-child { padding-left: 0; }
+.stat-sep {
+  width: 1px; height: 36px;
+  background: var(--border); flex-shrink: 0;
+}
+
+/* ═══ PROBLEM ═══ */
+.problem-section { background: var(--surface); }
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 16px 0 48px;
+  line-height: 1.72;
+  font-weight: 300;
+}
+
+.vs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.vs-col {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.vs-good { border-color: rgba(184,255,0,0.2); }
+.vs-header { padding: 14px 22px; border-bottom: 1px solid var(--border); }
+.vs-bad-header  { border-left: 2px solid var(--muted2); }
+.vs-good-header { border-left: 2px solid var(--lime); background: var(--lime-glow); }
+.vs-label { color: var(--muted2); }
+.vs-good .vs-label { color: var(--lime); }
+.vs-list {
+  list-style: none; padding: 16px 22px;
+  display: flex; flex-direction: column; gap: 0;
+}
+.vs-list li {
+  font-size: 0.875rem;
+  color: var(--muted);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 10px;
+  font-weight: 300;
+}
+.vs-list li:last-child { border-bottom: none; }
+.vs-x     { color: var(--muted2); flex-shrink: 0; font-size: 0.75rem; margin-top: 2px; }
+.vs-check { color: var(--lime);   flex-shrink: 0; font-size: 0.75rem; margin-top: 2px; }
+
+/* ═══ PILLARS ═══ */
+.pillars-section { background: var(--bg); }
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+.pillar-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 32px 26px;
+  text-decoration: none;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.pillar-card:hover {
+  border-color: rgba(184,255,0,0.3);
+  background: var(--surface2);
+}
+.pillar-featured { border-left: 2px solid var(--lime); }
+.pillar-num {
+  color: var(--faint);
+  font-size: 0.75rem;
+}
+.pillar-card h3 {
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  color: var(--text);
+  line-height: 1.0;
+}
+.pillar-card p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-weight: 300;
+  flex: 1;
+}
+
+/* ═══ AUTHORITY ═══ */
+.authority-section {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.authority-inner {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 80px;
+  align-items: start;
+}
+.authority-lead {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  font-weight: 300;
+  line-height: 1.72;
+}
+.authority-content > p {
+  font-size: 0.9rem;
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+
+.cred-list {
+  list-style: none;
+  margin-bottom: 32px;
+  border-top: 1px solid var(--border);
+}
+.cred-list li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+.cred-check { color: var(--lime); font-size: 0.75rem; flex-shrink: 0; }
+
+/* Results */
+.results-col {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.result-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 18px 20px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.result-featured {
+  border-left: 2px solid var(--lime);
+  background: var(--lime-glow);
+}
+.result-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.result-featured .result-num { color: var(--lime); }
+.result-name { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+.result-detail { color: var(--muted2); font-size: 0.65rem; margin-top: 2px; }
+
+/* ═══ BOTTOM CTA ═══ */
+.bottom-cta { background: var(--bg); }
+.bottom-cta-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 80px;
+  align-items: center;
+}
+.bottom-cta-left h2 { margin: 12px 0 20px; }
+.bottom-cta-left p {
+  font-size: 0.9rem;
+  max-width: 500px;
+  font-weight: 300;
+}
+.bottom-cta-right {
+  display: flex; flex-direction: column;
+  gap: 16px; align-items: flex-start; flex-shrink: 0;
+}
+.guarantee-text {
+  font-size: 0.65rem;
+  color: var(--muted2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1024px) {
+  .authority-inner { grid-template-columns: 1fr; gap: 48px; }
+  .bottom-cta-inner { grid-template-columns: 1fr; gap: 36px; }
+  .pillars-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .vs-grid { grid-template-columns: 1fr; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .stats-inner { flex-wrap: wrap; gap: 20px; }
+  .stat-sep { display: none; }
+  .stat-item { flex: 0 0 45%; padding: 0; }
+}
+</style>

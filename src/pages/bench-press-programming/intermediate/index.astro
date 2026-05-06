@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Intermediate Bench Press Program",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-programming/intermediate/"
+};
+---
+
+<BaseLayout
+  title="Intermediate Bench Press Program | Modern Men's Fitness"
+  description="Intermediate bench press program — weekly progression, RPE-based training, and weak point accessories. Built by Jordan Hoppel."
+  canonical="https://modernmensfitness.com/bench-press-programming/intermediate/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-programming/">Programming</a> <span>›</span>
+        <span>Intermediate</span>
+      </nav>
+      <span class="eyebrow">Programming</span>
+      <h1>Intermediate Program</h1>
+      <p class="page-sub">Linear progression has stopped. Now what? Weekly progression, added volume, and weak point work — the intermediate framework.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="intermediate-program-top" />
+        
+      <h2>You're Intermediate — Now What?</h2>
+      <p>You're intermediate when session-to-session progress stops. You can no longer add 5 lbs every workout. You need to plan progress across weeks instead of sessions. This is where most lifters stall indefinitely because they keep grinding a beginner program that no longer works.</p>
+      <h2>The Intermediate Framework</h2>
+      <p><strong>Progress measured weekly, not per session.</strong> Plan to add 5 lbs per week across a training block. This means some sessions are easier (volume days) and some are harder (intensity days).</p>
+      <p><strong>Add a variation day.</strong> Instead of bench pressing the same way 3x/week, add a variation: close-grip bench, pause bench, or incline bench. This builds weak points while giving the primary movement pattern a partial break.</p>
+      <p><strong>Example weekly structure:</strong></p>
+      <ul>
+        <li>Day 1: Heavy bench — 4×4 at 85–88%</li>
+        <li>Day 2: Pause bench — 4×3 at 75–80% (technique focus)</li>
+        <li>Day 3: Volume bench — 5×5 at 75–80% + close-grip accessories</li>
+      </ul>
+      <h2>When to Move to Advanced Programming</h2>
+      <p>When weekly linear progress stops — when you can't reliably add 5 lbs per week even with deloads — you're ready for block periodization. This typically happens after 1–3 years of consistent training.</p>
+        <PPPCta variant="mid" utmContent="intermediate-program-mid" />
+        <PPPCta variant="hard" utmContent="intermediate-program-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-programming/beginners/" class="sidebar-link"><span>Beginner Program</span><span>→</span></a>
+            <a href="/bench-press-programming/advanced/" class="sidebar-link"><span>Advanced Program</span><span>→</span></a>
+            <a href="/bench-press-programming/frequency/" class="sidebar-link"><span>Frequency Guide</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=intermediate-program" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

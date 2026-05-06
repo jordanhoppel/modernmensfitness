@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Beginner Bench Press Program",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-programming/beginners/"
+};
+---
+
+<BaseLayout
+  title="Beginner Bench Press Program | Modern Men's Fitness"
+  description="Beginner bench press program — linear progression, 3x per week, 5 lb jumps. Built by Jordan Hoppel for lifters in their first year."
+  canonical="https://modernmensfitness.com/bench-press-programming/beginners/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-programming/">Programming</a> <span>›</span>
+        <span>Beginners</span>
+      </nav>
+      <span class="eyebrow">Programming</span>
+      <h1>Beginner Program</h1>
+      <p class="page-sub">The only bench press program a beginner needs — linear progression, 3x/week, 5 lb jumps. Simple, effective, and built to last 6–12 months.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="beginners-program-top" />
+        
+      <h2>The Only Thing That Matters as a Beginner</h2>
+      <p>If you've been lifting less than 12 months, linear progression is all you need. Add 5 lbs to the bar every session. This works because you're adapting neurally — your body is learning the movement pattern, not building maximum muscle. You can recover fully between sessions and add weight every time you train.</p>
+      <h2>The Program</h2>
+      <p><strong>Frequency:</strong> 3x per week (Monday/Wednesday/Friday or similar)</p>
+      <p><strong>Structure each session:</strong></p>
+      <ul>
+        <li>Warm-up sets: 45 lbs × 5, 50% × 5, 70% × 3, 90% × 1</li>
+        <li>Working sets: 3 × 5 at your working weight</li>
+        <li>Add 5 lbs next session if all 3 sets were completed</li>
+      </ul>
+      <p><strong>What to do when you stall:</strong> If you fail to complete 3×5 twice in a row, deload by 10% and rebuild. You'll blow past your previous max within 3 weeks.</p>
+      <h2>Technique First</h2>
+      <p>Don't add weight if your technique is breaking down. The point of being a beginner is that you can add weight and practice technique simultaneously. If you're grinding reps and losing position, the weight is too heavy — technique always comes before load.</p>
+      <h2>Accessories to Add</h2>
+      <p>Keep it simple: dumbbell rows (for upper back), overhead press (for shoulder health and strength), and face pulls (for rotator cuff). Don't overcomplicate it — consistency with the main lift is what drives progress at this stage.</p>
+        <PPPCta variant="mid" utmContent="beginners-program-mid" />
+        <PPPCta variant="hard" utmContent="beginners-program-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-programming/intermediate/" class="sidebar-link"><span>Intermediate Program</span><span>→</span></a>
+            <a href="/bench-press-technique/" class="sidebar-link"><span>Technique Guide</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Bench Press Standards</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=beginners-program" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

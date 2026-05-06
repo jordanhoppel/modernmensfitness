@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bench Press Grip Guide",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-technique/grip/"
+};
+---
+
+<BaseLayout
+  title="Bench Press Grip Guide | Modern Men's Fitness"
+  description="Complete bench press grip guide — width, thumb position, wrist alignment, suicide grip vs full grip. Jordan Hoppel."
+  canonical="https://modernmensfitness.com/bench-press-technique/grip/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-technique/">Technique</a> <span>›</span>
+        <span>Grip</span>
+      </nav>
+      <span class="eyebrow">Technique</span>
+      <h1>Grip Width & Position</h1>
+      <p class="page-sub">Grip width, thumb position, wrist alignment — every grip detail that affects bench press strength, safety, and technique.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="grip-guide-top" />
+        
+      <h2>Grip Width and Its Effects</h2>
+      <p><strong>Wider grip (outside ring marks):</strong> Shorter range of motion, more pec activation, greater shoulder stress. Preferred by most powerlifters within the rules.</p>
+      <p><strong>Shoulder-width (standard):</strong> Best balance of pec and tricep involvement, moderate shoulder stress, good for most lifters.</p>
+      <p><strong>Close grip (inside shoulder width):</strong> Longer range of motion, more tricep emphasis, less shoulder stress. Used as an accessory to build triceps and practice technique.</p>
+      <p>For strength development, use a grip that allows you to maintain full scapular retraction and keeps your wrists directly over your elbows at the bottom position.</p>
+      <h2>Thumb-Around vs Suicide Grip</h2>
+      <p><strong>Thumb-around (full grip):</strong> Bar can't roll off hands. Required for safety in most training contexts. The only option for heavy work.</p>
+      <p><strong>Suicide grip (thumbless):</strong> Some lifters prefer it for wrist positioning. The bar CAN roll off your hands. Never use without a spotter and only at moderate weights. Not recommended for heavy sets.</p>
+      <h2>Wrist Alignment</h2>
+      <p>The bar should sit directly over the wrist bones — not back toward the fingers. If the bar is in your fingers rather than the heel of your palm, your wrists will bend back under load, which causes wrist pain and reduces force transfer. Use wrist wraps if needed to reinforce the position while learning.</p>
+        <PPPCta variant="mid" utmContent="grip-guide-mid" />
+        <PPPCta variant="hard" utmContent="grip-guide-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-technique/setup/" class="sidebar-link"><span>Setup Guide</span><span>→</span></a>
+            <a href="/bench-press-technique/" class="sidebar-link"><span>Technique Hub</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=grip-guide" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

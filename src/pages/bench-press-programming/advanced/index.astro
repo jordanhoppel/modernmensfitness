@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Advanced Bench Press Program",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-programming/advanced/"
+};
+---
+
+<BaseLayout
+  title="Advanced Bench Press Program | Modern Men's Fitness"
+  description="Advanced bench press programming — block periodization, intensity cycling, max effort days. Built by Jordan Hoppel."
+  canonical="https://modernmensfitness.com/bench-press-programming/advanced/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-programming/">Programming</a> <span>›</span>
+        <span>Advanced</span>
+      </nav>
+      <span class="eyebrow">Programming</span>
+      <h1>Advanced Program</h1>
+      <p class="page-sub">Weekly progress has stopped. Block periodization, intensity cycling, and max effort work — the advanced programming framework.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="advanced-program-top" />
+        
+      <h2>Advanced Programming Principles</h2>
+      <p>Advanced lifters can no longer make progress week to week. Progress is measured across training blocks of 4–12 weeks. Programming at this level requires deliberate manipulation of volume, intensity, and exercise selection across phases.</p>
+      <h2>Block Periodization</h2>
+      <p><strong>Accumulation block (4 weeks):</strong> High volume (5–6 sets), moderate intensity (70–80%). Build work capacity and muscle. Fatigue accumulates.</p>
+      <p><strong>Intensification block (4 weeks):</strong> Reduced volume (3–4 sets), higher intensity (82–90%). Convert volume adaptations into strength. Fatigue drops.</p>
+      <p><strong>Realization/Peak block (2–3 weeks):</strong> Low volume (2–3 sets), very high intensity (90–95%+). Maximize expression of strength. Test 1RM at end.</p>
+      <h2>Max Effort Work</h2>
+      <p>Advanced lifters benefit from rotating max effort exercises — floor press, board press, close-grip, slingshot bench — that build strength in specific ranges without the fatigue of maxing on competition bench every week.</p>
+      <h2>The Most Important Thing</h2>
+      <p>At the advanced level, consistency and longevity trump any single program. Staying healthy and training for years is more important than any specific protocol. The Primal Press Protocol incorporates all of these principles into a structured 12-week system.</p>
+        <PPPCta variant="mid" utmContent="advanced-program-mid" />
+        <PPPCta variant="hard" utmContent="advanced-program-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-programming/intermediate/" class="sidebar-link"><span>Intermediate Program</span><span>→</span></a>
+            <a href="/bench-press-programming/periodization/" class="sidebar-link"><span>Periodization</span><span>→</span></a>
+            <a href="/bench-press-plateau/" class="sidebar-link"><span>Plateau Fixes</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=advanced-program" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

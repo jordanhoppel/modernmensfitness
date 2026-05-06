@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PPPCta from '../../components/PPPCta.astro';
+
+const clusters = [
+  { title: 'Bar Path', desc: 'The optimal bar path for raw bench press, common deviations and how to fix them.', href: '/bench-press-technique/bar-path/', icon: '📐' },
+  { title: 'Setup & Positioning', desc: 'Foot placement, arch, scapular retraction, grip width — everything before the bar moves.', href: '/bench-press-technique/setup/', icon: '🎯' },
+  { title: 'Grip Width', desc: 'Wide vs close grip, torque, wrist position, thumb-around vs suicide grip.', href: '/bench-press-technique/grip/', icon: '✋' },
+  { title: 'Leg Drive', desc: 'How to generate and maintain leg drive, foot placement, and hip position.', href: '/bench-press-technique/leg-drive/', icon: '🦵' },
+  { title: 'Arch & Back Position', desc: 'Natural arch mechanics, scapular depression, upper back tightness.', href: '/bench-press-technique/arch/', icon: '🏹' },
+  { title: 'Elbow Tuck', desc: 'Proper elbow angle, flare vs tuck debate, how to protect shoulders.', href: '/bench-press-technique/elbow-tuck/', icon: '💪' },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bench Press Technique — The Complete Guide",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
+  "dateModified": "2026-04-01"
+};
+---
+
+<BaseLayout
+  title="Bench Press Technique — Complete Guide to Form, Setup & Bar Path"
+  description="Master bench press technique with Jordan Hoppel's complete guide — bar path, setup, grip, leg drive, arch, elbow tuck. 16 years of coaching distilled into actionable technique cues."
+  canonical="https://modernmensfitness.com/bench-press-technique/"
+  schema={schema}
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span> <span>Bench Press Technique</span>
+      </nav>
+      <span class="eyebrow">Technique Library</span>
+      <h1>Bench Press<br/><em>Technique.</em></h1>
+      <p class="page-sub">Most lifters plateau not because they're weak — but because they're leaking force through poor technique. Fix the technique first. The strength follows.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="pillar-intro">
+        <p>Bench press technique is the highest-leverage area for most lifters. A 10% improvement in technique efficiency can be worth 20-30 lbs on your max — without adding any strength. The guides below cover every technical element Jordan coaches with his clients at 5 Star Fitness every morning.</p>
+      </div>
+
+      <div class="cluster-grid">
+        {clusters.map((c, i) => (
+          <a href={c.href} class="cluster-card">
+            <div class="cluster-num mono">{String(i + 1).padStart(2, '0')}</div>
+            <div class="cluster-icon">{c.icon}</div>
+            <h3>{c.title}</h3>
+            <p>{c.desc}</p>
+            <span class="btn-ghost">Read Guide →</span>
+          </a>
+        ))}
+      </div>
+
+      <PPPCta variant="mid" utmContent="technique-pillar" context="Poor technique is the #1 reason intermediate lifters plateau. The Primal Press Protocol starts with a diagnostic framework that identifies exactly where you're leaking force — then fixes it." />
+
+      <div class="prose">
+        <h2>Why Technique Matters More Than You Think</h2>
+        <p>Most lifters think about bench press as a chest exercise. Elite bench pressers think about it as a full-body movement that happens to involve a barbell. The difference in force output between these two mental models is enormous.</p>
+        <p>Jordan coaches the following non-negotiables with every new client before they touch a working weight:</p>
+        <ul>
+          <li><strong>Scapular retraction and depression</strong> — create a stable base and protect the shoulder joint</li>
+          <li><strong>Consistent bar path</strong> — slight diagonal from chest to lockout, not straight up</li>
+          <li><strong>Leg drive</strong> — transfers force from the floor through the body into the bar</li>
+          <li><strong>Controlled eccentric</strong> — the descent sets up the concentric, never bounce the bar</li>
+          <li><strong>Wrist alignment</strong> — bar stacked over wrist, wrist over elbow at all times</li>
+        </ul>
+        <p>Get these right and the strength gains come automatically. Miss any of them and you'll plateau regardless of how hard you train.</p>
+
+        <h2>The Most Common Technique Mistakes</h2>
+        <p><strong>Flared elbows</strong> — exposes the shoulder joint to excessive stress and reduces tricep contribution at lockout. Most lifters flare because they haven't been taught to tuck, not because they're incapable of it.</p>
+        <p><strong>Inconsistent bar path</strong> — if your bar drifts toward your face or toward your hips on different reps, you're not grooving a repeatable motor pattern. Record yourself from the side and compare rep to rep.</p>
+        <p><strong>Losing upper back tightness</strong> — as weight gets heavy, many lifters allow their upper back to flatten. This kills leg drive transfer and destabilizes the entire lift.</p>
+        <p><strong>Bouncing the bar</strong> — using the stretch reflex at the bottom removes the most important strength-building stimulus. Touch and go with control, not a dead stop and not a bounce.</p>
+      </div>
+
+      <PPPCta variant="hard" utmContent="technique-bottom" />
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero {
+  background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px;
+}
+.breadcrumb {
+  display: flex; gap: 8px; align-items: center;
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted2); margin-bottom: 24px;
+}
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+
+.pillar-intro {
+  max-width: 680px; margin-bottom: 48px;
+  padding-left: 20px; border-left: 2px solid var(--lime);
+}
+.pillar-intro p { font-size: 1rem; color: var(--muted); font-weight: 300; margin: 0; }
+
+.cluster-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-bottom: 48px;
+}
+.cluster-card {
+  background: var(--card); border: 1px solid var(--border);
+  padding: 28px 24px; text-decoration: none;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.cluster-card:hover { border-color: rgba(184,255,0,0.3); background: var(--surface2); }
+.cluster-num { color: var(--muted2); font-size: 0.65rem; }
+.cluster-icon { font-size: 1.5rem; line-height: 1; }
+.cluster-card h3 { font-size: 1.4rem; color: var(--text); line-height: 1.0; }
+.cluster-card p { font-size: 0.825rem; color: var(--muted); font-weight: 300; flex: 1; }
+
+@media (max-width: 768px) { .cluster-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .cluster-grid { grid-template-columns: 1fr; } }
+</style>

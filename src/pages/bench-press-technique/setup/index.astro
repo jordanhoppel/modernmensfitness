@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bench Press Setup",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-technique/setup/"
+};
+---
+
+<BaseLayout
+  title="Bench Press Setup | Modern Men's Fitness"
+  description="Complete bench press setup guide — foot placement, arch, scapular retraction, grip width. Jordan Hoppel coaching."
+  canonical="https://modernmensfitness.com/bench-press-technique/setup/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-technique/">Technique</a> <span>›</span>
+        <span>Setup</span>
+      </nav>
+      <span class="eyebrow">Technique</span>
+      <h1>Setup & Positioning</h1>
+      <p class="page-sub">The bench press setup is the foundation of every rep. Foot placement, arch, scapular retraction, grip — get this right and everything else follows.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="setup-guide-top" />
+        
+      <h2>The Setup Is the Rep</h2>
+      <p>A good rep starts before the bar moves. The setup creates the stable base, pre-loads the right muscles, and establishes the position you'll maintain throughout the movement. Most technique problems are actually setup problems — fix the setup and the movement fixes itself.</p>
+      <h2>The 5-Step Setup</h2>
+      <p><strong>1. Eyes under the bar.</strong> Lie on the bench so your eyes are directly under the barbell. This gives you the right unrack position.</p>
+      <p><strong>2. Grip width.</strong> Standard strength grip: 1–2 inches outside shoulder width, roughly at the ring marks on a standard bar. Thumbs wrap around the bar.</p>
+      <p><strong>3. Scapular retraction and depression.</strong> Pinch shoulder blades together and pull them down toward your hips. This creates a stable shelf for the bar and protects the shoulder joint. Maintain this throughout the entire set.</p>
+      <p><strong>4. Arch.</strong> Create a natural arch in your lower back. The arch allows better scapular positioning and reduces range of motion. Glutes should stay on the bench — this is not a hip extension.</p>
+      <p><strong>5. Foot drive.</strong> Plant your feet flat on the floor (or up on your toes if you prefer). Create leg drive before the lift-off — this tension transfers through the body and into the press.</p>
+      <h2>The One Non-Negotiable</h2>
+      <p>Scapular retraction and depression. If your shoulder blades aren't pinned back and down, nothing else in the setup matters. The shoulder is vulnerable in a protracted position — every serious bench press shoulder injury happens when the scapula comes loose. Keep it locked.</p>
+        <PPPCta variant="mid" utmContent="setup-guide-mid" />
+        <PPPCta variant="hard" utmContent="setup-guide-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-technique/bar-path/" class="sidebar-link"><span>Bar Path</span><span>→</span></a>
+            <a href="/bench-press-technique/leg-drive/" class="sidebar-link"><span>Leg Drive</span><span>→</span></a>
+            <a href="/bench-press-technique/grip/" class="sidebar-link"><span>Grip Guide</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=setup-guide" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

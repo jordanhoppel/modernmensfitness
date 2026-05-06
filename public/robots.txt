@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Block dev/utility paths
+Disallow: /thank-you/
+Disallow: /primal-press-protocol-login/
+Disallow: /pppresources
+Disallow: /ppplp
+Disallow: /test.txt
+Disallow: /llm.txt/
+
+# Sitemaps
+Sitemap: https://modernmensfitness.com/sitemap-index.xml

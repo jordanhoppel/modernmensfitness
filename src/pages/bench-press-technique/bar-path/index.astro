@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bench Press Bar Path",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-technique/bar-path/"
+};
+---
+
+<BaseLayout
+  title="Bench Press Bar Path | Modern Men's Fitness"
+  description="Optimal bench press bar path — correct diagonal path, common deviations and fixes. Jordan Hoppel coaching guide."
+  canonical="https://modernmensfitness.com/bench-press-technique/bar-path/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-technique/">Technique</a> <span>›</span>
+        <span>Bar Path</span>
+      </nav>
+      <span class="eyebrow">Technique</span>
+      <h1>Bar Path</h1>
+      <p class="page-sub">The optimal bench press bar path — slight diagonal from chest to lockout. Common deviations, how to diagnose them, and how to fix them.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="bar-path-top" />
+        
+      <h2>The Optimal Bar Path</h2>
+      <p>The bench press bar path is not straight up and down — it's a slight diagonal. The bar descends to the lower chest/upper abdomen, then travels slightly back toward the face as it ascends to lockout over the shoulders. This path follows the natural arc of the shoulder joint and maximizes mechanical efficiency.</p>
+      <h2>Why Bar Path Matters</h2>
+      <p>A straight vertical bar path requires the shoulder to work at a mechanical disadvantage throughout the movement. The diagonal path loads the muscles more effectively and reduces shoulder stress. Elite raw bench pressers all use some version of this diagonal path — it's not a style choice, it's biomechanics.</p>
+      <h2>Common Bar Path Problems</h2>
+      <p><strong>Bar drifts toward the face:</strong> Usually caused by taking the bar out of the rack too far forward, or not tucking elbows enough. Fix: re-rack position and elbow tuck cue.</p>
+      <p><strong>Bar drifts away from face at lockout:</strong> Often a technique breakdown under fatigue — loss of upper back tightness or leg drive. Fix: practice lighter sets with deliberate path control.</p>
+      <p><strong>Inconsistent path set to set:</strong> No motor pattern groove established. Fix: film yourself, do sets of 5 at 60–65% focused entirely on replicating the path.</p>
+      <h2>How to Fix Bar Path Issues</h2>
+      <p>Film yourself from the side with a phone on a tripod. Watch bar path across your warm-up and working sets. The path should look consistent and slightly diagonal. If it's changing, you're still developing the motor pattern — keep the weight light and the reps clean.</p>
+        <PPPCta variant="mid" utmContent="bar-path-mid" />
+        <PPPCta variant="hard" utmContent="bar-path-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-technique/setup/" class="sidebar-link"><span>Setup Guide</span><span>→</span></a>
+            <a href="/bench-press-technique/" class="sidebar-link"><span>Technique Hub</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=bar-path" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

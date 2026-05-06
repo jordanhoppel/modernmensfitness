@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Bench Press Plate Loading Calculator",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "url": "https://modernmensfitness.com/bench-press-tools/plate-loading-calculator/",
+  "description": "Free barbell plate loading calculator. Enter any target weight and instantly see which plates to load on each side. Works with lbs and kg.",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+---
+
+<BaseLayout
+  title="Barbell Plate Loading Calculator — Bench Press (lbs & kg)"
+  description="Free barbell plate calculator. Enter your target bench press weight and instantly see exactly which plates go on each side. Works with lbs and kg."
+  canonical="https://modernmensfitness.com/bench-press-tools/plate-loading-calculator/"
+  schema={schema}
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-tools/">Tools</a> <span>›</span>
+        <span>Plate Calculator</span>
+      </nav>
+      <span class="eyebrow">Free Tool</span>
+      <h1>Plate Loading<br/><em>Calculator.</em></h1>
+      <p class="page-sub">Stop doing bar math in your head. Enter your target weight and see exactly which plates go on each side — every time.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container calc-layout">
+      <div class="calc-main">
+        <div class="calc-card">
+          <div class="calc-header">
+            <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2);">// Enter target weight</span>
+          </div>
+          <div class="calc-inputs">
+            <div class="input-group">
+              <label class="input-label mono">Bar Weight</label>
+              <div class="bar-select">
+                <button class="bar-btn active" data-bar="45">45 lb bar</button>
+                <button class="bar-btn" data-bar="35">35 lb bar</button>
+                <button class="bar-btn" data-bar="20">20 kg bar</button>
+                <button class="bar-btn" data-bar="15">15 kg bar</button>
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="input-label mono">Target Weight</label>
+              <div class="input-row">
+                <input type="number" id="target-weight" placeholder="225" min="1" max="1500" class="calc-input" />
+                <div class="unit-toggle">
+                  <button class="unit-btn active" data-unit="lbs">lbs</button>
+                  <button class="unit-btn" data-unit="kg">kg</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="calc-btn" id="calc-btn">Calculate Plates →</button>
+
+          <div class="calc-results" id="calc-results" style="display:none;">
+            <div class="result-header">
+              <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--lime);">// Each side of the bar</span>
+            </div>
+            <div class="plates-display" id="plates-display"></div>
+            <div class="weight-breakdown" id="weight-breakdown"></div>
+            <div class="common-weights">
+              <span class="mono" style="font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);display:block;margin-bottom:10px;">// Quick reference</span>
+              <div class="quick-grid" id="quick-grid"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose" style="margin-top:48px;">
+          <h2>How to Use the Plate Calculator</h2>
+          <p>Enter your target total weight including the bar. The calculator shows exactly which plates go on each side. Standard Olympic barbell weighs 45 lbs (20 kg). Women's barbells weigh 35 lbs (15 kg).</p>
+
+          <h2>Common Bench Press Plate Combinations</h2>
+          <p><strong>135 lbs</strong> — One 45-lb plate each side (1 plate)<br/>
+          <strong>185 lbs</strong> — 45 + 25 each side<br/>
+          <strong>225 lbs</strong> — Two 45-lb plates each side (2 plates)<br/>
+          <strong>275 lbs</strong> — 45 + 45 + 25 each side<br/>
+          <strong>315 lbs</strong> — Three 45-lb plates each side (3 plates)<br/>
+          <strong>365 lbs</strong> — 45 + 45 + 45 + 25 each side<br/>
+          <strong>405 lbs</strong> — Four 45-lb plates each side (4 plates)</p>
+
+          <h2>Why "How Many Plates" Matters</h2>
+          <p>Bench press milestones are typically measured in plates — one plate (135 lbs), two plates (225 lbs), three plates (315 lbs). These are the strength benchmarks most lifters use to gauge progress. The Primal Press Protocol is built to take intermediate lifters from wherever they are to the next plate milestone.</p>
+        </div>
+      </div>
+
+      <aside class="calc-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Auto-Calculate Every Set</h4>
+            <p>The Primal Press Protocol calculates your plate loading for every set in the 12-week program automatically.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=plate-calc&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">Get PPP — $37 →</a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>More Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/training-max-calculator/" class="sidebar-link"><span>Training Max Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 500px; font-weight: 300; }
+.calc-layout { display: grid; grid-template-columns: 1fr 300px; gap: 60px; align-items: start; }
+.calc-card { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); overflow: hidden; }
+.calc-header { padding: 16px 24px; border-bottom: 1px solid var(--border); background: var(--lime-glow); }
+.calc-inputs { padding: 28px 24px 0; display: flex; flex-direction: column; gap: 24px; }
+.input-group { display: flex; flex-direction: column; gap: 10px; }
+.input-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); }
+.bar-select { display: flex; gap: 4px; flex-wrap: wrap; }
+.bar-btn { background: var(--card); border: 1px solid var(--border); color: var(--muted); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; padding: 8px 14px; cursor: pointer; transition: all 0.2s; }
+.bar-btn.active { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+.input-row { display: flex; gap: 8px; align-items: center; }
+.calc-input { flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 1.1rem; font-weight: 500; padding: 12px 16px; outline: none; transition: border-color 0.2s; }
+.calc-input:focus { border-color: var(--lime); }
+.calc-input::placeholder { color: var(--muted2); }
+.unit-toggle { display: flex; gap: 2px; }
+.unit-btn { background: var(--card); border: 1px solid var(--border); color: var(--muted); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; padding: 8px 14px; cursor: pointer; transition: all 0.2s; }
+.unit-btn.active { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+.calc-btn { display: block; width: calc(100% - 48px); margin: 24px 24px; background: var(--lime); color: #0a0a0a; font-family: var(--font-body); font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 16px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.calc-btn:hover { background: #ccff00; transform: translateY(-1px); }
+.calc-results { padding: 0 24px 28px; }
+.result-header { margin-bottom: 16px; }
+.plates-display { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--lime); padding: 20px 24px; margin-bottom: 12px; font-family: var(--font-display); font-size: 1.5rem; color: var(--text); line-height: 1.4; letter-spacing: 0.02em; }
+.weight-breakdown { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted2); margin-bottom: 24px; letter-spacing: 0.06em; }
+.quick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+.quick-item { background: var(--card); border: 1px solid var(--border); padding: 10px 12px; cursor: pointer; transition: border-color 0.2s; }
+.quick-item:hover { border-color: var(--lime); }
+.quick-item .q-weight { font-family: var(--font-display); font-size: 1.1rem; color: var(--text); }
+.quick-item .q-plates { font-family: var(--font-mono); font-size: 0.6rem; color: var(--muted2); }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 24px 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 16px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+@media (max-width: 900px) { .calc-layout { grid-template-columns: 1fr; } .calc-sidebar { display: none; } }
+</style>
+
+<script>
+let barWeight = 45;
+let currentUnit = 'lbs';
+
+const LB_PLATES = [100, 65, 55, 45, 35, 25, 15, 10, 5, 2.5, 1.25];
+const KG_PLATES = [50, 45, 35, 25, 20, 15, 10, 5, 2.5, 1.25, 0.5];
+
+document.querySelectorAll('.bar-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.bar-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    barWeight = parseFloat(btn.dataset.bar);
+  });
+});
+
+document.querySelectorAll('.unit-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentUnit = btn.dataset.unit;
+  });
+});
+
+document.getElementById('calc-btn').addEventListener('click', calculate);
+document.getElementById('target-weight').addEventListener('keypress', e => { if(e.key === 'Enter') calculate(); });
+
+function getPlates() { return currentUnit === 'lbs' ? LB_PLATES : KG_PLATES; }
+
+function calculatePlatesForWeight(totalWeight) {
+  const plates = getPlates();
+  const perSide = (totalWeight - barWeight) / 2;
+  if (perSide < 0) return null;
+  let remaining = perSide;
+  const result = [];
+  for (const plate of plates) {
+    while (remaining >= plate - 0.001) {
+      result.push(plate);
+      remaining -= plate;
+      remaining = Math.round(remaining * 1000) / 1000;
+    }
+  }
+  if (remaining > 0.1) return null;
+  return result;
+}
+
+function formatPlates(plates) {
+  if (!plates || plates.length === 0) return 'Bar only';
+  const counts = {};
+  plates.forEach(p => counts[p] = (counts[p] || 0) + 1);
+  return Object.entries(counts)
+    .map(([p, c]) => c > 1 ? `${c}×${p}` : `${p}`)
+    .join(' + ');
+}
+
+function calculate() {
+  const target = parseFloat(document.getElementById('target-weight').value);
+  if (!target || target <= barWeight) {
+    alert('Enter a weight greater than the bar weight.');
+    return;
+  }
+
+  const plates = calculatePlatesForWeight(target);
+  const unit = currentUnit;
+
+  const display = document.getElementById('plates-display');
+  const breakdown = document.getElementById('weight-breakdown');
+
+  if (!plates) {
+    display.textContent = 'Cannot make this weight exactly with standard plates.';
+    breakdown.textContent = '';
+  } else {
+    display.textContent = plates.length === 0 ? 'Bar only (no plates)' : formatPlates(plates);
+    const perSide = (target - barWeight) / 2;
+    breakdown.textContent = `${perSide} ${unit} per side · ${barWeight} ${unit} bar · ${target} ${unit} total`;
+  }
+
+  // Quick reference grid
+  const quickWeights = currentUnit === 'lbs'
+    ? [95, 115, 135, 155, 185, 205, 225, 245, 275, 295, 315, 335]
+    : [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+
+  const grid = document.getElementById('quick-grid');
+  grid.innerHTML = quickWeights.map(w => {
+    const p = calculatePlatesForWeight(w);
+    return `<div class="quick-item" onclick="document.getElementById('target-weight').value=${w};calculate();">
+      <div class="q-weight">${w} ${unit}</div>
+      <div class="q-plates">${p ? formatPlates(p) : '—'}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('calc-results').style.display = 'block';
+}
+</script>

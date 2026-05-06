@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+const schema = { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Bench Press Assessment Test", "operatingSystem": "Web", "url": "https://modernmensfitness.com/bench-press-tools/assessment-test/", "offers": { "@type": "Offer", "price": "0" } };
+---
+<BaseLayout
+  title="Free Bench Press Assessment Test — Find Your Weak Point"
+  description="Free 5-question bench press assessment that diagnoses your specific limiter — technique, weak link, programming, or recovery. Built by Jordan Hoppel."
+  canonical="https://modernmensfitness.com/bench-press-tools/assessment-test/"
+  schema={schema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-tools/">Tools</a> <span>›</span>
+        <span>Assessment Test</span>
+      </nav>
+      <span class="eyebrow">Free Diagnostic</span>
+      <h1>Bench Press<br/><em>Assessment.</em></h1>
+      <p class="page-sub">5 questions. 3 minutes. Identifies exactly what's holding your bench press back — and gives you the specific fix.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container assess-layout">
+      <div class="assess-main">
+        <div id="quiz-container">
+          <div id="progress-bar-wrap">
+            <div id="progress-bar"></div>
+          </div>
+          <div id="quiz-body"></div>
+        </div>
+        <div id="result-container" style="display:none;"></div>
+      </div>
+      <aside class="assess-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>After the Assessment</h5>
+            <p style="font-size:0.825rem;font-weight:300;margin-bottom:12px;">The Primal Press Protocol addresses all 4 limiter types with a built-in diagnostic framework.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=assessment&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;margin-top:8px;">Get PPP — $37 →</a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>More Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/plate-loading-calculator/" class="sidebar-link"><span>Plate Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/training-max-calculator/" class="sidebar-link"><span>Training Max</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.page-hero h1 { margin: 16px 0 16px; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 500px; font-weight: 300; }
+.assess-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+#progress-bar-wrap { background: var(--border); height: 3px; margin-bottom: 32px; }
+#progress-bar { background: var(--lime); height: 100%; transition: width 0.4s ease; width: 0%; }
+.q-num { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); display: block; margin-bottom: 12px; }
+.q-text { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2rem); color: var(--text); margin-bottom: 28px; line-height: 1.1; }
+.q-options { display: flex; flex-direction: column; gap: 8px; }
+.q-option { background: var(--card); border: 1px solid var(--border); padding: 16px 20px; cursor: pointer; text-align: left; color: var(--muted); font-family: var(--font-body); font-size: 0.9rem; font-weight: 300; transition: border-color 0.2s, background 0.2s; display: flex; align-items: center; gap: 12px; }
+.q-option:hover { border-color: rgba(184,255,0,0.4); color: var(--text); }
+.q-option::before { content: '→'; color: var(--border); font-size: 0.8rem; flex-shrink: 0; transition: color 0.2s; }
+.q-option:hover::before { color: var(--lime); }
+.result-card { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--lime); padding: 40px 36px; }
+.result-tag { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); display: block; margin-bottom: 12px; }
+.result-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--text); margin-bottom: 20px; line-height: 1.0; }
+.result-body { font-size: 0.95rem; color: var(--muted); font-weight: 300; line-height: 1.72; margin-bottom: 28px; }
+.result-fixes { border-top: 1px solid var(--border); padding-top: 24px; margin-bottom: 32px; }
+.result-fixes h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); margin-bottom: 16px; }
+.fix-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; color: var(--muted); font-weight: 300; }
+.fix-item:last-child { border-bottom: none; }
+.fix-check { color: var(--lime); flex-shrink: 0; }
+.result-cta { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--lime); padding: 24px; }
+.result-cta h4 { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 8px; }
+.result-cta p { font-size: 0.875rem; font-weight: 300; margin-bottom: 16px; }
+.retake-btn { background: none; border: 1px solid var(--border); color: var(--muted); font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 20px; cursor: pointer; margin-top: 16px; transition: border-color 0.2s, color 0.2s; }
+.retake-btn:hover { border-color: var(--lime); color: var(--text); }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+@media (max-width: 900px) { .assess-layout { grid-template-columns: 1fr; } .assess-sidebar { display: none; } }
+</style>
+
+<script>
+const questions = [
+  {
+    text: "Where does your bench press stall or fail?",
+    options: [
+      { text: "Off the chest — can't get it moving from the bottom", scores: { technique: 1, weaklink: 2, programming: 0, recovery: 0 } },
+      { text: "Mid-range — fails halfway up", scores: { technique: 1, weaklink: 2, programming: 0, recovery: 0 } },
+      { text: "Lockout — stalls in the top third", scores: { technique: 0, weaklink: 3, programming: 0, recovery: 0 } },
+      { text: "No clear sticking point — just feels heavy everywhere", scores: { technique: 1, weaklink: 0, programming: 2, recovery: 1 } }
+    ]
+  },
+  {
+    text: "How consistent is your technique set to set?",
+    options: [
+      { text: "Very inconsistent — bar path changes, lose tightness under load", scores: { technique: 3, weaklink: 0, programming: 0, recovery: 0 } },
+      { text: "Somewhat consistent but breaks down on heavy sets", scores: { technique: 2, weaklink: 1, programming: 0, recovery: 0 } },
+      { text: "Mostly consistent — technique feels solid", scores: { technique: 0, weaklink: 1, programming: 1, recovery: 1 } },
+      { text: "Very consistent — same setup every rep", scores: { technique: 0, weaklink: 0, programming: 2, recovery: 1 } }
+    ]
+  },
+  {
+    text: "How long has your bench been stuck at the same weight?",
+    options: [
+      { text: "Less than 4 weeks", scores: { technique: 1, weaklink: 1, programming: 0, recovery: 1 } },
+      { text: "1–3 months", scores: { technique: 1, weaklink: 1, programming: 2, recovery: 0 } },
+      { text: "3–6 months", scores: { technique: 0, weaklink: 1, programming: 3, recovery: 0 } },
+      { text: "Over 6 months", scores: { technique: 0, weaklink: 0, programming: 3, recovery: 1 } }
+    ]
+  },
+  {
+    text: "How do you feel going into your bench sessions?",
+    options: [
+      { text: "Fresh and ready — I look forward to bench days", scores: { technique: 0, weaklink: 1, programming: 1, recovery: 0 } },
+      { text: "Sometimes beat up — shoulders or elbows feel rough", scores: { technique: 1, weaklink: 0, programming: 0, recovery: 3 } },
+      { text: "Consistently fatigued — sessions feel harder than they should", scores: { technique: 0, weaklink: 0, programming: 1, recovery: 3 } },
+      { text: "Fine physically but mentally dreading the session", scores: { technique: 0, weaklink: 0, programming: 2, recovery: 1 } }
+    ]
+  },
+  {
+    text: "What does your current bench press programming look like?",
+    options: [
+      { text: "I just do bench whenever — no real structure", scores: { technique: 1, weaklink: 0, programming: 3, recovery: 0 } },
+      { text: "I follow a program but haven't changed it in months", scores: { technique: 0, weaklink: 1, programming: 3, recovery: 0 } },
+      { text: "I have a structured program with progression built in", scores: { technique: 1, weaklink: 2, programming: 0, recovery: 0 } },
+      { text: "I train hard but don't track weights or progress systematically", scores: { technique: 1, weaklink: 1, programming: 2, recovery: 1 } }
+    ]
+  }
+];
+
+const results = {
+  technique: {
+    title: "Technique Plateau",
+    body: "Your bench press is leaking force through inconsistent technique. Setup variation, bar path drift, or loss of tightness under load is costing you weight on the bar — even if your strength is there. The fix is technique work at submaximal loads until the movement is automatic.",
+    fixes: [
+      "Film your bench from the side — compare bar path across sets",
+      "Practice setup routine: same foot position, same arch, same scapular retraction every rep",
+      "Do 3 sets of paused bench at 60–65% focusing on staying tight off the chest",
+      "Check elbow angle — excessive flare bleeds force and stresses the shoulder"
+    ],
+    resource: "/bench-press-technique/"
+  },
+  weaklink: {
+    title: "Weak Link Plateau",
+    body: "You're failing in the same spot every time — that's not a bench problem, that's a specific muscle that needs targeted work. Off-chest failures = pec/lat weakness. Mid-range = front delts. Lockout = triceps. The fix is identifying the exact muscle and attacking it directly.",
+    fixes: [
+      "Identify your sticking point location precisely — film from the side",
+      "Off-chest failures: add paused bench and lat pulldowns",
+      "Lockout failures: add close-grip bench and skull crushers",
+      "Mid-range failures: add overhead press and front delt raises"
+    ],
+    resource: "/bench-press-plateau/"
+  },
+  programming: {
+    title: "Programming Plateau",
+    body: "You're working hard but the program has no mechanism for making you stronger. Either you're doing the same thing too long, the volume-to-intensity ratio is wrong, or there's no structured progressive overload. The fix is structured periodization — not more effort.",
+    fixes: [
+      "Add a clear progression mechanism: add 5 lbs per week or add 1 rep per week",
+      "Check intensity: if you never train above 80% 1RM you're not building maximal strength",
+      "Add a deload every 4–6 weeks — accumulated fatigue masks true strength",
+      "Try a 12-week periodized program with built-in overload"
+    ],
+    resource: "/bench-press-programming/"
+  },
+  recovery: {
+    title: "Recovery Plateau",
+    body: "You're not undertrained — you're under-recovered. Chronic soreness, nagging shoulder or elbow issues, and sessions that feel harder than they should all point to a recovery problem. The fix is removing junk volume, better stress distribution, and protecting your joints.",
+    fixes: [
+      "Reduce total bench volume by 30% for 2 weeks — track if strength improves",
+      "Address shoulder health: face pulls, band pull-aparts, external rotation work",
+      "Prioritize sleep — strength is built during recovery, not during training",
+      "Audit accessory work — drop anything that causes joint irritation"
+    ],
+    resource: "/bench-press-plateau/"
+  }
+};
+
+let current = 0;
+let scores = { technique: 0, weaklink: 0, programming: 0, recovery: 0 };
+
+function render() {
+  const pct = (current / questions.length) * 100;
+  document.getElementById('progress-bar').style.width = pct + '%';
+
+  if (current >= questions.length) {
+    showResult();
+    return;
+  }
+
+  const q = questions[current];
+  document.getElementById('quiz-body').innerHTML = `
+    <span class="q-num">Question ${current + 1} of ${questions.length}</span>
+    <div class="q-text">${q.text}</div>
+    <div class="q-options">
+      ${q.options.map((opt, i) => `
+        <button class="q-option" data-index="${i}">${opt.text}</button>
+      `).join('')}
+    </div>
+  `;
+
+  document.querySelectorAll('.q-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.index);
+      const s = q.options[idx].scores;
+      Object.keys(s).forEach(k => scores[k] += s[k]);
+      current++;
+      render();
+    });
+  });
+}
+
+function showResult() {
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('quiz-container').style.display = 'none';
+
+  const top = Object.entries(scores).sort((a,b) => b[1] - a[1])[0][0];
+  const r = results[top];
+
+  document.getElementById('result-container').style.display = 'block';
+  document.getElementById('result-container').innerHTML = `
+    <div class="result-card">
+      <span class="result-tag">// Your Primary Limiter</span>
+      <div class="result-title">${r.title}</div>
+      <p class="result-body">${r.body}</p>
+      <div class="result-fixes">
+        <h4>Specific Fixes</h4>
+        ${r.fixes.map(f => `<div class="fix-item"><span class="fix-check">→</span>${f}</div>`).join('')}
+      </div>
+      <div class="result-cta">
+        <span class="result-tag">// Go Deeper</span>
+        <h4>The Primal Press Protocol</h4>
+        <p>The complete system for fixing your specific limiter — diagnostic framework, 12-week periodized program, auto-calculated training weights. $37 once.</p>
+        <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=assessment-result&utm_campaign=${top}" class="btn-primary" target="_blank" rel="noopener">Get PPP — $37 →</a>
+      </div>
+      <button class="retake-btn" id="retake">Retake Assessment</button>
+    </div>
+  `;
+
+  document.getElementById('retake').addEventListener('click', () => {
+    current = 0;
+    scores = { technique: 0, weaklink: 0, programming: 0, recovery: 0 };
+    document.getElementById('quiz-container').style.display = 'block';
+    document.getElementById('result-container').style.display = 'none';
+    render();
+  });
+}
+
+render();
+</script>

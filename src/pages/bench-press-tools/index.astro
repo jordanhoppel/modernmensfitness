@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  {
+    num: '01',
+    title: '1RM Calculator',
+    desc: 'Enter any weight and rep count to instantly estimate your one-rep max and get all training percentages auto-calculated.',
+    href: '/bench-press-tools/1rm-calculator/',
+    tag: 'Free',
+    cta: 'Use Calculator →'
+  },
+  {
+    num: '02',
+    title: 'Plate Loading Calculator',
+    desc: 'Stop doing bar math in your head. Enter your target weight and see exactly which plates go on each side — down to the 2.5.',
+    href: '/bench-press-tools/plate-loading-calculator/',
+    tag: 'Free',
+    cta: 'Use Calculator →'
+  },
+  {
+    num: '03',
+    title: 'Training Max Calculator',
+    desc: 'Calculate your training max for percentage-based programs. Find the right starting point for RPE and percentage-based training.',
+    href: '/bench-press-tools/training-max-calculator/',
+    tag: 'Free',
+    cta: 'Use Calculator →'
+  },
+  {
+    num: '04',
+    title: 'Bench Press Assessment',
+    desc: 'A 5-question diagnostic that identifies your specific bench press limiter — technique, weak link, programming, or recovery.',
+    href: '/bench-press-tools/assessment-test/',
+    tag: 'Free',
+    cta: 'Take Assessment →'
+  },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Free Bench Press Tools & Calculators",
+  "description": "Free bench press calculators and tools — 1RM calculator, plate loading calculator, training max calculator, and strength assessment.",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "url": "https://modernmensfitness.com/bench-press-tools/"
+};
+---
+
+<BaseLayout
+  title="Free Bench Press Tools & Calculators"
+  description="Free bench press calculators — 1RM calculator, plate loading calculator, training max calculator, and strength assessment test. Built by Jordan Hoppel."
+  canonical="https://modernmensfitness.com/bench-press-tools/"
+  schema={schema}
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span> <span>Tools & Calculators</span>
+      </nav>
+      <span class="eyebrow">Free Tools</span>
+      <h1>Bench Press<br/><em>Calculators.</em></h1>
+      <p class="page-sub">Everything you need at the bar — 1RM estimator, plate math, training max, and a diagnostic test that finds your specific weak point. All free, all built by a real coach.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tools-grid">
+        {tools.map(t => (
+          <a href={t.href} class="tool-card">
+            <div class="tool-top">
+              <span class="tool-num mono">{t.num}</span>
+              <span class="tool-tag mono">{t.tag}</span>
+            </div>
+            <h3>{t.title}</h3>
+            <p>{t.desc}</p>
+            <span class="btn-ghost">{t.cta}</span>
+          </a>
+        ))}
+      </div>
+
+      <div class="tools-ppp">
+        <div class="tools-ppp-left">
+          <span class="eyebrow">// Why These Tools Exist</span>
+          <h2>Built for One Purpose:<br/><em>Adding Weight to the Bar.</em></h2>
+          <p>Every tool on this page is something Jordan uses with his coaching clients at 5 Star Fitness in Scottsdale. The 1RM calculator feeds directly into the Primal Press Protocol's percentage-based programming. The plate calculator eliminates mental math between sets. The assessment test replicates the diagnostic Jordan runs with every new client.</p>
+          <p>Use the tools free. If you want the complete system — the 12-week program built around these tools — that's the Primal Press Protocol.</p>
+        </div>
+        <div class="tools-ppp-right">
+          <div class="ppp-card">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>12-week bench press program. Every training weight auto-calculated from your 1RM. Diagnostic framework. $37 once.</p>
+            <div class="ppp-proof">
+              <span>✓ Eddie H. <strong>+90 lbs</strong></span>
+              <span>✓ Cole K. <strong>+50 lbs / 6 weeks</strong></span>
+              <span>✓ Dan Y. <strong>+100 lbs / 5 months</strong></span>
+            </div>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=tools-hub&utm_campaign=tools" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; }
+
+.tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-bottom: 80px; }
+.tool-card { background: var(--card); border: 1px solid var(--border); padding: 32px 28px; text-decoration: none; display: flex; flex-direction: column; gap: 12px; transition: border-color 0.2s, background 0.2s; }
+.tool-card:hover { border-color: rgba(184,255,0,0.3); background: var(--surface2); }
+.tool-top { display: flex; justify-content: space-between; align-items: center; }
+.tool-num { color: var(--muted2); font-size: 0.65rem; }
+.tool-tag { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime); background: var(--lime-glow); border: 1px solid rgba(184,255,0,0.2); padding: 3px 8px; }
+.tool-card h3 { font-size: 1.6rem; color: var(--text); line-height: 1.0; }
+.tool-card p { font-size: 0.875rem; color: var(--muted); font-weight: 300; flex: 1; }
+
+.tools-ppp { display: grid; grid-template-columns: 1fr 360px; gap: 80px; align-items: start; }
+.tools-ppp-left h2 { margin: 12px 0 20px; }
+.tools-ppp-left p { font-size: 0.9rem; color: var(--muted); font-weight: 300; margin-bottom: 16px; }
+.ppp-card { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 28px 24px; }
+.ppp-card h4 { font-family: var(--font-display); font-size: 1.5rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.ppp-card > p { font-size: 0.875rem; font-weight: 300; margin-bottom: 16px; }
+.ppp-proof { display: flex; flex-direction: column; gap: 4px; margin-bottom: 20px; }
+.ppp-proof span { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); }
+.ppp-proof strong { color: var(--text); }
+
+@media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr; } .tools-ppp { grid-template-columns: 1fr; gap: 40px; } }
+</style>

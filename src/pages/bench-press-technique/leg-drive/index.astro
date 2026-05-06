@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bench Press Leg Drive",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-technique/leg-drive/"
+};
+---
+
+<BaseLayout
+  title="Bench Press Leg Drive | Modern Men's Fitness"
+  description="How to use leg drive on bench press — generate, maintain, and transfer force from the floor. Jordan Hoppel coaching guide."
+  canonical="https://modernmensfitness.com/bench-press-technique/leg-drive/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-technique/">Technique</a> <span>›</span>
+        <span>Leg Drive</span>
+      </nav>
+      <span class="eyebrow">Technique</span>
+      <h1>Leg Drive</h1>
+      <p class="page-sub">Leg drive is one of the most misunderstood elements of bench press technique. Here's how to generate it, maintain it, and transfer it into the bar.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="leg-drive-guide-top" />
+        
+      <h2>What Leg Drive Actually Is</h2>
+      <p>Leg drive is not about pushing yourself up the bench. It's about creating a stable base that allows force to transfer from the floor, through your body, and into the bar. Think of your body as a rigid lever — the more stable and braced the base, the more force your upper body can express.</p>
+      <h2>How to Create Leg Drive</h2>
+      <p><strong>Feet flat on the floor:</strong> Plant your feet firmly with your heels down. Create tension by trying to "leg press" the floor — not actually moving your feet, just creating the pressure.</p>
+      <p><strong>Feet on toes:</strong> Some lifters prefer heels elevated with a more extreme arch. This can increase leg drive but requires more hip flexor flexibility and takes practice.</p>
+      <p>The key is creating and maintaining tension through the entire set. Most lifters lose their leg drive between reps — re-establish it consciously before each rep.</p>
+      <h2>How Much Does Leg Drive Actually Help?</h2>
+      <p>Research and anecdotal coaching experience consistently shows leg drive adding 10–30 lbs to a max bench. The effect is larger for powerlifting-style benching (with arch) than close-grip or hypertrophy-style benching.</p>
+      <h2>Common Leg Drive Mistakes</h2>
+      <ul>
+        <li>Feet too far forward — reduces tension and leverage</li>
+        <li>Lifting the hips off the bench — disqualified in competition, reduces stability</li>
+        <li>Losing tension between reps — re-create the drive before every rep</li>
+        <li>Kicking the feet after the lift — adds instability, not force</li>
+      </ul>
+        <PPPCta variant="mid" utmContent="leg-drive-guide-mid" />
+        <PPPCta variant="hard" utmContent="leg-drive-guide-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-technique/setup/" class="sidebar-link"><span>Setup Guide</span><span>→</span></a>
+            <a href="/bench-press-technique/arch/" class="sidebar-link"><span>Arch Guide</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=leg-drive-guide" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

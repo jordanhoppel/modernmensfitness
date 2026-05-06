@@ -1,0 +1,20 @@
+# Sitemap files — correct XML content type
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+
+/sitemap-pages.xml
+  Content-Type: application/xml; charset=utf-8
+
+/sitemap-posts.xml
+  Content-Type: application/xml; charset=utf-8
+
+# HTML — short cache
+/*.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+
+/
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+
+# Assets — long cache
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

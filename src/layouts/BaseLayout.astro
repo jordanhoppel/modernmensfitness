@@ -1,0 +1,77 @@
+---
+import SEOHead from '../components/SEOHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  schema?: object | object[];
+  pageType?: 'article' | 'webpage' | 'product' | 'faq';
+  publishDate?: string;
+  modifiedDate?: string;
+  noindex?: boolean;
+  fullWidth?: boolean;
+}
+
+const props = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <SEOHead {...props} />
+</head>
+<body>
+  <Header />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>
+
+<style is:global>
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+#main-content {
+  flex: 1;
+}
+
+/* Article content styles */
+.prose {
+  max-width: 760px;
+}
+.prose h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin: 48px 0 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--steel);
+}
+.prose h3 {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  margin: 32px 0 16px;
+}
+.prose p { margin-bottom: 20px; }
+.prose ul, .prose ol {
+  margin: 0 0 20px 24px;
+  color: var(--light);
+}
+.prose li { margin-bottom: 8px; }
+.prose strong { color: var(--white); }
+.prose blockquote {
+  border-left: 3px solid var(--red);
+  padding: 16px 20px;
+  margin: 32px 0;
+  background: var(--iron);
+  font-style: italic;
+  color: var(--light);
+}
+.prose table { margin: 32px 0; }
+</style>

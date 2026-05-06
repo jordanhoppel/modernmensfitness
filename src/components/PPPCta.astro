@@ -1,0 +1,141 @@
+---
+interface Props {
+  variant?: 'soft' | 'mid' | 'hard';
+  context?: string;
+  utmContent?: string;
+}
+const { variant = 'mid', context = '', utmContent = 'inline-cta' } = Astro.props;
+const utmUrl = `https://primalpressprotocol.com?utm_source=modernmensfitness&utm_medium=content&utm_campaign=ppp-cta&utm_content=${utmContent}`;
+---
+
+{variant === 'soft' && (
+  <div class="cta-soft">
+    <span class="cta-eyebrow mono">// Free Resource</span>
+    <p>Not sure what's holding your bench back? <a href="/bench-press-tools/assessment-test/">Take the free bench press assessment</a> — 3 minutes, pinpoints your exact weak point.</p>
+  </div>
+)}
+
+{variant === 'mid' && (
+  <div class="cta-mid">
+    <div class="cta-mid-left">
+      <span class="cta-eyebrow mono">// The Program</span>
+      <h4>Primal Press Protocol™</h4>
+      <p>{context || "The exact system Jordan's clients used to add 50–100 lbs. 12-week periodized program, auto-calculated weights, diagnostic framework. $37 one-time."}</p>
+      <div class="cta-proof-row">
+        <span>Eddie H. <strong>+90 lbs</strong></span>
+        <span>Cole K. <strong>+50 lbs / 6 wks</strong></span>
+        <span>Dan Y. <strong>+100 lbs / 5 mo</strong></span>
+      </div>
+    </div>
+    <a href={utmUrl} class="btn-primary" target="_blank" rel="noopener">Get PPP — $37 →</a>
+  </div>
+)}
+
+{variant === 'hard' && (
+  <div class="cta-hard">
+    <div class="cta-hard-top">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2);">// Ready to stop guessing?</span>
+    </div>
+    <div class="cta-hard-body">
+      <div class="cta-hard-left">
+        <h3>Add 50–100 lbs<br/>to Your <em>Bench Press.</em></h3>
+        <p>The Primal Press Protocol — 12-week periodized program built by Jordan Hoppel. Diagnostic framework finds your specific limiter. Every training weight auto-calculated. $37 once. Yours forever.</p>
+        <ul class="hard-proof">
+          <li><span class="proof-check">→</span><strong>Eddie H.</strong> added 90 lbs to his bench</li>
+          <li><span class="proof-check">→</span><strong>Cole K.</strong> added 50 lbs in just 6 weeks</li>
+          <li><span class="proof-check">→</span><strong>Dan Y.</strong> added 100 lbs in 5 months</li>
+        </ul>
+      </div>
+      <div class="cta-hard-right">
+        <a href={utmUrl} class="btn-primary" target="_blank" rel="noopener">
+          Get Full Access — $37 →
+        </a>
+        <p class="mono" style="font-size:0.65rem;color:var(--muted2);line-height:1.6;margin:0;">
+          🛡️ 60-Day Stronger Guarantee<br/>No subscription · Instant access
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+.cta-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lime);
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Soft */
+.cta-soft {
+  background: var(--card);
+  border-left: 2px solid var(--border2);
+  padding: 16px 20px;
+  margin: 32px 0;
+}
+.cta-soft p { font-size: 0.9rem; margin: 0; }
+
+/* Mid */
+.cta-mid {
+  display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--lime);
+  padding: 28px 32px;
+  margin: 40px 0;
+}
+.cta-mid-left { flex: 1; min-width: 240px; }
+.cta-mid h4 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.cta-mid p { font-size: 0.875rem; font-weight: 300; margin-bottom: 14px; }
+.cta-proof-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.cta-proof-row span { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); }
+.cta-proof-row span::before { content: '✓ '; color: var(--lime); }
+.cta-proof-row strong { color: var(--text); }
+
+/* Hard */
+.cta-hard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--lime);
+  margin: 48px 0;
+}
+.cta-hard-top {
+  padding: 14px 32px;
+  border-bottom: 1px solid var(--border);
+  background: var(--lime-glow);
+}
+.cta-hard-body {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 48px; padding: 40px 32px; align-items: center;
+}
+.cta-hard-left h3 { margin-bottom: 16px; }
+.cta-hard-left > p { font-size: 0.875rem; font-weight: 300; margin-bottom: 24px; max-width: 500px; }
+.hard-proof { list-style: none; border-top: 1px solid var(--border); }
+.hard-proof li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.875rem; color: var(--muted);
+  padding: 9px 0; border-bottom: 1px solid var(--border);
+  font-weight: 300;
+}
+.hard-proof li:last-child { border-bottom: none; }
+.proof-check { color: var(--lime); flex-shrink: 0; }
+.hard-proof strong { color: var(--text); }
+.cta-hard-right {
+  display: flex; flex-direction: column;
+  gap: 14px; align-items: flex-start; flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .cta-hard-body { grid-template-columns: 1fr; gap: 28px; }
+  .cta-hard-right .btn-primary { width: 100%; justify-content: center; }
+}
+</style>

@@ -1,0 +1,158 @@
+---
+const navItems = [
+  { label: 'Standards', href: '/bench-press-standards/' },
+  { label: 'Technique', href: '/bench-press-technique/' },
+  { label: 'Programming', href: '/bench-press-programming/' },
+  { label: 'Plateau Fix', href: '/bench-press-plateau/' },
+  { label: 'Tools', href: '/bench-press-tools/' },
+  { label: 'About', href: '/about-jordan-hoppel/' },
+];
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo" aria-label="Modern Men's Fitness">
+      <span class="logo-mmf">MMF</span>
+      <span class="logo-sep"></span>
+      <span class="logo-sub mono">Bench Press Authority</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul>
+        {navItems.map(item => (
+          <li>
+            <a href={item.href} class={currentPath.startsWith(item.href) ? 'active' : ''}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=header&utm_campaign=nav" class="header-cta" target="_blank" rel="noopener">
+      Get Access — $37
+    </a>
+
+    <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav">
+    <ul>
+      {navItems.map(item => (
+        <li><a href={item.href}>{item.label}</a></li>
+      ))}
+      <li class="mobile-cta-item">
+        <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=header-mobile&utm_campaign=nav" target="_blank" rel="noopener">
+          Get The Primal Press Protocol — $37 →
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<style>
+.site-header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center; gap: 32px; height: 64px;
+}
+
+/* Logo */
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; flex-shrink: 0;
+}
+.logo-mmf {
+  font-family: var(--font-display);
+  font-size: 1.7rem; color: var(--text);
+  letter-spacing: 0.05em; line-height: 1;
+}
+.logo-sep {
+  width: 1px; height: 22px;
+  background: var(--border2);
+}
+.logo-sub {
+  font-size: 0.6rem; letter-spacing: 0.14em;
+  color: var(--muted2); max-width: 70px;
+  line-height: 1.4; text-transform: uppercase;
+}
+
+/* Nav */
+.main-nav { flex: 1; display: flex; justify-content: center; }
+.main-nav ul { display: flex; list-style: none; gap: 2px; }
+.main-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  padding: 6px 12px;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.main-nav a:hover, .main-nav a.active { color: var(--text); }
+.main-nav a.active { border-bottom: 1px solid var(--lime); }
+
+/* Header CTA */
+.header-cta {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: #0a0a0a !important;
+  background: var(--lime);
+  padding: 8px 20px;
+  transition: background 0.2s, box-shadow 0.2s;
+  text-decoration: none; white-space: nowrap;
+}
+.header-cta:hover {
+  background: #ccff00;
+  box-shadow: 0 4px 16px rgba(184,255,0,0.25);
+}
+
+/* Mobile */
+.mobile-toggle {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer; padding: 4px;
+  margin-left: auto;
+}
+.mobile-toggle span {
+  display: block; width: 22px; height: 1.5px;
+  background: var(--muted); transition: all 0.3s;
+}
+.mobile-nav { display: none; background: var(--surface); border-top: 1px solid var(--border); }
+.mobile-nav.open { display: block; }
+.mobile-nav ul { list-style: none; }
+.mobile-nav a {
+  display: block; padding: 14px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+}
+.mobile-nav a:hover { color: var(--text); }
+.mobile-cta-item a { color: var(--lime) !important; font-weight: 700; }
+
+@media (max-width: 900px) {
+  .main-nav { display: none; }
+  .header-cta { display: none; }
+  .mobile-toggle { display: flex; }
+}
+</style>
+
+<script>
+const toggle = document.querySelector('.mobile-toggle');
+const nav = document.getElementById('mobile-nav');
+toggle?.addEventListener('click', () => {
+  const isOpen = nav?.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', String(isOpen));
+});
+</script>

@@ -1,0 +1,467 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const calcSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Bench Press 1RM Calculator",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "url": "https://modernmensfitness.com/bench-press-tools/1rm-calculator/",
+  "description": "Free bench press one-rep max calculator. Estimate your 1RM from any set and reps using 6 proven formulas. Includes training percentages and strength level comparison.",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How accurate is a 1RM calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1RM calculators are most accurate when using sets of 1-5 reps. Accuracy decreases above 10 reps because fatigue and muscle endurance become factors beyond pure strength. For best results, use a heavy set of 3-5 reps performed with good technique and stopping 1-2 reps short of failure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which 1RM formula is most accurate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Epley formula (weight × (1 + reps/30)) and Brzycki formula (weight × 36/(37-reps)) are most commonly used and accurate for 1-10 rep ranges. The Lombardi formula performs better for higher rep ranges. This calculator averages multiple formulas for best accuracy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What percentage of 1RM should I train at for strength?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For maximal strength development, train at 80-95% of 1RM for 1-5 reps. For hypertrophy, 65-80% for 6-12 reps. For strength-endurance, 50-65% for 12-20 reps. The Primal Press Protocol uses periodized percentage-based training calculated directly from your 1RM."
+      }
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Bench Press 1RM Calculator — Estimate Your One Rep Max (2026)"
+  description="Free bench press one-rep max calculator. Enter any weight and reps to instantly estimate your 1RM and get all training percentages. Uses 6 proven formulas."
+  canonical="https://modernmensfitness.com/bench-press-tools/1rm-calculator/"
+  schema={[calcSchema, faqSchema]}
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-tools/">Tools</a> <span>›</span>
+        <span>1RM Calculator</span>
+      </nav>
+      <span class="eyebrow">Free Tool</span>
+      <h1>Bench Press<br/><em>1RM Calculator.</em></h1>
+      <p class="page-sub">Enter any weight and rep count to instantly estimate your one-rep max and get every training percentage automatically calculated.</p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="section calc-section">
+    <div class="container calc-layout">
+
+      <div class="calc-main">
+        <div class="calc-card" id="calculator">
+
+          <div class="calc-header">
+            <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2);">// Input your lift</span>
+          </div>
+
+          <div class="calc-inputs">
+            <div class="input-group">
+              <label class="input-label mono">Weight Lifted</label>
+              <div class="input-row">
+                <input type="number" id="weight" placeholder="225" min="1" max="1000" class="calc-input" />
+                <div class="unit-toggle">
+                  <button class="unit-btn active" data-unit="lbs">lbs</button>
+                  <button class="unit-btn" data-unit="kg">kg</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label class="input-label mono">Reps Completed</label>
+              <div class="reps-grid">
+                {[1,2,3,4,5,6,7,8,9,10,12,15].map(r => (
+                  <button class="rep-btn" data-reps={r}>{r}</button>
+                ))}
+              </div>
+              <input type="number" id="reps-input" placeholder="Or type reps..." min="1" max="30" class="calc-input" style="margin-top:8px;" />
+            </div>
+          </div>
+
+          <button class="calc-btn" id="calculate-btn">
+            Calculate My 1RM →
+          </button>
+
+          <!-- Results -->
+          <div class="calc-results" id="calc-results" style="display:none;">
+            <div class="result-main">
+              <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--lime);">// Estimated 1RM</span>
+              <div class="result-1rm" id="result-1rm">--</div>
+              <span class="result-unit mono" id="result-unit">lbs</span>
+            </div>
+
+            <div class="result-level" id="result-level"></div>
+
+            <div class="percentages-section">
+              <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2);display:block;margin-bottom:12px;">// Training Percentages</span>
+              <table class="pct-table" id="pct-table">
+                <thead>
+                  <tr>
+                    <th>%</th>
+                    <th>Weight</th>
+                    <th>Purpose</th>
+                    <th>Rep Range</th>
+                  </tr>
+                </thead>
+                <tbody id="pct-body"></tbody>
+              </table>
+            </div>
+
+            <div class="formula-note mono">
+              Average of Epley, Brzycki, Lombardi, Mayhew, O'Conner & Wathan formulas
+            </div>
+          </div>
+
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="prose" style="margin-top:48px;">
+          <h2>How to Use the 1RM Calculator</h2>
+          <p>Enter the weight you lifted and how many reps you completed. For most accurate results:</p>
+          <ul>
+            <li>Use a set where you stopped 1-2 reps before failure — don't use a set where you ground out every last rep with terrible form</li>
+            <li>Stick to <strong>1-5 reps for highest accuracy</strong> — estimates get less reliable above 10 reps</li>
+            <li>Use this as an estimate, not gospel — test your actual 1RM every 8-12 weeks</li>
+          </ul>
+
+          <h2>What is a 1RM?</h2>
+          <p>A one-rep max (1RM) is the maximum weight you can lift for one complete repetition with full range of motion and good technique. It's the gold standard for measuring strength and is used to calculate training percentages for periodized programs.</p>
+
+          <h2>Training Percentages Explained</h2>
+          <p><strong>90-100% (1-3 reps)</strong> — Maximal strength. Used for peaking and testing. High neural demand, low volume.</p>
+          <p><strong>80-90% (3-5 reps)</strong> — Strength development. The primary zone for building absolute strength. Core of most powerlifting programs.</p>
+          <p><strong>70-80% (6-8 reps)</strong> — Strength-hypertrophy. Builds both size and strength simultaneously. Most versatile training zone.</p>
+          <p><strong>60-70% (8-12 reps)</strong> — Hypertrophy. Primary muscle-building zone. Lower neural fatigue allows higher volume.</p>
+          <p><strong>50-60% (12-20 reps)</strong> — Muscular endurance. Speed work, technical practice, or conditioning.</p>
+
+          <h2>Frequently Asked Questions</h2>
+          <details class="faq-item">
+            <summary>How accurate is a 1RM calculator?</summary>
+            <p>Most accurate when using 1-5 rep sets. Accuracy decreases above 10 reps as fatigue and endurance become factors. Use a heavy set of 3-5 reps stopped 1-2 shy of failure for best estimates.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Which 1RM formula is most accurate?</summary>
+            <p>Epley and Brzycki are most commonly used and accurate for 1-10 reps. This calculator averages 6 proven formulas for best overall accuracy.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What percentage of 1RM for strength training?</summary>
+            <p>80-95% of 1RM for maximal strength (1-5 reps). 65-80% for hypertrophy (6-12 reps). 50-65% for strength-endurance (12-20 reps).</p>
+          </details>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="calc-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Auto-Calculate Every Training Weight</h4>
+            <p>The Primal Press Protocol uses your 1RM to auto-calculate every training weight for all 12 weeks. Enter your max once — the entire program is done.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=1rm-calculator&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+            <p class="mono" style="font-size:0.65rem;color:var(--muted2);margin:12px 0 0;text-align:center;">60-day guarantee · No subscription</p>
+          </div>
+
+          <div class="sidebar-widget">
+            <h5>Related Tools</h5>
+            <a href="/bench-press-tools/plate-loading-calculator/" class="sidebar-link">
+              <span>Plate Loading Calculator</span><span>→</span>
+            </a>
+            <a href="/bench-press-tools/training-max-calculator/" class="sidebar-link">
+              <span>Training Max Calculator</span><span>→</span>
+            </a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link">
+              <span>Strength Assessment</span><span>→</span>
+            </a>
+          </div>
+
+          <div class="sidebar-widget">
+            <h5>Find Your Level</h5>
+            <a href="/bench-press-standards/" class="sidebar-link">
+              <span>Bench Press Standards</span><span>→</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0 40px;
+}
+.breadcrumb {
+  display: flex; gap: 8px; align-items: center;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted2); margin-bottom: 24px;
+}
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 500px; font-weight: 300; }
+
+.calc-section { background: var(--bg); }
+.calc-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Calculator Card */
+.calc-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--lime);
+  overflow: hidden;
+}
+.calc-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--lime-glow);
+}
+.calc-inputs { padding: 28px 24px 0; display: flex; flex-direction: column; gap: 28px; }
+.input-group { display: flex; flex-direction: column; gap: 10px; }
+.input-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); }
+.input-row { display: flex; gap: 8px; align-items: center; }
+.calc-input {
+  flex: 1; background: var(--card); border: 1px solid var(--border);
+  color: var(--text); font-family: var(--font-body); font-size: 1.1rem;
+  font-weight: 500; padding: 12px 16px; outline: none;
+  transition: border-color 0.2s;
+}
+.calc-input:focus { border-color: var(--lime); }
+.calc-input::placeholder { color: var(--muted2); }
+.unit-toggle { display: flex; gap: 2px; }
+.unit-btn {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.1em; padding: 8px 14px;
+  cursor: pointer; transition: all 0.2s;
+}
+.unit-btn.active { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+
+.reps-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px;
+}
+.rep-btn {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--font-mono);
+  font-size: 0.8rem; padding: 10px 4px; cursor: pointer;
+  transition: all 0.2s; text-align: center;
+}
+.rep-btn:hover { border-color: var(--lime); color: var(--text); }
+.rep-btn.selected { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+
+.calc-btn {
+  display: block; width: calc(100% - 48px); margin: 24px 24px;
+  background: var(--lime); color: #0a0a0a;
+  font-family: var(--font-body); font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 16px; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.calc-btn:hover { background: #ccff00; transform: translateY(-1px); }
+
+/* Results */
+.calc-results { padding: 0 24px 28px; }
+.result-main {
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 3px solid var(--lime);
+  padding: 20px 24px; margin-bottom: 16px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.result-1rm {
+  font-family: var(--font-display);
+  font-size: 4rem; color: var(--lime);
+  line-height: 1; letter-spacing: 0.02em;
+}
+.result-unit { color: var(--muted2); font-size: 0.65rem; }
+.result-level {
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.1em;
+  color: var(--muted); margin-bottom: 20px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.pct-table th { font-size: 0.6rem; padding: 8px 12px; }
+.pct-table td { font-size: 0.8rem; padding: 8px 12px; }
+.formula-note {
+  font-size: 0.6rem; color: var(--muted2); margin-top: 12px;
+  text-align: center; letter-spacing: 0.06em;
+}
+
+/* FAQ */
+.faq-item {
+  border: 1px solid var(--border);
+  border-bottom: none; overflow: hidden;
+}
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-item summary {
+  padding: 16px 20px; font-weight: 600; font-size: 0.95rem;
+  cursor: pointer; background: var(--surface); color: var(--text);
+  list-style: none; display: flex; justify-content: space-between;
+  transition: background 0.2s;
+}
+.faq-item summary:hover { background: var(--card); }
+.faq-item summary::after { content: '+'; color: var(--lime); }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { padding: 14px 20px; margin: 0; background: var(--card); font-size: 0.875rem; }
+
+/* Sidebar */
+.calc-sidebar { position: relative; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-ppp {
+  background: var(--surface); border: 1px solid var(--border);
+  border-top: 2px solid var(--lime); padding: 24px 20px;
+}
+.sidebar-ppp h4 {
+  font-family: var(--font-display); font-size: 1.4rem;
+  letter-spacing: 0.02em; margin: 8px 0 10px; color: var(--text);
+}
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 16px; }
+.sidebar-widget {
+  background: var(--surface); border: 1px solid var(--border); padding: 16px 20px;
+}
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.825rem; color: var(--muted); text-decoration: none;
+  transition: color 0.2s;
+}
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+
+@media (max-width: 900px) {
+  .calc-layout { grid-template-columns: 1fr; }
+  .calc-sidebar { display: none; }
+  .reps-grid { grid-template-columns: repeat(4, 1fr); }
+}
+</style>
+
+<script>
+// Unit toggle
+let currentUnit = 'lbs';
+document.querySelectorAll('.unit-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentUnit = btn.dataset.unit;
+    document.getElementById('result-unit').textContent = currentUnit;
+  });
+});
+
+// Rep buttons
+let selectedReps = null;
+document.querySelectorAll('.rep-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.rep-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedReps = parseInt(btn.dataset.reps);
+    document.getElementById('reps-input').value = selectedReps;
+  });
+});
+
+document.getElementById('reps-input').addEventListener('input', (e) => {
+  selectedReps = parseInt(e.target.value) || null;
+  document.querySelectorAll('.rep-btn').forEach(b => {
+    b.classList.toggle('selected', parseInt(b.dataset.reps) === selectedReps);
+  });
+});
+
+// Calculate
+document.getElementById('calculate-btn').addEventListener('click', calculate);
+document.getElementById('weight').addEventListener('keypress', e => { if(e.key === 'Enter') calculate(); });
+
+function calculate() {
+  const weight = parseFloat(document.getElementById('weight').value);
+  const reps = selectedReps || parseInt(document.getElementById('reps-input').value);
+
+  if (!weight || !reps || weight <= 0 || reps <= 0) {
+    alert('Please enter a valid weight and rep count.');
+    return;
+  }
+
+  // 6 formulas averaged
+  const epley    = weight * (1 + reps / 30);
+  const brzycki  = reps === 1 ? weight : weight * (36 / (37 - reps));
+  const lombardi = weight * Math.pow(reps, 0.10);
+  const mayhew   = (100 * weight) / (52.2 + 41.9 * Math.exp(-0.055 * reps));
+  const oconner  = weight * (1 + reps / 40);
+  const wathan   = (100 * weight) / (48.8 + 53.8 * Math.exp(-0.075 * reps));
+
+  const avg = (epley + brzycki + lombardi + mayhew + oconner + wathan) / 6;
+  const oneRM = Math.round(avg);
+
+  document.getElementById('result-1rm').textContent = oneRM;
+  document.getElementById('result-unit').textContent = currentUnit;
+
+  // Strength level
+  const bwRatio = currentUnit === 'lbs' ? oneRM / 175 : (oneRM * 2.205) / 175;
+  let level = '';
+  if (bwRatio < 0.5)       level = '// Beginner — focus on technique and linear progression';
+  else if (bwRatio < 0.75) level = '// Novice — solid start, add 5 lbs per session';
+  else if (bwRatio < 1.0)  level = '// Intermediate — weekly progress, dial in programming';
+  else if (bwRatio < 1.25) level = '// Advanced — periodization and weak point work needed';
+  else                      level = '// Elite — you\'re in the top 5% of lifters';
+  document.getElementById('result-level').textContent = level;
+
+  // Percentages table
+  const pcts = [
+    { pct: 100, purpose: 'Max effort / testing', reps: '1' },
+    { pct: 95,  purpose: 'Near-maximal strength', reps: '1–2' },
+    { pct: 90,  purpose: 'Maximal strength', reps: '2–3' },
+    { pct: 85,  purpose: 'Heavy strength', reps: '3–4' },
+    { pct: 80,  purpose: 'Strength development', reps: '4–5' },
+    { pct: 75,  purpose: 'Strength-hypertrophy', reps: '5–7' },
+    { pct: 70,  purpose: 'Hypertrophy', reps: '6–8' },
+    { pct: 65,  purpose: 'Moderate hypertrophy', reps: '8–10' },
+    { pct: 60,  purpose: 'Volume / technique', reps: '10–12' },
+    { pct: 55,  purpose: 'Speed / endurance', reps: '12–15' },
+    { pct: 50,  purpose: 'Warm-up / recovery', reps: '15–20' },
+  ];
+
+  const tbody = document.getElementById('pct-body');
+  tbody.innerHTML = pcts.map(p => {
+    const w = Math.round(oneRM * p.pct / 100);
+    return `<tr>
+      <td style="color:var(--lime);font-family:var(--font-mono);font-weight:600;">${p.pct}%</td>
+      <td style="color:var(--text);font-weight:600;">${w} ${currentUnit}</td>
+      <td>${p.purpose}</td>
+      <td style="font-family:var(--font-mono);font-size:0.75rem;">${p.reps}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('calc-results').style.display = 'block';
+  document.getElementById('calc-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>

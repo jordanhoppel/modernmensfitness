@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bench Press Periodization",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness" },
+  "dateModified": "2026-04-22",
+  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-programming/periodization/"
+};
+---
+
+<BaseLayout
+  title="Bench Press Periodization | Modern Men's Fitness"
+  description="Bench press periodization models — linear, DUP, block. Which one to use and when, from Jordan Hoppel."
+  canonical="https://modernmensfitness.com/bench-press-programming/periodization/"
+  schema={schema}
+  pageType="article"
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-programming/">Programming</a> <span>›</span>
+        <span>Periodization</span>
+      </nav>
+      <span class="eyebrow">Programming</span>
+      <h1>Periodization</h1>
+      <p class="page-sub">Linear, undulating, and block periodization — which model is right for your training age and bench press goals.</p>
+      <div class="page-meta mono">By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · Updated 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <PPPCta variant="soft" utmContent="periodization-guide-top" />
+        
+      <h2>What Is Periodization?</h2>
+      <p>Periodization is the planned variation of training stress over time. Instead of doing the same thing every week, you systematically vary volume, intensity, and exercise selection to drive continued adaptation and avoid stagnation.</p>
+      <h2>Linear Periodization</h2>
+      <p>Start with high volume/low intensity. Progressively decrease volume and increase intensity over weeks. Peaks at a 1RM test. Classic powerlifting peaking model. Best for: beginners to intermediates, anyone running their first structured peaking cycle.</p>
+      <h2>Daily Undulating Periodization (DUP)</h2>
+      <p>Vary volume and intensity day to day within the same week — one day heavy and low rep, one day moderate, one day lighter and high rep. Maintains multiple training adaptations simultaneously. Best for: intermediate lifters, bodybuilder-powerlifter hybrids, those who benefit from variety.</p>
+      <h2>Block Periodization</h2>
+      <p>Train one quality at a time in sequential blocks: accumulation (volume) → intensification (strength) → realization (peak/test). Each block builds on the previous. Best for: advanced lifters with 3+ years of training, those preparing for meets or testing.</p>
+      <h2>Which Should You Use?</h2>
+      <p>Beginner: linear progression (not technically periodization yet, but the precursor). Intermediate: DUP or simple linear periodization. Advanced: block periodization. The Primal Press Protocol uses a modified block approach tailored specifically for bench press.</p>
+        <PPPCta variant="mid" utmContent="periodization-guide-mid" />
+        <PPPCta variant="hard" utmContent="periodization-guide-bottom" />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Related Guides</h5>
+            <a href="/bench-press-programming/intermediate/" class="sidebar-link"><span>Intermediate Program</span><span>→</span></a>
+            <a href="/bench-press-programming/advanced/" class="sidebar-link"><span>Advanced Program</span><span>→</span></a>
+          </div>
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Primal Press Protocol™</h4>
+            <p>The complete 12-week bench press system. $37 one-time.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=cluster-sidebar&utm_campaign=periodization-guide" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP — $37 →
+            </a>
+          </div>
+          <div class="sidebar-widget">
+            <h5>Free Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+            <a href="/bench-press-tools/assessment-test/" class="sidebar-link"><span>Strength Assessment</span><span>→</span></a>
+            <a href="/bench-press-standards/" class="sidebar-link"><span>Strength Standards</span><span>→</span></a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2.5rem, 6vw, 5.5rem); }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 540px; font-weight: 300; margin-bottom: 12px; }
+.page-meta { font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
+.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

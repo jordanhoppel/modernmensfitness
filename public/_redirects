@@ -1,0 +1,150 @@
+# ============================================
+# MODERN MEN'S FITNESS - CLOUDFLARE REDIRECTS
+# ============================================
+
+# ============================================
+# WOOCOMMERCE PAGES → SALES FUNNEL
+# ============================================
+/cart/                          https://primalpressprotocol.com    301
+/checkout/                      https://primalpressprotocol.com    301
+/my-account/                    /primal-press-protocol-login/      301
+/shop/                          /bench-press-standards/            301
+/product/the-primal-press-protocol/  https://primalpressprotocol.com  301
+
+# ============================================
+# JUNK / DEFAULT PAGES
+# ============================================
+/hello-world/                   /                                  301
+/category/uncategorized/        /                                  301
+
+# ============================================
+# OLD FUNNEL URLS → PPP
+# ============================================
+/ppplp                          https://primalpressprotocol.com    301
+/ppplp-scottsdale               https://primalpressprotocol.com    301
+/ppplp-scottsdale-page          https://primalpressprotocol.com    301
+/ppplp-page                     https://primalpressprotocol.com    301
+/pppcheckout                    https://primalpressprotocol.com    301
+/pppresources                   https://primalpressprotocol.com    301
+/getyourprogram-page            https://primalpressprotocol.com    301
+/freebenchguide                 /bench-press-tools/assessment-test/ 301
+/primal-press-protocol-landing-page-719472  https://primalpressprotocol.com  301
+/primal-press-protocol-landing-page  https://primalpressprotocol.com  301
+/bench-press-breakthrough-2/    https://primalpressprotocol.com    301
+/primal-press-elite/            https://primalpressprotocol.com    301
+/primal-press-blueprint/        https://primalpressprotocol.com    301
+/bench-press/primal-press-protocol/  https://primalpressprotocol.com  301
+/jordan-hoppel-creator-of-primal-press-protocol  /about-jordan-hoppel/  301
+
+# ============================================
+# FREQUENCY PAGE CONSOLIDATION → programming hub
+# ============================================
+/how-often-to-bench-press/                   /bench-press-programming/   301
+/ideal-bench-frequency-for-natural-lifters/  /bench-press-programming/   301
+/weekly-bench-press-training-split/          /bench-press-programming/   301
+/bench-press-frequency-for-strength/         /bench-press-programming/   301
+/2x-per-week-vs-3x-per-week-bench-results/  /bench-press-programming/   301
+/how-to-bench-press-twice-per-day/           /bench-press-programming/   301
+
+# ============================================
+# LOCKOUT PAGE CONSOLIDATION → plateau hub
+# ============================================
+/bench-press-weak-at-top-accessory-lifts/    /bench-press-plateau/  301
+/how-to-fix-weak-lockout-bench-press/        /bench-press-plateau/  301
+/best-exercises-to-fix-slow-lockout-bench/   /bench-press-plateau/  301
+/bench-press-weak-at-lockout/                /bench-press-plateau/  301
+
+# ============================================
+# TRICEPS PAGE CONSOLIDATION → plateau hub
+# ============================================
+/weak-triceps-limiting-heavy-bench-work/     /bench-press-plateau/  301
+/weak-triceps-causing-failed-lockouts/       /bench-press-plateau/  301
+/weak-triceps-bench-press/                   /bench-press-plateau/  301
+
+# ============================================
+# BAR PATH CONSOLIDATION → technique hub
+# ============================================
+/bench-press-bar-path-problems/              /bench-press-technique/  301
+/bench-press-bar-path-for-raw-lifters/       /bench-press-technique/  301
+/why-is-my-bench-press-bar-path-inconsistent/  /bench-press-technique/  301
+/bench-press/bar-path/                       /bench-press-technique/  301
+
+# ============================================
+# STANDARDS CONSOLIDATION → HUB
+# ============================================
+/bench-press-standards-by-weight-male/       /bench-press-standards/  301
+/bench-press-standards-by-weight-female/     /bench-press-standards/  301
+/bench-press-standards-men/                  /bench-press-standards/  301
+/bench-press-standards-women/                /bench-press-standards/  301
+/bench-press-standards-lbs/                  /bench-press-standards/  301
+/bench-press-standards-kg/                   /bench-press-standards/  301
+/bench-press-standards-by-bodyweight/        /bench-press-standards/  301
+/bench-press-standards-by-age/               /bench-press-standards/  301
+/bench-press-standards-age-20/               /bench-press-standards/  301
+/bench-press-standards-age-30/               /bench-press-standards/  301
+/bench-press-standards-age-40/               /bench-press-standards/  301
+/bench-press-standards-age-50/               /bench-press-standards/  301
+/bench-press-standards-over-60/              /bench-press-standards/  301
+/bench-press-standards-150-lbs/              /bench-press-standards/  301
+/bench-press-standards-170-lbs/              /bench-press-standards/  301
+/bench-press-standards-180-lbs/              /bench-press-standards/  301
+/bench-press-standards-200-lbs/              /bench-press-standards/  301
+/bench-press-standards-220-lbs/              /bench-press-standards/  301
+/bench-press-standards-250-lbs/              /bench-press-standards/  301
+/bench-press-standards-300-lbs/              /bench-press-standards/  301
+/bench-press-strength-standards-chart/       /bench-press-standards/  301
+/bench-press-percentile-by-age/              /bench-press-standards/  301
+/bench-press-percentile-by-bodyweight/       /bench-press-standards/  301
+/beginner-bench-press-standards/             /bench-press-standards/  301
+/intermediate-bench-press-standards/         /bench-press-standards/  301
+/advanced-bench-press-standards/             /bench-press-standards/  301
+/average-bench-press-by-age/                 /bench-press-standards/  301
+/average-bench-press-by-weight/              /bench-press-standards/  301
+/average-bench-press-30-year-old-male/       /bench-press-standards/  301
+/average-bench-press-25-year-old-male/       /bench-press-standards/  301
+/average-bench-press-40-year-old-male/       /bench-press-standards/  301
+/average-bench-press-female-by-age/          /bench-press-standards/  301
+/how-strong-should-i-bench-press/            /bench-press-standards/  301
+/what-is-a-good-bench-press/                 /bench-press-standards/  301
+
+# ============================================
+# CALCULATOR CONSOLIDATION → tools hub
+# ============================================
+/1rmcalculator/                              /bench-press-tools/1rm-calculator/  301
+/bench-press-strength-calculator/            /bench-press-tools/1rm-calculator/  301
+/bench-press/1rm-calculator/                 /bench-press-tools/1rm-calculator/  301
+/barbell-plate-loading-calculator/           /bench-press-tools/  301
+/bench-press/plate-loading-calculator/       /bench-press-tools/  301
+/barbellmath                                 /bench-press-tools/  301
+/barbell-math/                               /bench-press-tools/  301
+/barbell-plate-calculator/                   /bench-press-tools/  301
+/bench-press-assessment-test/                /bench-press-tools/  301
+/how-to-calculate-bench-press-training-max/  /bench-press-tools/  301
+/how-to-calculate-bench-training-weights/    /bench-press-tools/  301
+
+# ============================================
+# PILLAR PAGE LEGACY URLS
+# ============================================
+/bench-press/training-guide/                 /bench-press-programming/  301
+/bench-press-training-guide/                 /bench-press-programming/  301
+/bench-press/technique/                      /bench-press-technique/    301
+/bench-press/workouts/                       /bench-press-programming/  301
+/bench-press/setup/                          /bench-press-technique/    301
+/bench-press/structural-balance-for-bench-press/  /bench-press-technique/  301
+/structural-balance-for-bench-press/         /bench-press-technique/    301
+/bench-press/standards/                      /bench-press-standards/    301
+
+# ============================================
+# MISC CLEANUP
+# ============================================
+/cmd_sco                                     /                          301
+/online                                      /                          301
+/scottsdale                                  /about-jordan-hoppel/      301
+/contact                                     /about-jordan-hoppel/      301
+/resources                                   /bench-press-tools/        301
+/resources/                                  /bench-press-tools/        301
+/bench-press-training-guide-3-2/bench-press-standards/  /bench-press-standards/  301
+/bench-press-training-guide-3-2/bench-press-standards/1rmcalculator/  /bench-press-tools/1rm-calculator/  301
+/bench-press-standards/1rmcalculator/        /bench-press-tools/1rm-calculator/  301
+/author/jordanhoppel/                        /about-jordan-hoppel/      301
+/author/jordanhoppel/*                       /about-jordan-hoppel/      301
