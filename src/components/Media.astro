@@ -1,0 +1,59 @@
+---
+// Image / GIF / video slot for guide articles.
+// With no `src`/`youtubeId` it renders nothing in production, and a labelled
+// placeholder in `astro dev` so Jordan can see what to film or shoot.
+interface Props {
+  type?: 'image' | 'gif' | 'video';
+  src?: string;
+  youtubeId?: string;
+  alt?: string;
+  caption?: string;
+  brief?: string;
+  uploadDate?: string;
+  videoName?: string;
+}
+const { type = 'image', src, youtubeId, alt = '', caption, brief, uploadDate, videoName } = Astro.props;
+const hasMedia = Boolean(src || youtubeId);
+const videoSchema = youtubeId ? {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": videoName || caption || alt,
+  "description": caption || alt,
+  "thumbnailUrl": `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`,
+  "uploadDate": uploadDate,
+  "embedUrl": `https://www.youtube.com/embed/${youtubeId}`,
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" }
+} : null;
+---
+
+{hasMedia && (
+  <figure class="media">
+    {youtubeId ? (
+      <div class="media-video">
+        <iframe src={`https://www.youtube.com/embed/${youtubeId}`} title={videoName || caption || 'Video'} loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    ) : (
+      <img src={src} alt={alt} loading="lazy" />
+    )}
+    {caption && <figcaption>{caption}</figcaption>}
+    {videoSchema && <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />}
+  </figure>
+)}
+
+{!hasMedia && import.meta.env.DEV && (
+  <div class="media-todo">
+    <span class="mono">TODO {type.toUpperCase()}</span>
+    <p>{brief || caption || alt}</p>
+  </div>
+)}
+
+<style>
+.media { margin: 32px 0; }
+.media img { width: 100%; height: auto; display: block; border: 1px solid var(--border); }
+.media-video { position: relative; aspect-ratio: 16 / 9; }
+.media-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.media figcaption { font-size: 0.8rem; color: var(--muted); margin-top: 8px; }
+.media-todo { margin: 32px 0; padding: 20px; border: 1px dashed var(--lime-mid); background: var(--lime-glow); }
+.media-todo .mono { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--lime); }
+.media-todo p { margin: 8px 0 0; font-size: 0.85rem; color: var(--muted); }
+</style>

@@ -1,0 +1,14 @@
+---
+// Pull-quote from Jordan's interview. Keep text verbatim from content/jordan-interview-answers.md.
+---
+<blockquote class="jordan-quote">
+  <p><slot /></p>
+  <footer>— <a href="/about-jordan-hoppel/">Jordan Hoppel</a></footer>
+</blockquote>
+
+<style>
+.jordan-quote { border-left: 3px solid var(--lime); padding: 20px 24px; margin: 36px 0; background: var(--surface); font-style: normal; }
+.jordan-quote p { font-size: 1.15rem; line-height: 1.5; color: var(--text); margin: 0 0 12px; }
+.jordan-quote footer { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.jordan-quote footer a { color: var(--lime); text-decoration: none; }
+</style>

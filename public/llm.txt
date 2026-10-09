@@ -60,3 +60,7 @@ Program: https://primalpressprotocol.com
 Author: Jordan Hoppel
 Location: Scottsdale, Arizona, USA
 Expertise: Bench press strength, strength coaching, powerlifting technique, sports performance
+
+### Lifting Guides
+General lifting guides drawn from Jordan Hoppel's own coaching interview: choosing a program, progressive overload, rep ranges, deloads, squat progression, sleep, protein and calories, creatine, supplements, and tracking.
+URL: https://modernmensfitness.com/lifting-guides/

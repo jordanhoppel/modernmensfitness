@@ -1,0 +1,152 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import PPPCta from '../components/PPPCta.astro';
+
+interface Faq { q: string; a: string; }
+interface Link { href: string; label: string; }
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  category: string;
+  takeaways: string[];
+  faqs: Faq[];
+  related: Link[];
+  datePublished?: string;
+  dateModified?: string;
+  ogImage?: string;
+}
+const {
+  title, description, slug, category, takeaways, faqs, related,
+  datePublished = '2026-10-09', dateModified = '2026-10-09', ogImage
+} = Astro.props;
+
+const site = 'https://modernmensfitness.com';
+const url = `${site}/${slug}/`;
+const author = { "@id": `${site}/#jordan-hoppel` };
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": description,
+    "author": author,
+    "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": site },
+    "datePublished": datePublished,
+    "dateModified": dateModified,
+    "mainEntityOfPage": url,
+    ...(ogImage ? { "image": `${site}${ogImage}` } : {})
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": site },
+      { "@type": "ListItem", "position": 2, "name": "Lifting Guides", "item": `${site}/lifting-guides/` },
+      { "@type": "ListItem", "position": 3, "name": title, "item": url }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  }
+];
+---
+
+<BaseLayout title={title} description={description} canonical={url} schema={schema}
+  pageType="article" publishDate={datePublished} modifiedDate={dateModified} ogImage={ogImage}>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/lifting-guides/">Lifting Guides</a> <span>›</span>
+        <span>{title}</span>
+      </nav>
+      <span class="eyebrow">{category}</span>
+      <h1>{title}</h1>
+      <div class="page-meta mono">
+        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · Strength coach, 16 years · Updated {dateModified}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container post-layout">
+      <article class="prose">
+        <div class="takeaways">
+          <h2>Key takeaways</h2>
+          <ul>{takeaways.map(t => <li>{t}</li>)}</ul>
+        </div>
+
+        <slot />
+
+        <h2>Frequently asked questions</h2>
+        {faqs.map(f => (
+          <details class="faq-item">
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+
+        <h2>Keep reading</h2>
+        <ul>{related.map(r => <li><a href={r.href}>{r.label}</a></li>)}</ul>
+
+        <div class="author-box">
+          <strong>About the author.</strong> Jordan Hoppel is a strength coach with an Exercise Science degree
+          from Ashland University, a two-time NAIA All-American sprinter, and head coach at 5 Star Fitness in
+          Scottsdale, AZ. <a href="/about-jordan-hoppel/">More about Jordan</a> ·
+          <a href="https://www.instagram.com/modernmensfitness" rel="me noopener">Instagram</a> ·
+          <a href="https://www.youtube.com/@modernmensfitness" rel="me noopener">YouTube</a>
+        </div>
+
+        <PPPCta variant="mid" utmContent={`${slug}-bottom`} />
+      </article>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-widget">
+            <h5>Lifting Guides</h5>
+            <a href="/lifting-guides/" class="sidebar-link"><span>All guides</span><span>→</span></a>
+            {related.slice(0, 4).map(r => (
+              <a href={r.href} class="sidebar-link"><span>{r.label}</span><span>→</span></a>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 4.5rem); }
+.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
+.page-meta a { color: var(--muted); }
+.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; }
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+.takeaways { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 8px 24px 4px; margin-bottom: 32px; }
+.takeaways h2 { border-top: none; margin: 16px 0 12px; padding-top: 0; font-size: 1.4rem; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 14px 0; }
+.faq-item summary { cursor: pointer; font-weight: 600; color: var(--text); }
+.faq-item p { margin: 12px 0 0; }
+.author-box { margin: 48px 0 32px; padding: 20px; background: var(--surface); border: 1px solid var(--border); font-size: 0.9rem; color: var(--muted); }
+.author-box a { color: var(--lime); }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.prose th, .prose td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
+</style>

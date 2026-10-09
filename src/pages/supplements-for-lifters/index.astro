@@ -1,0 +1,47 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import Media from '../../components/Media.astro';
+import JordanQuote from '../../components/JordanQuote.astro';
+---
+<GuideLayout
+  title="Supplements for Lifters: What a Strength Coach Actually Recommends"
+  description="Strength coach Jordan Hoppel on which supplements are worth it (whey, creatine), what to handle first, and how to think about caffeine and pre-workout."
+  slug="supplements-for-lifters"
+  category="Supplements"
+  takeaways={[
+    "Handle the basics before supplements.",
+    "Get health advice from your doctor, someone measuring the levels in your body.",
+    "Jordan's well-researched picks: whey protein and creatine.",
+    "Caffeine and pre-workout are fine only if they don't affect your sleep."
+  ]}
+  faqs={[
+    { q: "Which supplements does Jordan recommend?", a: "Ones with a lot of research that he has recommended: whey protein and creatine." },
+    { q: "Should I rely on protein shakes?", a: "No. Whey is an easy way to get protein in when it's hard through the day, but Jordan says people shouldn't be reliant on shakes." },
+    { q: "Is pre-workout okay?", a: "If you want to take it and you feel good when you take it, take it. But if it affects your sleep, don't take it for the workout; Jordan calls that a poor trade-off." },
+    { q: "Which supplements help sleep?", a: "Jordan mentions magnesium, melatonin, and GABA as possible helpers." }
+  ]}
+  related={[
+    { href: "/creatine-guide-for-lifters/", label: "Creatine guide" },
+    { href: "/sleep-for-lifters/", label: "Sleep for lifters" },
+    { href: "/how-to-eat-for-muscle-protein-and-calories/", label: "How to eat for muscle" },
+    { href: "/lifting-guides/", label: "All lifting guides" }
+  ]}
+>
+  <p>Supplements are the last step, not the first. Strength coach Jordan Hoppel's order of operations: handle the basics, then consider what has the most research behind it.</p>
+
+  <JordanQuote>Handle the basics before supplements, and get health advice from your doctor, someone measuring the levels in your body.</JordanQuote>
+
+  <h2>Whey protein</h2>
+  <p>Another complete protein source and an easy way to get protein in when it's hard through the day. People shouldn't be reliant on shakes. Food comes first; see <a href="/how-to-eat-for-muscle-protein-and-calories/">how to eat for muscle</a>.</p>
+
+  <h2>Creatine</h2>
+  <p>Very highly studied, and Jordan says people who want to take it should. Start around 5 g a day. Full details are in the <a href="/creatine-guide-for-lifters/">creatine guide</a>.</p>
+
+  <Media type="image" alt="Whey protein and creatine tubs on a gym shelf" caption="The two Jordan names." brief="Photo of the whey and creatine Jordan uses (only if he is comfortable naming brands)." />
+
+  <h2>Caffeine and pre-workout</h2>
+  <p>If you want to take it and you feel good when you take it, take it. But if it affects your sleep, don't take it for the workout; that's a poor trade-off. Make sure any caffeine or pre-workout isn't affecting your sleep. See <a href="/sleep-for-lifters/">sleep for lifters</a>.</p>
+
+  <h2>Sleep supplements</h2>
+  <p>For people who sleep badly, magnesium, melatonin, and GABA can also help, according to Jordan.</p>
+</GuideLayout>

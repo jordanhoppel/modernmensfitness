@@ -1,0 +1,56 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import Media from '../../components/Media.astro';
+import JordanQuote from '../../components/JordanQuote.astro';
+---
+<GuideLayout
+  title="Best Rep Ranges for Strength, Muscle, and Endurance"
+  description="Jordan Hoppel's rep ranges: 3 to 5 for strength, 6 to 12 for muscle, 30+ for endurance, and why proximity to failure and mechanical tension matter more than the pump."
+  slug="rep-ranges-for-strength-and-muscle"
+  category="Training Principles"
+  takeaways={[
+    "Strength: 3 to 5 reps (the 'three to five method').",
+    "Muscle: typically 6 to 12, but individual, as long as proximity to failure is the same.",
+    "Endurance: 30 reps and over.",
+    "The pump can fool you; mechanical tension is the main driver of size."
+  ]}
+  faqs={[
+    { q: "What rep range is best for strength?", a: "Jordan uses 3 to 5. His 'three to five method' is 3 to 5 exercises, 3 to 5 sets, 3 to 5 reps, 3 to 5 days a week." },
+    { q: "What rep range is best for muscle growth?", a: "Typically 6 to 12, and very individual. Jordan says you can go as low as 5 or as high as 30 reps as long as proximity to failure is the same." },
+    { q: "Why do people think they need higher reps?", a: "The pump and blood flow feel like the muscle is working more, but Jordan says mechanical tension is the main driver, and the closer to failure, the higher the tension." },
+    { q: "Should I train to failure for strength?", a: "Not often. The more you go to failure in strength training, the more it works against you and the more you plateau. You want to complete the programmed reps." }
+  ]}
+  related={[
+    { href: "/one-rep-max-percentages-explained/", label: "One-rep max percentages explained" },
+    { href: "/progressive-overload-explained/", label: "Progressive overload explained" },
+    { href: "/how-to-squat-315-from-225/", label: "How to squat 315 from 225" },
+    { href: "/lifting-guides/", label: "All lifting guides" }
+  ]}
+>
+  <p>Rep ranges decide what a set trains. Strength coach Jordan Hoppel breaks them down by goal.</p>
+
+  <table>
+    <thead><tr><th>Goal</th><th>Reps</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Strength</td><td>3 to 5</td><td>Don't go to failure often; complete the programmed reps.</td></tr>
+      <tr><td>Muscle (hypertrophy)</td><td>6 to 12 typically</td><td>Get close to failure; can range from 5 to 30.</td></tr>
+      <tr><td>Endurance</td><td>30+</td><td>More aerobic than anaerobic.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Strength: the three to five method</h2>
+  <p>3 to 5 exercises, 3 to 5 sets, 3 to 5 reps, 3 to 5 days a week. Strength work is task-driven: a certain weight for a certain number of reps.</p>
+
+  <h2>Muscle size: proximity to failure</h2>
+  <p>Hypertrophy is typically 6 to 12 reps, but it's very individual. Proximity to failure is easier to measure around 6 to 8 reps than at 10 to 12. You can go as low as 5 or as high as 30 reps as long as proximity to failure is the same.</p>
+
+  <JordanQuote>People think they need higher reps than they do because the pump and blood flow feel like it's working more, but mechanical tension is the main driver.</JordanQuote>
+
+  <Media type="image" alt="Diagram of rep ranges for strength, muscle, and endurance" caption="Rep ranges by goal." brief="Graphic of the rep-range table." />
+
+  <h2>Endurance</h2>
+  <p>30 reps and over, more aerobic than anaerobic.</p>
+
+  <h2>Strength vs. size percentages</h2>
+  <p>The percentages are mostly the same for both goals. The difference is effort: strength work doesn't chase failure, hypertrophy does. For how percentages work, see <a href="/one-rep-max-percentages-explained/">one-rep max percentages explained</a>.</p>
+</GuideLayout>

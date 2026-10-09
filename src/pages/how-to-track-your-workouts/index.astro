@@ -1,0 +1,56 @@
+---
+import GuideLayout from '../../layouts/GuideLayout.astro';
+import Media from '../../components/Media.astro';
+import JordanQuote from '../../components/JordanQuote.astro';
+---
+<GuideLayout
+  title="How to Track Your Workouts: What to Log, App vs. Spreadsheet"
+  description="Jordan Hoppel on what lifters should track, what to ignore, how to know you're getting stronger, and why a coach-built app beats a spreadsheet and AI-generated plans."
+  slug="how-to-track-your-workouts"
+  category="Tracking"
+  takeaways={[
+    "Track what you can do something about: sets, reps, rest time, tempo, lifts, and how you felt.",
+    "If it's not in your control, it's probably not worth tracking.",
+    "An app beats a spreadsheet on data, organization, and built-in calculations.",
+    "Jordan says programs and intelligence should come from an experienced coach, not a large language model."
+  ]}
+  faqs={[
+    { q: "What should lifters track?", a: "What's pertinent and that you can do something about: sets, reps, rest time, tempo, the lifts used, how you felt that day, and anything that gives context on the session." },
+    { q: "What isn't worth tracking?", a: "If it's not in your control it's probably not worth tracking; Jordan says it causes more harm than good, because you shouldn't worry about things you can't control." },
+    { q: "How do I measure getting stronger?", a: "If the weights you're moving continually go up according to the schedule and progression you should be following, every single week, you're getting stronger." },
+    { q: "Spreadsheet or app?", a: "A spreadsheet only wins if you don't want technology around and don't want to be distracted by a phone. On data, organization, and capabilities, an app always wins." },
+    { q: "What makes a good lifting app?", a: "Jordan says the programs and intelligence should come from a coach with experience, not a large language model, which has no skin in the game." }
+  ]}
+  related={[
+    { href: "/progressive-overload-explained/", label: "Progressive overload explained" },
+    { href: "/one-rep-max-percentages-explained/", label: "One-rep max percentages explained" },
+    { href: "/how-to-choose-a-workout-program/", label: "How to choose a workout program" },
+    { href: "/lifting-guides/", label: "All lifting guides" }
+  ]}
+>
+  <p>Tracking only helps if it changes what you do. Jordan Hoppel's rule is to track what you can act on.</p>
+
+  <h2>What to track</h2>
+  <ul>
+    <li>Sets and reps</li>
+    <li>Rest time</li>
+    <li>Tempo</li>
+    <li>The lifts used</li>
+    <li>How you felt that day</li>
+    <li>Anything that gives context on the session</li>
+  </ul>
+
+  <JordanQuote>If it's not in your control it's probably not worth tracking. It will cause more harm than good.</JordanQuote>
+
+  <h2>How to tell you're getting stronger</h2>
+  <p>If the weights you're moving continually go up according to the schedule and progression you should be following, every single week, you're getting stronger.</p>
+
+  <Media type="image" alt="Workout log showing weight increasing week over week" caption="Rising weights, week over week." brief="Screenshot: client log from the training app (get client permission)." />
+
+  <h2>Spreadsheet vs. app</h2>
+  <p>A spreadsheet only wins if you don't want technology around and don't want to be distracted by a phone. On data, organization, and capabilities, an app always wins because it has built-in calculations that go far beyond a clunky spreadsheet.</p>
+
+  <h2>What makes a good lifting app</h2>
+  <p>Jordan wants the programs and intelligence to come from a coach with experience, not a large language model. In his view LLMs have no skin in the game and miss information a coach picks up on. AI is fine for menial, time-consuming tasks and organization.</p>
+  <p>What annoys him: most legacy lifting apps are like BlackBerry compared to Apple. They're clunky, with legacy settings that aren't customizable, so each person doesn't get a good experience.</p>
+</GuideLayout>

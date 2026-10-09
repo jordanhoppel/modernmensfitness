@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const guides = [
+  { href: '/beginner-lifting-guide/', title: 'Beginner Lifting Guide', blurb: 'Who counts as a beginner, week one, and movement patterns.', tag: 'Beginners' },
+  { href: '/advice-for-new-lifters/', title: 'Advice for New Lifters', blurb: "Jordan's one-page version.", tag: 'Beginners' },
+  { href: '/how-to-choose-a-workout-program/', title: 'How to Choose a Workout Program', blurb: 'Three questions and the mistakes to avoid.', tag: 'Programming' },
+  { href: '/how-long-to-stick-with-a-workout-program/', title: 'How Long to Stick With a Program', blurb: 'Why 8 to 12 weeks.', tag: 'Programming' },
+  { href: '/how-many-days-a-week-to-lift/', title: 'How Many Days a Week to Lift', blurb: '3 vs 4 vs 5 days.', tag: 'Programming' },
+  { href: '/progressive-overload-explained/', title: 'Progressive Overload Explained', blurb: 'Reps first, then weight, and what to do when it stalls.', tag: 'Training Principles' },
+  { href: '/rep-ranges-for-strength-and-muscle/', title: 'Rep Ranges for Strength and Muscle', blurb: '3 to 5, 6 to 12, and 30+.', tag: 'Training Principles' },
+  { href: '/one-rep-max-percentages-explained/', title: 'One-Rep Max Percentages Explained', blurb: 'Intensity versus effort, and when to test.', tag: 'Training Principles' },
+  { href: '/how-to-squat-315-from-225/', title: 'How to Squat 315 From 225', blurb: 'A 12-week tempo plan.', tag: 'Programming' },
+  { href: '/why-your-squat-stopped-going-up/', title: 'Why Your Squat Stopped Going Up', blurb: 'A coach\'s diagnosis.', tag: 'Plateau Fix' },
+  { href: '/what-is-a-deload-week/', title: 'What Is a Deload Week?', blurb: 'Cut volume in half and know when.', tag: 'Recovery' },
+  { href: '/sleep-for-lifters/', title: 'Sleep for Lifters', blurb: 'Why it matters and how to fix bad sleep.', tag: 'Recovery' },
+  { href: '/how-to-eat-for-muscle-protein-and-calories/', title: 'How to Eat for Muscle', blurb: 'Protein, calories, and quick meals.', tag: 'Nutrition' },
+  { href: '/supplements-for-lifters/', title: 'Supplements for Lifters', blurb: 'Whey, creatine, caffeine.', tag: 'Supplements' },
+  { href: '/creatine-guide-for-lifters/', title: 'Creatine Guide for Lifters', blurb: 'Dose, timing, and myths.', tag: 'Supplements' },
+  { href: '/how-to-track-your-workouts/', title: 'How to Track Your Workouts', blurb: 'What to log and app vs. spreadsheet.', tag: 'Tracking' }
+];
+
+const listSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Lifting Guides by Jordan Hoppel",
+  "url": "https://modernmensfitness.com/lifting-guides/",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": guides.map((g, i) => ({
+      "@type": "ListItem", "position": i + 1, "url": `https://modernmensfitness.com${g.href}`, "name": g.title
+    }))
+  }
+};
+---
+<BaseLayout
+  title="Lifting Guides by Strength Coach Jordan Hoppel"
+  description="Practical lifting guides on programming, progressive overload, recovery, nutrition, and supplements from strength coach Jordan Hoppel."
+  canonical="https://modernmensfitness.com/lifting-guides/"
+  schema={listSchema}
+>
+  <section class="hub-hero">
+    <div class="container">
+      <span class="eyebrow">Lifting Guides</span>
+      <h1>Lifting Guides</h1>
+      <p>Straight answers from strength coach <a href="/about-jordan-hoppel/">Jordan Hoppel</a>, drawn from his own coaching interview.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container hub-grid">
+      {guides.map(g => (
+        <a href={g.href} class="hub-card">
+          <span class="mono tag">{g.tag}</span>
+          <h2>{g.title}</h2>
+          <p>{g.blurb}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.hub-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 56px 0 40px; }
+.hub-hero h1 { margin: 16px 0; font-size: clamp(2.2rem, 5vw, 4.5rem); }
+.hub-hero a { color: var(--lime); }
+.hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.hub-card { display: block; background: var(--surface); border: 1px solid var(--border); padding: 20px; text-decoration: none; color: var(--text); }
+.hub-card:hover { border-color: var(--lime); }
+.hub-card h2 { font-size: 1.3rem; margin: 8px 0; }
+.hub-card p { color: var(--muted); font-size: 0.9rem; margin: 0; }
+.tag { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime); }
+</style>
