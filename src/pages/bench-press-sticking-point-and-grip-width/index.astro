@@ -1,0 +1,64 @@
+---
+import ArticlePage from '../../layouts/ArticlePage.astro';
+
+const faq = [
+  { q: 'What is the bench press sticking point?', a: 'It is the part of the lift where the bar slows down the most. In a study of 42 strength-trained men, its markers appeared only in the full range of motion, not in shortened versions of the lift.' },
+  { q: 'Does a partial-range bench build the same strength?', a: 'In one 4-week trial of 16 trained men, a program of partial-range presses at 105 percent of 1RM raised the 1RM as much as a normal submaximal full-range program. Only the full-range group improved certain bar-speed and force measures near the bottom of the lift. It was a small, short study.' },
+  { q: 'Which grip width is best?', a: 'The research does not name one. In 14 men, wide and medium grips lifted about 110 and 109 kg and the narrow grip about 104 kg, but grips also moved the load between the shoulder and elbow. The studies were of healthy men and did not test long-term training.' },
+  { q: 'Should I hold my breath or breathe out on a heavy bench?', a: 'In a study of 24 men, the Valsalva maneuver and lung packing gave the shortest time in the sticking region, and reverse breathing lowered the lifted load. The authors advised against reverse breathing on one rep max attempts.' },
+];
+---
+
+<ArticlePage
+  title="Bench Press Sticking Point and Grip Width: What the Research Says"
+  description="What studies show about where the bench press slows down, how range of motion, grip width, breathing and the type of press change the sticking region, and what is still unproven about fixes."
+  canonical="https://modernmensfitness.com/bench-press-sticking-point-and-grip-width/"
+  heading="Bench Press Sticking Point and Grip Width: What the Research Says"
+  eyebrow="Technique"
+  updated="2026-11-10"
+  shortAnswer="The sticking point is where the bar slows down, and it is a feature of the full range of motion: in 42 strength-trained men it was seen only in the full lift, and shortened versions allowed heavier loads. Grip width changes which joints take the load, and the sticking region does not occur at the same elbow and shoulder angles across grips. Breathing matters too: the Valsalva maneuver and lung packing shortened the sticking region in 24 men. We did not find trials showing which accessory lift or grip fixes a sticking point, so this page does not prescribe one."
+  sources={[{ text: 'Martínez-Cava A, Morán-Navarro R, Hernández-Belmonte A, Courel-Ibáñez J, Conesa-Ros E, González-Badillo JJ, Pallarés JG. Range of motion and sticking region effects on the bench press load-velocity relationship. J Sports Sci Med. 2019;18(4):645-652.' }, { text: 'Larsen S, Gomo O, van den Tillaar R. A biomechanical analysis of wide, medium, and narrow grip width effects on kinematics, horizontal kinetics, and muscle activity on the sticking region in recreationally trained males during 1-RM bench pressing. Front Sports Act Living. 2021;2:637066.', doi: '10.3389/fspor.2020.637066' }, { text: 'Gomo O, van den Tillaar R. The effects of grip width on sticking region in bench press. J Sports Sci. 2016;34(3):232-238.', doi: '10.1080/02640414.2015.1046395' }, { text: 'Blazek D, Kolinger D, Petruzela J, Kubovy P, Golas A, Petr M, Pisz A, Stastny P. The effect of breathing technique on sticking region during maximal bench press. Biol Sport. 2021;38(3):445-450.', doi: '10.5114/biolsport.2021.100362' }, { text: 'van den Tillaar R, Sæterbakken A. The sticking region in three chest-press exercises with increasing degrees of freedom. J Strength Cond Res. 2012;26(11):2962-2969.', doi: '10.1519/JSC.0b013e3182443430' }, { text: 'Landram MJ, Manturi P, Zipagan M, Gerstle EE. Progressively increased range of motion confers similar strength improvements but not bar kinematics as full range of motion bench press. J Funct Morphol Kinesiol. 2026;11(1):72.', doi: '10.3390/jfmk11010072' }]}
+  faq={faq}
+  related={[
+    { href: '/bench-press-plateau/weak-off-chest/', label: 'Weak off the chest' },
+    { href: '/bench-press-plateau/weak-at-lockout/', label: 'Weak at lockout' },
+    { href: '/bench-press-plateau/mid-range-sticking-point/', label: 'Mid-range sticking point' },
+    { href: '/bench-press-elbow-wrist-shoulder-pain/', label: 'Elbow, wrist and shoulder pain' },
+  ]}
+>
+  <h2>What the sticking point is</h2>
+  <p>On a heavy bench press the bar does not move at a steady speed. It speeds up off the chest, slows to a minimum, then speeds up again. The slow part is the sticking region. Martínez-Cava and colleagues (2019) tested 42 strength-trained men on the bench press at full range, two-thirds and one-third of the range. The three markers of a sticking region (a first speed peak, a minimum, and a second peak) appeared only in the full range of motion.</p>
+  <p>The 1RM rose as the range shrank: full range was lowest, two-thirds higher, one-third highest. The authors tied the differences in 1RM and bar speed to whether the lift contained all or part of the sticking region. So a partial rep is a different test, not just an easier version of the same one.</p>
+
+  <h2>Does partial-range training build the same strength?</h2>
+  <p>Landram and colleagues (2026) randomized 16 trained men for 4 weeks. One group did partial-range presses at 105 percent of 1RM, shortening the distance to the chest by an inch each week. The other did a conventional submaximal full-range program at 80 to 87.5 percent. Both raised their 1RM significantly, with no difference between groups. Only the full-range group improved certain bar-speed and force measures around the turn at the bottom.</p>
+  <p>It was a small, short trial in young men, so it shows that partial work can raise a 1RM, not that it fixes a sticking point.</p>
+
+  <h2>Grip width and the sticking region</h2>
+  <ul>
+    <li>Gomo and van den Tillaar (2016) had 12 experienced powerlifters test narrow, medium and wide grips. The sticking region did not occur at the same elbow and shoulder angles across grips.</li>
+    <li>Larsen and colleagues (2021) tested 14 bench-trained men. They lifted about 110 kg with a wide grip, 109 with a medium grip and 104 with a narrow one. Wide and medium grips produced larger horizontal shoulder moments than the narrow grip, and triceps medialis activity was greater with medium and narrow grips.</li>
+  </ul>
+  <p>Grip width changes how the load is shared between the shoulder, chest and triceps. These were healthy men tested for a single 1RM, so the studies cannot say which grip is best for you or for long-term progress.</p>
+
+  <h2>Breathing</h2>
+  <p>Blazek and colleagues (2021) had 24 healthy men do a 1RM bench using four breathing techniques. The Valsalva maneuver and lung packing gave the shortest time in the sticking region. Simply holding the breath did not lower the load but lengthened the lift and the time in the sticking region. Reverse breathing lowered the load, and the authors advised against it for 1RM attempts.</p>
+
+  <h2>Barbell, Smith machine or dumbbells</h2>
+  <p>van den Tillaar and Sæterbakken (2012) tested 11 men with at least a year of bench experience on a free barbell, a Smith machine and dumbbells. The 1RMs were 106.4, 103.6 and 89.5 kg. Sticking-region length and muscle activity differed between the three, but not in line with the number of degrees of freedom. The authors noted that a given press can be chosen to train a particular muscle more.</p>
+
+  <h2>What the research does not tell us</h2>
+  <ul>
+    <li>We did not find a trial showing that a specific accessory exercise or partial-range lift fixes a bench press sticking point.</li>
+    <li>We did not find studies on cues for exploding off the chest, or on the "physics" of a halfway sticking point beyond the kinematic work above.</li>
+    <li>The grip studies lifted a single 1RM in healthy men. They did not train people on different grips for weeks.</li>
+  </ul>
+
+  <h2>Practical points</h2>
+  <p>These are general coaching points, not findings from the studies above.</p>
+  <ul>
+    <li>Note where the bar slows: right off the chest, mid-range or near lockout. Our pages on <a href="/bench-press-plateau/weak-off-chest/">weak off the chest</a>, <a href="/bench-press-plateau/mid-range-sticking-point/">mid-range sticking points</a> and <a href="/bench-press-plateau/weak-at-lockout/">weak at lockout</a> go through each.</li>
+    <li>If one grip makes a shoulder or elbow hurt, see <a href="/bench-press-elbow-wrist-shoulder-pain/">elbow, wrist and shoulder pain</a>.</li>
+    <li>Use a spotter or safety arms when you test heavy singles.</li>
+  </ul>
+</ArticlePage>

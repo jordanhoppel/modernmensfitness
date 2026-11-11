@@ -1,0 +1,61 @@
+---
+import ArticlePage from '../../layouts/ArticlePage.astro';
+
+const faq = [
+  { q: 'How many sets of bench press per week do I need?', a: 'There is no single number. A meta-analysis of 15 studies found that more weekly sets were linked to more muscle growth, at about 0.37 percent extra gain per added set per muscle. That is an average for muscle size, not a prescription for your bench, and it did not test bench press strength alone.' },
+  { q: 'Do drop sets build more chest than normal sets?', a: 'Not in the evidence we found. A meta-analysis of six studies and 142 people found no significant difference in muscle growth between drop sets and traditional sets. Some drop-set methods took half to a third of the time.' },
+  { q: 'Are cluster sets better for strength?', a: 'Not on average. A meta-analysis of 29 studies found no difference between cluster and traditional sets for strength, power, velocity, hypertrophy or endurance. Cluster sets may cause less fatigue during the session.' },
+  { q: 'Can I change my grip to feel the bench more in my chest?', a: 'The effect is small. In a study of 12 men, moving to a narrower grip raised triceps activity and lowered activity in one part of the pecs, but the authors called the changes small and said the choice should follow the positions you need for your sport.' },
+];
+---
+
+<ArticlePage
+  title="How Many Sets for a Bigger Bench and Chest: What the Research Says About Volume, Drop Sets and Cluster Sets"
+  description="What meta-analyses show about weekly sets, training frequency, drop sets and cluster sets for muscle growth and strength, and what is still unproven about lagging chests and volume tolerance."
+  canonical="https://modernmensfitness.com/bench-press-sets-volume-and-hypertrophy/"
+  heading="How Many Sets for a Bigger Bench and Chest: What the Research Says About Volume, Drop Sets and Cluster Sets"
+  eyebrow="Programming"
+  updated="2026-11-10"
+  shortAnswer="More weekly sets are linked to more muscle growth, but the average gain is small: a meta-analysis of 15 studies found about 0.37 percent extra growth per added weekly set per muscle, and training a muscle at least twice a week beat once a week when volume was matched. Drop sets and cluster sets did not beat traditional sets for growth or strength in meta-analyses of 6 and 29 studies. These studies are mostly on muscle size across many exercises, not bench press strength, and we did not find research on lagging chests or volume tolerance, so this page does not offer fixes for them."
+  sources={[{ text: 'Schoenfeld BJ, Ogborn D, Krieger JW. Dose-response relationship between weekly resistance training volume and increases in muscle mass: a systematic review and meta-analysis. J Sports Sci. 2017;35(11):1073-1082.', doi: '10.1080/02640414.2016.1210197' }, { text: 'Schoenfeld BJ, Ogborn D, Krieger JW. Effects of resistance training frequency on measures of muscle hypertrophy: a systematic review and meta-analysis. Sports Med. 2016;46(11):1689-1697.', doi: '10.1007/s40279-016-0543-8' }, { text: 'Sødal LK, Kristiansen E, Larsen S, van den Tillaar R. Effects of drop sets on skeletal muscle hypertrophy: a systematic review and meta-analysis. Sports Med Open. 2023;9(1):66.', doi: '10.1186/s40798-023-00620-5' }, { text: 'Davies TB, Tran DL, Hogan CM, Haff GG, Latella C. Chronic effects of altering resistance training set configurations using cluster sets: a systematic review and meta-analysis. Sports Med. 2021;51(4):707-736.', doi: '10.1007/s40279-020-01408-3' }, { text: 'Lehman GJ. The influence of grip width and forearm pronation/supination on upper-body myoelectric activity during the flat bench press. J Strength Cond Res. 2005;19(3):587-591.', doi: '10.1519/R-15024.1' }]}
+  faq={faq}
+  related={[
+    { href: '/bench-press-programming/frequency/', label: 'How often to bench press' },
+    { href: '/bench-press-peaking-speed-work-wave-loading/', label: 'Peaking, speed work and wave loading' },
+    { href: '/how-to-deload-bench-press-properly/', label: 'How to deload your bench press' },
+    { href: '/bench-press-program-by-level/', label: 'Bench press program by level' },
+  ]}
+>
+  <h2>More sets, more growth, with small returns</h2>
+  <p>Schoenfeld, Ogborn and Krieger (2017) pooled 34 treatment groups from 15 studies that compared different weekly resistance training volumes. Weekly sets had a significant effect on muscle growth. Each additional weekly set per muscle was associated with an extra 0.37 percent gain, and higher volumes beat lower volumes by an average 3.9 percentage points. When sets were grouped as under 5, 5 to 9, or 10 or more per muscle, the effect was only a trend, not statistically clear.</p>
+  <p>That is a dose-response trend across many studies and exercises. It is about muscle size, not bench press strength, and it does not say how many sets you can recover from. Read it as "more tends to help, with diminishing certainty", not as a target.</p>
+
+  <h2>Train the muscle at least twice a week</h2>
+  <p>The same group (Schoenfeld and colleagues, 2016) reviewed ten studies of training frequency. Training a muscle twice a week produced larger growth than once a week when volume was matched (effect size 0.49 against 0.30). Whether three times a week beats twice was not settled. Our page on <a href="/bench-press-programming/frequency/">bench press frequency</a> goes into this further.</p>
+
+  <h2>Drop sets</h2>
+  <p>Sødal and colleagues (2023) pooled six studies with 142 participants, aged 19 to 27, mostly men. Both drop-set and traditional training grew muscle, and the difference between them was not significant. Some drop-set methods took half to a third as long as traditional training. So drop sets are a time-saver, with no proven edge for growth.</p>
+
+  <h2>Cluster sets</h2>
+  <p>Davies and colleagues (2021) pooled 29 studies comparing cluster sets (short rests inside a set) with traditional sets. They found no difference for strength, power, velocity, hypertrophy or endurance, including when volume, training status or exercise type was considered. Cluster sets may build up less fatigue during a session, which can matter in some phases of a program.</p>
+
+  <h2>Grip and where you feel it</h2>
+  <p>Lehman (2005) recorded muscle activity in 12 healthy men during isometric holds of five bench press variations. A narrower grip raised triceps activity and lowered activity in the sternoclavicular part of the pecs. A supinated grip raised biceps and upper-pec activity. Lehman noted the changes were small and said that the choice of grip should follow the positions athletes need in their sport, and that sport specificity should come before trying to train a particular muscle.</p>
+
+  <h2>What the research does not tell us</h2>
+  <ul>
+    <li>We did not find research on why a chest stays small while the bench goes up, or on fixing a lagging chest from benching alone.</li>
+    <li>We did not find a study of "volume tolerance", or of how to raise the number of sets a person can recover from.</li>
+    <li>The volume and frequency meta-analyses measure muscle size across many exercises, not bench press strength.</li>
+  </ul>
+  <p>For that reason this page does not give a set count for you or a plan to fix a lagging chest.</p>
+
+  <h2>Practical points</h2>
+  <p>These are general coaching points, not findings from the studies above.</p>
+  <ul>
+    <li>Hit the bench at least twice a week, and add sets gradually rather than all at once.</li>
+    <li>If sets are going up and your performance, joints or sleep are getting worse, that is a reason to cut back or <a href="/how-to-deload-bench-press-properly/">deload</a>.</li>
+    <li>Use drop sets or cluster sets if you like them or are short of time. The research does not say they beat plain sets.</li>
+    <li>If one side of the chest looks or feels different, see <a href="/bench-press-left-right-imbalance/">left-right imbalance</a>.</li>
+  </ul>
+</ArticlePage>

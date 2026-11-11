@@ -146,7 +146,6 @@
 /bench-press-training-guide-3-2/bench-press-standards/1rmcalculator/  /bench-press-tools/1rm-calculator/  301
 /bench-press-standards/1rmcalculator/        /bench-press-tools/1rm-calculator/  301
 /author/jordanhoppel/                        /about-jordan-hoppel/      301
-/author/jordanhoppel/*                       /about-jordan-hoppel/      301
 
 # ============================================
 # DELETED PAGES -> NEAREST LIVE PAGE (added 2026-11-10)
@@ -175,7 +174,7 @@
 /how-to-fix-shoulder-collapse-on-bench/                /bench-press-elbow-wrist-shoulder-pain/  301
 /bench-press-range-of-motion-mistakes/                 /common-bench-press-technique-mistakes/  301
 /how-to-brace-properly-for-heavy-bench-press/          /bench-press-technique/setup/  301
-/how-to-strengthen-top-range-bench-pressing/           /how-to-avoid-soft-lockouts-in-bench-press/  301
+/how-to-strengthen-top-range-bench-pressing/           /bench-press-plateau/weak-at-lockout/  301
 
 # ============================================
 # STUBS MERGED INTO REWRITTEN ARTICLES (2026-11-10)
@@ -245,4 +244,35 @@
 /why-bench-press-speed-work-is-important/                    /bench-press-peaking-speed-work-wave-loading/  301
 /how-to-cycle-intensities-for-bench-press/                   /bench-press-peaking-speed-work-wave-loading/  301
 /how-to-increase-bar-speed-bench-press/                      /bench-press-peaking-speed-work-wave-loading/  301
+
+# STUBS MERGED INTO REWRITTEN ARTICLES (2026-11-10, batch 5)
+/bench-press-drop-sets-for-hypertrophy/                      /bench-press-sets-volume-and-hypertrophy/  301
+/bench-press-cluster-sets-for-strength/                      /bench-press-sets-volume-and-hypertrophy/  301
+/high-volume-vs-low-volume-bench-press/                      /bench-press-sets-volume-and-hypertrophy/  301
+/how-many-sets-chest-for-increasing-bench/                   /bench-press-sets-volume-and-hypertrophy/  301
+/fixing-volume-tolerance-for-bench-pressing/                 /bench-press-sets-volume-and-hypertrophy/  301
+/how-to-bench-press-correctly-for-hypertrophy/               /bench-press-sets-volume-and-hypertrophy/  301
+/why-my-chest-doesn-t-grow-from-benching/                    /bench-press-sets-volume-and-hypertrophy/  301
+/why-bench-press-doesn-t-hit-my-chest/                       /bench-press-sets-volume-and-hypertrophy/  301
+/fixing-lagging-chest-strength-for-bench/                    /bench-press-sets-volume-and-hypertrophy/  301
+/weak-chest-bench-press/                                     /bench-press-sets-volume-and-hypertrophy/  301
+/how-to-fix-bench-press-sticking-point-physics/              /bench-press-sticking-point-and-grip-width/  301
+/how-to-fix-bench-sticking-point-physics/                    /bench-press-sticking-point-and-grip-width/  301
+/how-to-fix-sticking-point-halfway-bench-press/              /bench-press-sticking-point-and-grip-width/  301
+/how-to-fix-weak-bottom-range-bench-press/                   /bench-press-sticking-point-and-grip-width/  301
+/how-to-strengthen-bottom-range-bench-pressing/              /bench-press-sticking-point-and-grip-width/  301
+/how-to-build-explosion-out-of-the-hole-bench/               /bench-press-sticking-point-and-grip-width/  301
+/best-grip-width-for-stronger-bench-press/                   /bench-press-sticking-point-and-grip-width/  301
+/wide-grip-vs-close-grip-bench-press-torque/                 /bench-press-sticking-point-and-grip-width/  301
+/bench-press-weak-off-chest/                                 /bench-press-plateau/weak-off-chest/  301
+/how-to-tuck-elbows-properly-bench-press/                    /bench-press-technique/elbow-tuck/  301
+/fixing-elbow-drift-outward-bench-press/                     /bench-press-technique/elbow-tuck/  301
+/weak-lats-causing-bad-bench-bar-path/                       /bench-press-technique/bar-path/  301
+/why-bench-press-hurts-my-wrists/                            /bench-press-elbow-wrist-shoulder-pain/  301
+/how-to-avoid-soft-lockouts-in-bench-press/                  /bench-press-plateau/weak-at-lockout/  301
+/why-bench-feels-weak-at-top/                                /bench-press-plateau/weak-at-lockout/  301
+/how-to-fix-chest-muscle-imbalance-bench-press/              /bench-press-left-right-imbalance/  301
+
+# Splat rule last: Cloudflare counts every rule after a splat as dynamic (max 100).
+/author/jordanhoppel/*                       /about-jordan-hoppel/      301
 /primal-press-protocol-review/ /primal-press-protocol-review.html 200
