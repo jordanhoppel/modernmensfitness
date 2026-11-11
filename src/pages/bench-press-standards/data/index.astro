@@ -19,6 +19,8 @@ const dataset = {
   name: 'Raw bench press percentiles from OpenPowerlifting full-power meets, 2015 to 2026',
   description: `Percentile tables of the best raw bench press for adults in full-power powerlifting meets, by IPF weight class, by bodyweight ratio and by age group. Built from the ${release} OpenPowerlifting release: ${men} men and ${women} women.`,
   url: 'https://modernmensfitness.com/bench-press-standards/data/',
+  identifier: 'https://doi.org/10.5281/zenodo.24142455',
+  sameAs: ['https://doi.org/10.5281/zenodo.24142455', 'https://github.com/jordanhoppel/bench-press-standards-data'],
   license: 'https://creativecommons.org/publicdomain/zero/1.0/',
   creator: { '@type': 'Person', name: 'Jordan Hoppel', url: 'https://modernmensfitness.com/about-jordan-hoppel/' },
   isBasedOn: { '@type': 'Dataset', name: 'OpenPowerlifting', url: 'https://www.openpowerlifting.org' },
@@ -72,6 +74,9 @@ const faq = [
   </ul>
 
   <h2>How to cite it</h2>
-  <p>Hoppel, J. (2026). Raw bench press percentiles from OpenPowerlifting full-power meets, 2015 to 2026 [Data set]. Modern Men's Fitness. https://modernmensfitness.com/bench-press-standards/data/</p>
-  <p>The tables and scripts are CC0. The source data belongs to OpenPowerlifting and is also public domain.</p>
+  <p>Hoppel, J. (2026). Raw bench press percentiles from OpenPowerlifting full-power meets, 2015 to 2026 [Data set]. Zenodo. <a href="https://doi.org/10.5281/zenodo.24142455">https://doi.org/10.5281/zenodo.24142455</a></p>
+  <p>The DOI always points to the latest version. The tables and scripts are CC0, and the source data belongs to OpenPowerlifting and is also public domain.</p>
+
+  <h2>Where else it lives</h2>
+  <p>The files, the rebuild scripts and the full method are in the <a href="https://github.com/jordanhoppel/bench-press-standards-data">GitHub repository</a>, and each release is archived on <a href="https://doi.org/10.5281/zenodo.24142455">Zenodo</a>. If you find a number that looks wrong, open an issue there or email us.</p>
 </ArticlePage>
