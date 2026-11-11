@@ -1,0 +1,450 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+import { dots, totalForDots, dotsCoefficient } from '../../../lib/dots';
+
+const KG_TO_LB = 2.20462262;
+const lb = (kg: number) => Math.round(kg * KG_TO_LB);
+const scores = [250, 300, 350, 400, 450];
+const menWeights = [60, 66, 74, 83, 93, 105, 120];
+const womenWeights = [47, 52, 57, 63, 69, 76, 84];
+const needed = (weights: number[], sex: 'M' | 'F') => weights.map((bw) => ({ bw, row: scores.map((s) => Math.round(totalForDots(s, bw, sex))) }));
+const menTable = needed(menWeights, 'M');
+const womenTable = needed(womenWeights, 'F');
+const exampleM = Math.round(dots(600, 100, 'M') * 10) / 10;
+const exampleF = Math.round(dots(300, 60, 'F') * 10) / 10;
+
+const calcSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "DOTS Calculator",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "url": "https://modernmensfitness.com/bench-press-tools/dots-calculator/",
+  "description": "Free DOTS calculator. Enter your bodyweight and powerlifting total to get your DOTS score, which compares lifters of different sizes and sexes.",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+
+const faq = [
+  { q: 'What is a DOTS score?', a: 'DOTS is a number that scales a powerlifting total by bodyweight so lifters of different sizes, and both sexes, can be compared on one scale. It was written by Tim Konertz for the German IPF affiliate BVDK, and OpenPowerlifting uses it in its rankings.' },
+  { q: 'How is DOTS calculated?', a: 'DOTS = total lifted in kg x 500 / (a + b x BW + c x BW^2 + d x BW^3 + e x BW^4), where BW is bodyweight in kg and a to e are fixed coefficients that differ for men and women. This calculator uses the published coefficients from the OpenPowerlifting source code.' },
+  { q: 'Can I use DOTS for the bench press alone?', a: 'DOTS is defined for a full powerlifting total (squat, bench and deadlift). You can put a single lift in the total box and the maths will still run, but the score is not comparable with total-based DOTS, so use it only to track yourself against yourself.' },
+  { q: 'What bodyweights does DOTS cover?', a: 'The formula was fitted for men from 40 to 210 kg and women from 40 to 150 kg. Outside those ranges the calculator uses the nearest limit and tells you it has done so.' },
+  { q: `What is the DOTS score for a 600 kg total at 100 kg?`, a: `A 100 kg man with a 600 kg total scores ${exampleM}. A 60 kg woman with a 300 kg total scores ${exampleF}.` },
+];
+const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faq.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) };
+---
+
+<BaseLayout
+  title="DOTS Calculator: Powerlifting Score by Bodyweight (Men and Women)"
+  description="Free DOTS calculator. Enter your bodyweight and squat, bench and deadlift total to get your DOTS score, plus the total you need to reach DOTS 250 to 450 at your weight."
+  canonical="https://modernmensfitness.com/bench-press-tools/dots-calculator/"
+  schema={[calcSchema, faqSchema]}
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-tools/">Tools</a> <span>›</span>
+        <span>DOTS Calculator</span>
+      </nav>
+      <span class="eyebrow">Free Tool</span>
+      <h1>DOTS<br/><em>Calculator.</em></h1>
+      <p class="page-sub">Enter your bodyweight and your squat, bench and deadlift to get your DOTS score, and see the total you need to reach the next score at your weight.</p>
+    </div>
+  </section>
+
+  <section class="section calc-section">
+    <div class="container calc-layout">
+
+      <div class="calc-main">
+        <div class="calc-card" id="calculator">
+          <div class="calc-header">
+            <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2);">// Your numbers</span>
+          </div>
+
+          <div class="calc-inputs">
+            <div class="input-group">
+              <label class="input-label mono">Sex</label>
+              <div class="mode-toggle">
+                <button type="button" class="mode-btn sex-btn active" data-sex="M">Male</button>
+                <button type="button" class="mode-btn sex-btn" data-sex="F">Female</button>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label class="input-label mono">Bodyweight and units</label>
+              <div class="input-row">
+                <input type="number" id="bodyweight" placeholder="180" min="1" max="700" class="calc-input" />
+                <div class="unit-toggle">
+                  <button type="button" class="unit-btn active" data-unit="lbs">lbs</button>
+                  <button type="button" class="unit-btn" data-unit="kg">kg</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label class="input-label mono">Best lifts (optional, adds up to your total)</label>
+              <div class="two-col">
+                <input type="number" id="squat" placeholder="Squat" min="0" class="calc-input lift-input" />
+                <input type="number" id="bench" placeholder="Bench" min="0" class="calc-input lift-input" />
+                <input type="number" id="deadlift" placeholder="Deadlift" min="0" class="calc-input lift-input" />
+                <input type="number" id="total" placeholder="Total" min="0" class="calc-input" />
+              </div>
+            </div>
+          </div>
+
+          <p class="calc-error" id="calc-error" role="alert" hidden></p>
+          <button type="button" class="calc-btn" id="calculate-btn">Calculate My DOTS →</button>
+
+          <div class="calc-results" id="calc-results" style="display:none;">
+            <div class="result-main">
+              <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--lime);">// Your DOTS score</span>
+              <div class="result-1rm" id="result-dots">--</div>
+              <span class="result-unit mono" id="result-detail"></span>
+            </div>
+
+            <p class="warn-note" id="clamp-note" hidden></p>
+
+            <div class="percentages-section">
+              <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2);display:block;margin:16px 0 12px;">// Total needed at your bodyweight</span>
+              <table class="pct-table">
+                <thead><tr><th>DOTS</th><th>Total needed</th><th>Gap from yours</th></tr></thead>
+                <tbody id="target-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose" style="margin-top:48px;">
+          <h2>What Is a DOTS Score?</h2>
+          <p>A bigger lifter can lift more than a smaller one, so a raw total says little about who is stronger for their size. DOTS divides that out. It turns your total and bodyweight into one number, and the same number means the same thing for a 60 kg woman and a 120 kg man.</p>
+          <p>The formula was written by Tim Konertz for the German IPF affiliate BVDK, so lifters of every sex could compete on one team. This calculator uses the exact coefficients published in the <a href="https://www.openpowerlifting.org" target="_blank" rel="noopener">OpenPowerlifting</a> source code.</p>
+
+          <h2>How to Use the DOTS Calculator</h2>
+          <ul>
+            <li>Pick your sex. The formula has separate coefficients for men and women.</li>
+            <li>Enter your bodyweight in pounds or kilograms.</li>
+            <li>Enter your best squat, bench and deadlift and the total fills in, or type a total directly.</li>
+            <li>The table underneath shows the total you need to reach DOTS 250, 300, 350, 400 and 450 at your bodyweight.</li>
+          </ul>
+
+          <h2>Total Needed for Each DOTS Score (Men, kg)</h2>
+          <p>Each cell is the total in kilograms a man needs at that weight class limit to score the DOTS number in the column heading.</p>
+          <div class="chart-wrap">
+            <table class="pct-table data-table">
+              <thead><tr><th>Bodyweight</th>{scores.map(s => <th>DOTS {s}</th>)}</tr></thead>
+              <tbody>
+                {menTable.map(({ bw, row }) => (<tr><td class="chart-w">{bw} kg</td>{row.map(v => <td>{v} kg ({lb(v)} lb)</td>)}</tr>))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Total Needed for Each DOTS Score (Women, kg)</h2>
+          <div class="chart-wrap">
+            <table class="pct-table data-table">
+              <thead><tr><th>Bodyweight</th>{scores.map(s => <th>DOTS {s}</th>)}</tr></thead>
+              <tbody>
+                {womenTable.map(({ bw, row }) => (<tr><td class="chart-w">{bw} kg</td>{row.map(v => <td>{v} kg ({lb(v)} lb)</td>)}</tr>))}
+              </tbody>
+            </table>
+          </div>
+          <p class="chart-note">Computed from the DOTS formula. Weight class limits are the current IPF classes. A DOTS number says how your total compares by size, not how good a lifter you are in absolute terms, so there is no official scale of levels.</p>
+
+          <h2>Frequently Asked Questions</h2>
+          {faq.map(f => (
+            <details class="faq-item">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+          <p class="chart-note" style="margin-top:20px;">DOTS coefficients: Copyright (c) 2020 The OpenPowerlifting Project, used under its published permissive licence.</p>
+        </div>
+      </div>
+
+<!-- Sidebar -->
+      <aside class="calc-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Auto-Calculate Every Training Weight</h4>
+            <p>The Primal Press Protocol uses your 1RM to auto-calculate every training weight for all 12 weeks. Enter your max once and the whole program is done.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=dots-calculator&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP for $37 →
+            </a>
+            <p class="mono" style="font-size:0.65rem;color:var(--muted2);margin:12px 0 0;text-align:center;">60-day guarantee · No subscription</p>
+          </div>
+
+          <div class="sidebar-widget">
+            <h5>Related Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+                        <a href="/bench-press-tools/rpe-calculator/" class="sidebar-link"><span>RPE Calculator</span><span>→</span></a>
+                        <a href="/bench-press-tools/plate-loading-calculator/" class="sidebar-link"><span>Plate Calculator</span><span>→</span></a>
+                        <a href="/bench-press-tools/training-max-calculator/" class="sidebar-link"><span>Training Max Calculator</span><span>→</span></a>
+          </div>
+
+          <div class="sidebar-widget">
+            <h5>Find Your Level</h5>
+            <a href="/bench-press-standards/" class="sidebar-link">
+              <span>Bench Press Standards</span><span>→</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0 40px;
+}
+.breadcrumb {
+  display: flex; gap: 8px; align-items: center;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted2); margin-bottom: 24px;
+}
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 500px; font-weight: 300; }
+
+.calc-section { background: var(--bg); }
+.calc-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  align-items: start;
+}
+
+.calc-main { min-width: 0; }
+
+/* Calculator Card */
+.calc-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--lime);
+  overflow: hidden;
+}
+.calc-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--lime-glow);
+}
+.calc-inputs { padding: 28px 24px 0; display: flex; flex-direction: column; gap: 28px; }
+.input-group { display: flex; flex-direction: column; gap: 10px; }
+.input-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); }
+.input-row { display: flex; gap: 8px; align-items: center; }
+.calc-input {
+  flex: 1; background: var(--card); border: 1px solid var(--border);
+  color: var(--text); font-family: var(--font-body); font-size: 1.1rem;
+  font-weight: 500; padding: 12px 16px; outline: none;
+  transition: border-color 0.2s;
+}
+.calc-input:focus { border-color: var(--lime); }
+.calc-input::placeholder { color: var(--muted2); }
+.unit-toggle { display: flex; gap: 2px; }
+.unit-btn {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.1em; padding: 8px 14px;
+  cursor: pointer; transition: all 0.2s;
+}
+.unit-btn.active { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+
+.reps-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px;
+}
+.rep-btn {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--font-mono);
+  font-size: 0.8rem; padding: 10px 4px; cursor: pointer;
+  transition: all 0.2s; text-align: center;
+}
+.rep-btn:hover { border-color: var(--lime); color: var(--text); }
+.rep-btn.selected { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+
+.calc-btn {
+  display: block; width: calc(100% - 48px); margin: 24px 24px;
+  background: var(--lime); color: #0a0a0a;
+  font-family: var(--font-body); font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 16px; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.calc-btn:hover { background: #ccff00; transform: translateY(-1px); }
+
+/* Results */
+.calc-results { padding: 0 24px 28px; }
+.result-main {
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 3px solid var(--lime);
+  padding: 20px 24px; margin-bottom: 16px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.result-1rm {
+  font-family: var(--font-display);
+  font-size: 4rem; color: var(--lime);
+  line-height: 1; letter-spacing: 0.02em;
+}
+.result-unit { color: var(--muted2); font-size: 0.65rem; }
+.result-level {
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.1em;
+  color: var(--muted); margin-bottom: 20px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.pct-table th { font-size: 0.6rem; padding: 8px 12px; }
+.pct-table td { font-size: 0.8rem; padding: 8px 12px; }
+.formula-note {
+  font-size: 0.6rem; color: var(--muted2); margin-top: 12px;
+  text-align: center; letter-spacing: 0.06em;
+}
+
+.calc-error { margin: 16px 24px 0; padding: 10px 14px; border-left: 3px solid #ff5a4f; background: var(--card); color: var(--text); font-size: 0.85rem; }
+.calc-error[hidden] { display: none; }
+.formula-detail { margin-top: 16px; border: 1px solid var(--border); }
+.formula-detail summary { padding: 12px 16px; cursor: pointer; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); }
+.formula-detail table { margin: 0; }
+.chart-wrap { overflow-x: auto; margin: 16px 0 8px; }
+.one-rm-chart td, .one-rm-chart th { text-align: center; white-space: nowrap; }
+.one-rm-chart .chart-w { text-align: left; color: var(--lime); font-family: var(--font-mono); font-weight: 600; }
+.chart-note { font-size: 0.8rem; color: var(--muted2); }
+.result-note a { color: var(--lime); }
+
+/* FAQ */
+.faq-item {
+  border: 1px solid var(--border);
+  border-bottom: none; overflow: hidden;
+}
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-item summary {
+  padding: 16px 20px; font-weight: 600; font-size: 0.95rem;
+  cursor: pointer; background: var(--surface); color: var(--text);
+  list-style: none; display: flex; justify-content: space-between;
+  transition: background 0.2s;
+}
+.faq-item summary:hover { background: var(--card); }
+.faq-item summary::after { content: '+'; color: var(--lime); }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { padding: 14px 20px; margin: 0; background: var(--card); font-size: 0.875rem; }
+
+/* Sidebar */
+.calc-sidebar { position: relative; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-ppp {
+  background: var(--surface); border: 1px solid var(--border);
+  border-top: 2px solid var(--lime); padding: 24px 20px;
+}
+.sidebar-ppp h4 {
+  font-family: var(--font-display); font-size: 1.4rem;
+  letter-spacing: 0.02em; margin: 8px 0 10px; color: var(--text);
+}
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 16px; }
+.sidebar-widget {
+  background: var(--surface); border: 1px solid var(--border); padding: 16px 20px;
+}
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.825rem; color: var(--muted); text-decoration: none;
+  transition: color 0.2s;
+}
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+
+@media (max-width: 900px) {
+  .calc-layout { grid-template-columns: 1fr; }
+  .calc-sidebar { display: none; }
+  .reps-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.calc-main { min-width: 0; }
+.calc-error { margin: 16px 24px 0; padding: 10px 14px; border-left: 3px solid #ff5a4f; background: var(--card); color: var(--text); font-size: 0.85rem; }
+.calc-error[hidden] { display: none; }
+.calc-select { flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 1.05rem; padding: 12px 16px; outline: none; }
+.calc-select:focus { border-color: var(--lime); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.chart-wrap { overflow-x: auto; margin: 16px 0 8px; }
+.data-table td, .data-table th { text-align: center; white-space: nowrap; }
+.data-table td:first-child, .data-table th:first-child { text-align: left; }
+.chart-note { font-size: 0.8rem; color: var(--muted2); }
+.warn-note { font-size: 0.8rem; color: var(--muted2); margin-top: 10px; }
+.result-note a { color: var(--lime); }
+.mode-toggle { display: flex; gap: 2px; }
+.mode-btn { flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--muted); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 8px; cursor: pointer; transition: all 0.2s; }
+.mode-btn.active { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+import { dots, totalForDots, isClamped, bodyweightLimits, type Sex } from '../../../lib/dots';
+
+const KG_PER_LB = 1 / 2.20462262;
+let unit: 'lbs' | 'kg' = 'lbs';
+let sex: Sex = 'M';
+
+const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+const errorEl = document.getElementById('calc-error') as HTMLElement;
+const resultsEl = document.getElementById('calc-results') as HTMLElement;
+const clampEl = document.getElementById('clamp-note') as HTMLElement;
+const toKg = (v: number) => (unit === 'lbs' ? v * KG_PER_LB : v);
+const fromKg = (v: number) => (unit === 'lbs' ? v / KG_PER_LB : v);
+const showError = (msg: string) => { errorEl.textContent = msg; errorEl.hidden = !msg; };
+
+function calculate(userClicked: boolean) {
+  const bw = parseFloat($('bodyweight').value);
+  const total = parseFloat($('total').value);
+  if (!(bw > 0) || !(total > 0)) {
+    if (userClicked) showError('Enter your bodyweight and either your three lifts or a total.');
+    return;
+  }
+  showError('');
+  const bwKg = toKg(bw);
+  const score = dots(toKg(total), bwKg, sex);
+  document.getElementById('result-dots')!.textContent = score.toFixed(1);
+  document.getElementById('result-detail')!.textContent = `${Math.round(toKg(total) * 10) / 10} kg total at ${Math.round(bwKg * 10) / 10} kg bodyweight`;
+
+  if (isClamped(bwKg, sex)) {
+    const { min, max } = bodyweightLimits(sex);
+    clampEl.textContent = `The formula covers ${min} to ${max} kg for ${sex === 'M' ? 'men' : 'women'}. Your bodyweight is outside that, so the nearest limit was used.`;
+    clampEl.hidden = false;
+  } else {
+    clampEl.hidden = true;
+  }
+
+  document.getElementById('target-body')!.innerHTML = [250, 300, 350, 400, 450].map((s) => {
+    const need = fromKg(totalForDots(s, bwKg, sex));
+    const gap = need - total;
+    const gapText = gap <= 0 ? 'Reached' : `+${Math.round(gap)} ${unit}`;
+    return `<tr><td style="color:var(--lime);font-family:var(--font-mono);font-weight:600;">${s}</td><td style="color:var(--text);font-weight:600;">${Math.round(need)} ${unit}</td><td>${gapText}</td></tr>`;
+  }).join('');
+
+  resultsEl.style.display = 'block';
+  if (userClicked) resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+document.querySelectorAll<HTMLButtonElement>('.sex-btn').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.sex-btn').forEach((x) => x.classList.remove('active'));
+  b.classList.add('active'); sex = b.dataset.sex as Sex; calculate(false);
+}));
+document.querySelectorAll<HTMLButtonElement>('.unit-btn').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.unit-btn').forEach((x) => x.classList.remove('active'));
+  b.classList.add('active'); unit = b.dataset.unit as 'lbs' | 'kg'; calculate(false);
+}));
+document.querySelectorAll<HTMLInputElement>('.lift-input').forEach((el) => el.addEventListener('input', () => {
+  const sum = ['squat', 'bench', 'deadlift'].reduce((acc, id) => acc + (parseFloat($(id).value) || 0), 0);
+  $('total').value = sum > 0 ? String(sum) : '';
+  calculate(false);
+}));
+['bodyweight', 'total'].forEach((id) => $(id).addEventListener('input', () => calculate(false)));
+document.getElementById('calculate-btn')!.addEventListener('click', () => calculate(true));
+</script>

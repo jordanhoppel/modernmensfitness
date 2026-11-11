@@ -1,0 +1,432 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PPPCta from '../../../components/PPPCta.astro';
+import { percentOfOneRepMax, RPE_VALUES, RPE_MEANINGS, MAX_REPS_TO_FAILURE } from '../../../lib/rpe';
+
+const chartReps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const chart = chartReps.map((r) => ({ r, row: RPE_VALUES.map((rpe) => percentOfOneRepMax(r, rpe)) }));
+const fmt = (n: number | null) => (n === null ? '' : n.toFixed(1).replace(/\.0$/, ''));
+const ex = percentOfOneRepMax(5, 8)!;
+const ex2 = percentOfOneRepMax(3, 9.5)!;
+
+const calcSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "RPE Calculator",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "url": "https://modernmensfitness.com/bench-press-tools/rpe-calculator/",
+  "description": "Free RPE calculator for the bench press and every other lift. Turn reps and RPE into a percentage of your 1RM, a working weight, or an estimated one-rep max.",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+};
+
+const faq = [
+  { q: 'What is RPE in weightlifting?', a: 'RPE stands for rate of perceived exertion. On the 1 to 10 scale used in strength training, RPE 10 means you could not have done another rep, RPE 9 means you had one rep left, and RPE 8 means you had two reps left.' },
+  { q: 'How do I convert RPE to a percentage of 1RM?', a: `Add the reps you had left in reserve to the reps you did, then read that many reps to failure off the chart. For example, 5 reps at RPE 8 is the same load as 7 reps to failure, which is ${ex}% of your 1RM. 3 reps at RPE 9.5 is ${ex2.toFixed(1)}%.` },
+  { q: 'Is an RPE chart accurate?', a: 'It is an average. Published sources agree the chart is usually within a few percent of 1RM for experienced lifters, and some lifters get more or fewer reps at a given percentage than the chart says. Use it as a starting point, then build your own numbers from your own sets.' },
+  { q: 'What RPE should I train the bench press at?', a: 'Most bench press work in a strength program sits between RPE 7 and RPE 9, which leaves one to three reps in reserve. Sets at RPE 10 are best kept for testing or the last set of a peak, because they cost more recovery.' },
+  { q: 'Why does the calculator stop at 12 reps?', a: 'The chart only runs to 12 reps taken to failure. If your reps plus the reps you had left add up to more than 12, the chart has no reliable value, so the calculator tells you rather than guessing.' },
+];
+const faqSchema = { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": faq.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) };
+---
+
+<BaseLayout
+  title="RPE Calculator: Convert RPE to % of 1RM and Working Weight"
+  description="Free RPE calculator. Enter reps and RPE to get the percentage of your 1RM and the weight to put on the bar, or estimate your 1RM from any set. Includes the full RPE chart."
+  canonical="https://modernmensfitness.com/bench-press-tools/rpe-calculator/"
+  schema={[calcSchema, faqSchema]}
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> <span>›</span>
+        <a href="/bench-press-tools/">Tools</a> <span>›</span>
+        <span>RPE Calculator</span>
+      </nav>
+      <span class="eyebrow">Free Tool</span>
+      <h1>RPE<br/><em>Calculator.</em></h1>
+      <p class="page-sub">Turn reps and RPE into a percentage of your 1RM, the weight to load, or an estimated max from a set you just did.</p>
+    </div>
+  </section>
+
+  <section class="section calc-section">
+    <div class="container calc-layout">
+
+      <div class="calc-main">
+        <div class="calc-card" id="calculator">
+          <div class="calc-header">
+            <span class="mono" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted2);">// What do you want to find?</span>
+          </div>
+
+          <div class="calc-inputs">
+            <div class="input-group">
+              <div class="mode-toggle">
+                <button type="button" class="mode-btn active" data-mode="weight">Weight to lift</button>
+                <button type="button" class="mode-btn" data-mode="max">Estimate my 1RM</button>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label class="input-label mono" id="weight-label">Your 1RM</label>
+              <div class="input-row">
+                <input type="number" id="weight" placeholder="225" min="1" max="2000" class="calc-input" />
+                <div class="unit-toggle">
+                  <button type="button" class="unit-btn active" data-unit="lbs">lbs</button>
+                  <button type="button" class="unit-btn" data-unit="kg">kg</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="input-group">
+                <label class="input-label mono">Reps</label>
+                <input type="number" id="reps" placeholder="5" min="1" max="12" class="calc-input" />
+              </div>
+              <div class="input-group">
+                <label class="input-label mono">RPE</label>
+                <select id="rpe" class="calc-select">
+                  {RPE_VALUES.map(v => <option value={v} selected={v === 8}>{v}</option>)}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <p class="calc-error" id="calc-error" role="alert" hidden></p>
+          <button type="button" class="calc-btn" id="calculate-btn">Calculate →</button>
+
+          <div class="calc-results" id="calc-results" style="display:none;">
+            <div class="result-main">
+              <span class="mono" id="result-label" style="font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--lime);">// Weight to lift</span>
+              <div class="result-1rm" id="result-main">--</div>
+              <span class="result-unit mono" id="result-detail"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prose" style="margin-top:48px;">
+          <h2>How the RPE Calculator Works</h2>
+          <p>RPE is how many reps you had left. The calculator adds those spare reps to the reps you did, then reads that total off the chart below. For example, 5 reps at RPE 8 leaves 2 in reserve, which is the same load as 7 reps to failure, or {ex}% of your 1RM.</p>
+          <ul>
+            <li><strong>Weight to lift:</strong> enter your 1RM, the reps in the set and the RPE you want, and it gives you the weight.</li>
+            <li><strong>Estimate my 1RM:</strong> enter the weight you used, the reps you got and how hard it felt, and it works your max backwards.</li>
+          </ul>
+
+          <h2>RPE Chart: Percentage of 1RM by Reps and RPE</h2>
+          <div class="chart-wrap">
+            <table class="pct-table data-table">
+              <thead><tr><th>Reps</th>{RPE_VALUES.map(v => <th>RPE {v}</th>)}</tr></thead>
+              <tbody>
+                {chart.map(({ r, row }) => (<tr><td class="chart-w">{r}</td>{row.map(v => <td>{fmt(v)}</td>)}</tr>))}
+              </tbody>
+            </table>
+          </div>
+          <p class="chart-note">Percent of 1RM. The RPE 10 column is the number of reps you can do to failure at that percentage, and every other column is that column shifted by the reps left in reserve. The chart runs to {MAX_REPS_TO_FAILURE} reps to failure, so cells that would need more are blank.</p>
+
+          <h2>What Each RPE Number Means</h2>
+          <div class="chart-wrap">
+            <table class="pct-table data-table">
+              <thead><tr><th>RPE</th><th>Reps left</th><th>What it feels like</th></tr></thead>
+              <tbody>
+                {RPE_MEANINGS.map(m => (<tr><td class="chart-w">{m.rpe}</td><td>{m.left}</td><td style="white-space:normal;text-align:left;">{m.feel}</td></tr>))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Where the Chart Comes From and How Far to Trust It</h2>
+          <p>The chart follows the layout popularised by Mike Tuchscherer of Reactive Training Systems. It is an average across many lifters, not a law. Published sources describe it as accurate to within a few percent of 1RM for experienced lifters, and individual lifters can land higher or lower. Judging your own RPE also takes practice, so be most skeptical of it on your first few weeks of using it. If you want a number from a heavy, clean set, use the <a href="/bench-press-tools/1rm-calculator/">1RM calculator</a> and compare.</p>
+
+          <h2>Frequently Asked Questions</h2>
+          {faq.map(f => (
+            <details class="faq-item">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+
+<!-- Sidebar -->
+      <aside class="calc-sidebar">
+        <div class="sidebar-sticky">
+          <div class="sidebar-ppp">
+            <span class="eyebrow">The Program</span>
+            <h4>Auto-Calculate Every Training Weight</h4>
+            <p>The Primal Press Protocol uses your 1RM to auto-calculate every training weight for all 12 weeks. Enter your max once and the whole program is done.</p>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=rpe-calculator&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+              Get PPP for $37 →
+            </a>
+            <p class="mono" style="font-size:0.65rem;color:var(--muted2);margin:12px 0 0;text-align:center;">60-day guarantee · No subscription</p>
+          </div>
+
+          <div class="sidebar-widget">
+            <h5>Related Tools</h5>
+            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+                        <a href="/bench-press-tools/dots-calculator/" class="sidebar-link"><span>DOTS Calculator</span><span>→</span></a>
+                        <a href="/bench-press-tools/plate-loading-calculator/" class="sidebar-link"><span>Plate Calculator</span><span>→</span></a>
+                        <a href="/bench-press-tools/training-max-calculator/" class="sidebar-link"><span>Training Max Calculator</span><span>→</span></a>
+          </div>
+
+          <div class="sidebar-widget">
+            <h5>Find Your Level</h5>
+            <a href="/bench-press-standards/" class="sidebar-link">
+              <span>Bench Press Standards</span><span>→</span>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0 40px;
+}
+.breadcrumb {
+  display: flex; gap: 8px; align-items: center;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted2); margin-bottom: 24px;
+}
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.breadcrumb a:hover { color: var(--text); }
+.page-hero h1 { margin: 16px 0 16px; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 500px; font-weight: 300; }
+
+.calc-section { background: var(--bg); }
+.calc-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 60px;
+  align-items: start;
+}
+
+.calc-main { min-width: 0; }
+
+/* Calculator Card */
+.calc-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--lime);
+  overflow: hidden;
+}
+.calc-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--lime-glow);
+}
+.calc-inputs { padding: 28px 24px 0; display: flex; flex-direction: column; gap: 28px; }
+.input-group { display: flex; flex-direction: column; gap: 10px; }
+.input-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); }
+.input-row { display: flex; gap: 8px; align-items: center; }
+.calc-input {
+  flex: 1; background: var(--card); border: 1px solid var(--border);
+  color: var(--text); font-family: var(--font-body); font-size: 1.1rem;
+  font-weight: 500; padding: 12px 16px; outline: none;
+  transition: border-color 0.2s;
+}
+.calc-input:focus { border-color: var(--lime); }
+.calc-input::placeholder { color: var(--muted2); }
+.unit-toggle { display: flex; gap: 2px; }
+.unit-btn {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.1em; padding: 8px 14px;
+  cursor: pointer; transition: all 0.2s;
+}
+.unit-btn.active { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+
+.reps-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px;
+}
+.rep-btn {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--font-mono);
+  font-size: 0.8rem; padding: 10px 4px; cursor: pointer;
+  transition: all 0.2s; text-align: center;
+}
+.rep-btn:hover { border-color: var(--lime); color: var(--text); }
+.rep-btn.selected { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+
+.calc-btn {
+  display: block; width: calc(100% - 48px); margin: 24px 24px;
+  background: var(--lime); color: #0a0a0a;
+  font-family: var(--font-body); font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 16px; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.calc-btn:hover { background: #ccff00; transform: translateY(-1px); }
+
+/* Results */
+.calc-results { padding: 0 24px 28px; }
+.result-main {
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 3px solid var(--lime);
+  padding: 20px 24px; margin-bottom: 16px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.result-1rm {
+  font-family: var(--font-display);
+  font-size: 4rem; color: var(--lime);
+  line-height: 1; letter-spacing: 0.02em;
+}
+.result-unit { color: var(--muted2); font-size: 0.65rem; }
+.result-level {
+  font-family: var(--font-mono);
+  font-size: 0.7rem; letter-spacing: 0.1em;
+  color: var(--muted); margin-bottom: 20px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.pct-table th { font-size: 0.6rem; padding: 8px 12px; }
+.pct-table td { font-size: 0.8rem; padding: 8px 12px; }
+.formula-note {
+  font-size: 0.6rem; color: var(--muted2); margin-top: 12px;
+  text-align: center; letter-spacing: 0.06em;
+}
+
+.calc-error { margin: 16px 24px 0; padding: 10px 14px; border-left: 3px solid #ff5a4f; background: var(--card); color: var(--text); font-size: 0.85rem; }
+.calc-error[hidden] { display: none; }
+.formula-detail { margin-top: 16px; border: 1px solid var(--border); }
+.formula-detail summary { padding: 12px 16px; cursor: pointer; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); }
+.formula-detail table { margin: 0; }
+.chart-wrap { overflow-x: auto; margin: 16px 0 8px; }
+.one-rm-chart td, .one-rm-chart th { text-align: center; white-space: nowrap; }
+.one-rm-chart .chart-w { text-align: left; color: var(--lime); font-family: var(--font-mono); font-weight: 600; }
+.chart-note { font-size: 0.8rem; color: var(--muted2); }
+.result-note a { color: var(--lime); }
+
+/* FAQ */
+.faq-item {
+  border: 1px solid var(--border);
+  border-bottom: none; overflow: hidden;
+}
+.faq-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-item summary {
+  padding: 16px 20px; font-weight: 600; font-size: 0.95rem;
+  cursor: pointer; background: var(--surface); color: var(--text);
+  list-style: none; display: flex; justify-content: space-between;
+  transition: background 0.2s;
+}
+.faq-item summary:hover { background: var(--card); }
+.faq-item summary::after { content: '+'; color: var(--lime); }
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { padding: 14px 20px; margin: 0; background: var(--card); font-size: 0.875rem; }
+
+/* Sidebar */
+.calc-sidebar { position: relative; }
+.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.sidebar-ppp {
+  background: var(--surface); border: 1px solid var(--border);
+  border-top: 2px solid var(--lime); padding: 24px 20px;
+}
+.sidebar-ppp h4 {
+  font-family: var(--font-display); font-size: 1.4rem;
+  letter-spacing: 0.02em; margin: 8px 0 10px; color: var(--text);
+}
+.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 16px; }
+.sidebar-widget {
+  background: var(--surface); border: 1px solid var(--border); padding: 16px 20px;
+}
+.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sidebar-link {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.825rem; color: var(--muted); text-decoration: none;
+  transition: color 0.2s;
+}
+.sidebar-link:last-child { border-bottom: none; }
+.sidebar-link:hover { color: var(--text); }
+
+@media (max-width: 900px) {
+  .calc-layout { grid-template-columns: 1fr; }
+  .calc-sidebar { display: none; }
+  .reps-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.calc-main { min-width: 0; }
+.calc-error { margin: 16px 24px 0; padding: 10px 14px; border-left: 3px solid #ff5a4f; background: var(--card); color: var(--text); font-size: 0.85rem; }
+.calc-error[hidden] { display: none; }
+.calc-select { flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 1.05rem; padding: 12px 16px; outline: none; }
+.calc-select:focus { border-color: var(--lime); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.chart-wrap { overflow-x: auto; margin: 16px 0 8px; }
+.data-table td, .data-table th { text-align: center; white-space: nowrap; }
+.data-table td:first-child, .data-table th:first-child { text-align: left; }
+.chart-note { font-size: 0.8rem; color: var(--muted2); }
+.warn-note { font-size: 0.8rem; color: var(--muted2); margin-top: 10px; }
+.result-note a { color: var(--lime); }
+.mode-toggle { display: flex; gap: 2px; }
+.mode-btn { flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--muted); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 8px; cursor: pointer; transition: all 0.2s; }
+.mode-btn.active { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+import { percentOfOneRepMax, weightForSet, estimateOneRepMax, MAX_REPS_TO_FAILURE } from '../../../lib/rpe';
+
+let unit: 'lbs' | 'kg' = 'lbs';
+let mode: 'weight' | 'max' = 'weight';
+
+const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+const errorEl = document.getElementById('calc-error') as HTMLElement;
+const resultsEl = document.getElementById('calc-results') as HTMLElement;
+const showError = (msg: string) => { errorEl.textContent = msg; errorEl.hidden = !msg; };
+const round1 = (n: number) => Math.round(n * 10) / 10;
+const step = () => (unit === 'lbs' ? 5 : 2.5);
+const toPlates = (n: number) => Math.round(n / step()) * step();
+
+function calculate(userClicked: boolean) {
+  const weight = parseFloat($('weight').value);
+  const reps = parseInt($('reps').value);
+  const rpe = parseFloat($('rpe').value);
+  if (!(weight > 0) || !(reps >= 1)) {
+    if (userClicked) showError(mode === 'weight' ? 'Enter your 1RM and the reps you plan to do.' : 'Enter the weight you lifted and the reps you got.');
+    return;
+  }
+  const pct = percentOfOneRepMax(reps, rpe);
+  if (pct === null) {
+    showError(`${reps} reps at RPE ${rpe} is more than ${MAX_REPS_TO_FAILURE} reps to failure, which is past the end of the chart. Try fewer reps or a higher RPE.`);
+    resultsEl.style.display = 'none';
+    return;
+  }
+  showError('');
+
+  const main = document.getElementById('result-main')!;
+  const detail = document.getElementById('result-detail')!;
+  const label = document.getElementById('result-label')!;
+  if (mode === 'weight') {
+    const w = weightForSet(weight, reps, rpe)!;
+    label.textContent = '// Weight to lift';
+    main.textContent = `${round1(w)} ${unit}`;
+    detail.textContent = `${round1(pct)}% of your 1RM, ${toPlates(w)} ${unit} if you round to the nearest ${step()}`;
+  } else {
+    const m = estimateOneRepMax(weight, reps, rpe)!;
+    label.textContent = '// Estimated 1RM';
+    main.textContent = `${round1(m)} ${unit}`;
+    detail.textContent = `This set was ${round1(pct)}% of your max`;
+  }
+  resultsEl.style.display = 'block';
+  if (userClicked) resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+document.querySelectorAll<HTMLButtonElement>('.mode-btn').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.mode-btn').forEach((x) => x.classList.remove('active'));
+  b.classList.add('active');
+  mode = b.dataset.mode as 'weight' | 'max';
+  document.getElementById('weight-label')!.textContent = mode === 'weight' ? 'Your 1RM' : 'Weight you lifted';
+  calculate(false);
+}));
+document.querySelectorAll<HTMLButtonElement>('.unit-btn').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.unit-btn').forEach((x) => x.classList.remove('active'));
+  b.classList.add('active'); unit = b.dataset.unit as 'lbs' | 'kg'; calculate(false);
+}));
+['weight', 'reps', 'rpe'].forEach((id) => $(id).addEventListener('input', () => calculate(false)));
+document.getElementById('calculate-btn')!.addEventListener('click', () => calculate(true));
+</script>
