@@ -1,65 +1,49 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PPPCta from '../../components/PPPCta.astro';
+import data from '../../data/benchStandards.json';
 
-const standardsSchema = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Bench Press Standards by Age, Weight & Experience Level (2026)",
-    "description": "Complete bench press strength standards for men and women by bodyweight, age, and experience level. Includes beginner through elite benchmarks in lbs and kg.",
-    "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Modern Men's Fitness",
-      "url": "https://modernmensfitness.com"
-    },
-    "datePublished": "2025-12-30",
-    "dateModified": "2026-04-01",
-    "mainEntityOfPage": "https://modernmensfitness.com/bench-press-standards/"
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is a good bench press for a man?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A good bench press for an average man is bodyweight for 1 rep (intermediate level). For a 180 lb man, that's 180 lbs. Elite lifters press 1.5-2x bodyweight. Beginners typically start at 50-75% of bodyweight."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the average bench press for a 40 year old man?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The average untrained 40 year old man can bench press approximately 135-155 lbs. An intermediate 40 year old lifter at 180 lbs bodyweight typically benches 185-225 lbs. Strength standards decline approximately 1% per year after age 35."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How much should I bench press for my weight?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "As a general benchmark: Beginner = 0.5x bodyweight, Novice = 0.75x bodyweight, Intermediate = 1.0x bodyweight, Advanced = 1.25x bodyweight, Elite = 1.5x+ bodyweight. These ratios apply to a 1-rep max with full range of motion."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is benching 225 lbs good?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "225 lbs (two 45-lb plates per side) is an intermediate to advanced bench press for most men. For a 175 lb man it represents 1.28x bodyweight — advanced level. For a 220 lb man it's approximately 1x bodyweight — intermediate level."
-        }
-      }
-    ]
+// ---- Real numbers: OpenPowerlifting raw full-power meets (see "Where these numbers come from" and scripts/build-bench-standards.py)
+const KG_TO_LB = 2.20462262;
+const toLb = (kg: number) => Math.round(kg * KG_TO_LB);
+const cellsFor = (sex: string) => data.weight_classes.filter((c) => c.sex === sex);
+const classLabel = (c: { class_kg: string }) => {
+  if (c.class_kg === 'all') return 'All weights';
+  const kg = parseFloat(c.class_kg);
+  return c.class_kg.endsWith('+') ? `Over ${kg} kg (${toLb(kg)}+ lb)` : `Up to ${kg} kg (${toLb(kg)} lb)`;
+};
+const menCells = cellsFor('M');
+const womenCells = cellsFor('F');
+const allMen = menCells.find((c) => c.class_kg === 'all')!;
+const allWomen = womenCells.find((c) => c.class_kg === 'all')!;
+const ratioMen = data.bodyweight_ratio.find((r) => r.sex === 'M')!;
+const ratioWomen = data.bodyweight_ratio.find((r) => r.sex === 'F')!;
+const ageRow = (sex: string, g: string) => data.by_age_ratio.find((a) => a.sex === sex && a.age === g)!;
+const ageGroups = ['18-23', '24-34', '35-39', '40-49', '50-59', '60-69', '70+'];
+const x2 = (n: number) => `${n.toFixed(2)}x`;
+const lifterTotal = data.lifters.M + data.lifters.F;
+const lifterCount = (Math.floor(lifterTotal / 1000) * 1000).toLocaleString('en-US');
+const dataDate = data.data_file.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? '';
+const classFor = (sex: string, bwKg: number) => {
+  const cells = cellsFor(sex).filter((c) => c.class_kg !== 'all');
+  return cells.find((c) => !c.class_kg.endsWith('+') && bwKg <= parseFloat(c.class_kg)) ?? cells[cells.length - 1];
+};
+/** Rough percentile of a lift inside one weight class, by interpolating the published percentile points. */
+const approxPercentile = (cell: any, lb: number) => {
+  const pts: [number, number][] = [10, 25, 50, 75, 90].map((q) => [q, cell[`p${q}_lb`]]);
+  if (lb < pts[0][1]) return 'below the 10th percentile';
+  if (lb > pts[4][1]) return 'above the 90th percentile';
+  for (let i = 0; i < 4; i++) {
+    const [q0, v0] = pts[i], [q1, v1] = pts[i + 1];
+    if (lb >= v0 && lb <= v1) {
+      const q = q0 + ((lb - v0) / (v1 - v0)) * (q1 - q0);
+      return `roughly the ${Math.round(q / 5) * 5}th percentile`;
+    }
   }
-];
+  return '';
+};
 
-// Standards data
-const maleByWeight = [
+const coachMen = [
   { bw: '114 lbs (52kg)', beg: 75, nov: 105, int: 145, adv: 190, elite: 240 },
   { bw: '123 lbs (56kg)', beg: 80, nov: 115, int: 155, adv: 205, elite: 260 },
   { bw: '132 lbs (60kg)', beg: 90, nov: 125, int: 170, adv: 220, elite: 280 },
@@ -72,16 +56,7 @@ const maleByWeight = [
   { bw: '275+ lbs (125kg+)', beg: 165, nov: 230, int: 310, adv: 405, elite: 510 },
 ];
 
-const byAge = [
-  { age: '20–29', mult: 1.0, note: 'Peak strength years' },
-  { age: '30–39', mult: 0.97, note: '~3% decline from peak' },
-  { age: '40–49', mult: 0.90, note: '~10% decline from peak' },
-  { age: '50–59', mult: 0.82, note: '~18% decline from peak' },
-  { age: '60–69', mult: 0.72, note: '~28% decline from peak' },
-  { age: '70+',   mult: 0.62, note: '~38% decline from peak' },
-];
-
-const femaleByWeight = [
+const coachWomen = [
   { bw: '97 lbs (44kg)',  beg: 40, nov: 60,  int: 80,  adv: 110, elite: 140 },
   { bw: '105 lbs (48kg)', beg: 45, nov: 65,  int: 85,  adv: 115, elite: 150 },
   { bw: '114 lbs (52kg)', beg: 50, nov: 70,  int: 95,  adv: 125, elite: 160 },
@@ -91,16 +66,72 @@ const femaleByWeight = [
   { bw: '165 lbs (75kg)', beg: 70, nov: 100, int: 135, adv: 175, elite: 220 },
   { bw: '181+ lbs (82kg+)', beg: 80, nov: 110, int: 145, adv: 190, elite: 240 },
 ];
+
+// Where Jordan's working benchmarks land against the data (181 lb man, 132 lb woman)
+const refMan = coachMen.find((r) => r.bw.startsWith('181'))!;
+const refWoman = coachWomen.find((r) => r.bw.startsWith('132'))!;
+const manCell = classFor('M', 82);
+const womanCell = classFor('F', 60);
+
+// ---- FAQ: one source for both the visible answers and the schema, so they cannot disagree
+const m40 = ageRow('M', '40-49'), m50 = ageRow('M', '50-59'), m2434 = ageRow('M', '24-34');
+const c181 = classFor('M', 82), c220 = classFor('M', 100);
+const faq = [
+  {
+    q: 'What is a good bench press for a man?',
+    a: `Among men who compete in raw powerlifting meets, the median bench press is ${toLb(allMen.p50_kg)} lb, or ${x2(ratioMen.p50)} bodyweight, and the strongest tenth bench ${toLb(allMen.p90_kg)} lb or more. If you train but do not compete, use the working benchmarks further down: for a 181 lb man, ${refMan.int} lb is intermediate (about ${x2(refMan.int / 181)} bodyweight), ${refMan.adv} lb is advanced and ${refMan.elite} lb is elite.`,
+  },
+  {
+    q: 'What is the average bench press for a 40 year old man?',
+    a: `Among men aged 40 to 49 who compete in raw meets, the median bench press is ${x2(m40.p50)} bodyweight, which is ${Math.round(180 * m40.p50)} lb for a 180 lb man. The middle half of that group sits between ${Math.round(180 * m40.p25)} and ${Math.round(180 * m40.p75)} lb. Competitors are a self-selected group, so this describes people who enter meets, not men in general.`,
+  },
+  {
+    q: 'How much should I bench press for my weight?',
+    a: `Among raw meet lifters, men bench ${x2(ratioMen.p10)} bodyweight at the 10th percentile, ${x2(ratioMen.p50)} at the median and ${x2(ratioMen.p90)} at the 90th. Women bench ${x2(ratioWomen.p10)}, ${x2(ratioWomen.p50)} and ${x2(ratioWomen.p90)}. Find your weight class in the tables above for exact pounds and kilograms.`,
+  },
+  {
+    q: 'Is 225 lbs a good bench press?',
+    a: `At 181 lb, 225 lb is ${x2(225 / 181)} bodyweight, which is ${approxPercentile(c181, 225)} among meet lifters in the 83 kg class. At 220 lb it is ${x2(225 / 220)} bodyweight, ${approxPercentile(c220, 225)} in the 105 kg class. It is a solid milestone, and it still sits near the bottom of the range on a meet platform, because people who compete are a strong group.`,
+  },
+  {
+    q: 'What is the bench press standard for a 50 year old man?',
+    a: `Among men aged 50 to 59 who compete in raw meets, the median bench press is ${x2(m50.p50)} bodyweight, or ${Math.round(180 * m50.p50)} lb for a 180 lb man. That is about ${Math.round((1 - m50.p50 / m2434.p50) * 100)}% below the median for men aged 24 to 34. Lifters who are still competing at 50 are survivors, so the real decline across all men may be steeper.`,
+  },
+  {
+    q: 'Does a competition bench press use a pause?',
+    a: 'Yes. In a powerlifting meet the bar has to sit still on the chest until the referee gives the press command, then go to full lockout. If you touch and go in the gym, a paused rep will feel harder, so compare your paused max to these numbers.',
+  },
+];
+
+const standardsSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Bench Press Standards by Bodyweight, Age and Sex (Real Meet Data)',
+    description: `Bench press percentiles by bodyweight class, age and sex from ${lifterCount}+ raw powerlifting competitors, in lbs and kg.`,
+    author: { '@id': 'https://modernmensfitness.com/#jordan-hoppel' },
+    publisher: { '@type': 'Organization', name: "Modern Men's Fitness", url: 'https://modernmensfitness.com' },
+    isBasedOn: { '@type': 'Dataset', name: 'OpenPowerlifting', url: 'https://www.openpowerlifting.org', license: 'https://creativecommons.org/publicdomain/zero/1.0/' },
+    datePublished: '2025-12-30',
+    dateModified: '2026-11-10',
+    mainEntityOfPage: 'https://modernmensfitness.com/bench-press-standards/',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
 ---
 
 <BaseLayout
-  title="Bench Press Standards by Age, Weight & Experience Level (2026)"
-  description="Complete bench press strength standards for men and women. Find exactly where you rank by bodyweight, age, and experience level — beginner through elite. Updated 2026."
+  title="Bench Press Standards by Weight, Age and Sex (Real Meet Data)"
+  description={`Bench press standards from ${lifterCount}+ raw powerlifting competitors: percentiles by bodyweight class, age and sex in lbs and kg, plus working benchmarks if you do not compete.`}
   canonical="https://modernmensfitness.com/bench-press-standards/"
   schema={standardsSchema}
   pageType="article"
   publishDate="2025-12-30"
-  modifiedDate="2026-04-01"
+  modifiedDate="2026-11-10"
 >
 
   <!-- Page Hero -->
@@ -112,23 +143,24 @@ const femaleByWeight = [
       </nav>
       <span class="accent-line"></span>
       <h1>Bench Press Standards</h1>
-      <p class="page-hero-sub">By Age, Bodyweight & Experience Level (2026) — Men & Women</p>
+      <p class="page-hero-sub">By Bodyweight, Age and Sex: Real Meet Data for Men and Women</p>
       <div class="page-meta">
         <span>By <a href="/about-jordan-hoppel/">Jordan Hoppel</a></span>
         <span>·</span>
-        <span>Updated April 2026</span>
+        <span>Updated November 2026</span>
         <span>·</span>
-        <span>16 min read</span>
+        <span>Data: OpenPowerlifting</span>
       </div>
       <!-- Quick Nav -->
       <div class="quick-nav">
         <span class="quick-nav-label">Jump to:</span>
         <a href="#men-by-weight">Men by Weight</a>
-        <a href="#by-age">By Age</a>
         <a href="#women">Women</a>
+        <a href="#by-age">By Age</a>
         <a href="#bodyweight-ratio">Bodyweight Ratio</a>
+        <a href="#coach-levels">If You Don't Compete</a>
+        <a href="#method">Method</a>
         <a href="#faq">FAQ</a>
-        <a href="#improve">How to Improve</a>
       </div>
     </div>
   </section>
@@ -140,12 +172,162 @@ const femaleByWeight = [
       <!-- Article Body -->
       <article class="prose standards-article">
 
-        <p class="intro-text">Whether you're trying to figure out if your bench press is good, setting a realistic goal, or benchmarking yourself against other lifters — this is the most comprehensive bench press standards reference available. Every table below is based on real-world strength data and 16 years of coaching experience.</p>
+        <p class="intro-text">Most bench press standards pages publish numbers with no source. The tables on this page come from the recorded results of {lifterCount}+ lifters in OpenPowerlifting's public database, so you can see where a number came from and how it was built. Every figure is a raw bench press, no bench shirt, in pounds or kilograms.</p>
 
-        <!-- Level Definitions -->
-        <div class="level-defs">
-          <h2>Experience Level Definitions</h2>
-          <p>Before diving into the tables, here's exactly what each level means:</p>
+        <div class="insight-box">
+          <span class="insight-label">The short answer</span>
+          <p>Among adults who compete in raw powerlifting meets, the median bench press is <strong>{toLb(allMen.p50_kg)} lb for men ({x2(ratioMen.p50)} bodyweight)</strong> and <strong>{toLb(allWomen.p50_kg)} lb for women ({x2(ratioWomen.p50)})</strong>. People who enter meets are a strong group, so if you train but do not compete, jump to the <a href="#coach-levels">working benchmarks for people who don't compete</a>.</p>
+        </div>
+
+        <div class="unit-switch" role="group" aria-label="Choose units">
+          <span class="unit-switch-label">Show weights in</span>
+          <button type="button" class="u-btn active" data-unit="lb">lbs</button>
+          <button type="button" class="u-btn" data-unit="kg">kg</button>
+        </div>
+
+        <section id="men-by-weight">
+          <h2>Bench Press Standards for Men by Bodyweight</h2>
+          <p>Each number is a 1-rep max in a raw meet. The 50th column is the median: half of the lifters in that weight class benched more, half benched less. The 90th is the level only one lifter in ten reaches.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Bodyweight class</th>
+                  <th>Lifters</th>
+                  <th>10th</th>
+                  <th>25th</th>
+                  <th class="col-int">Median</th>
+                  <th>75th</th>
+                  <th class="col-eli">90th</th>
+                </tr>
+              </thead>
+              <tbody>
+                {menCells.map(c => (
+                  <tr class={c.class_kg === 'all' ? 'row-all' : ''}>
+                    <td class="bw-col"><strong>{classLabel(c)}</strong></td>
+                    <td class="muted-cell">{c.n.toLocaleString('en-US')}</td>
+                    {['p10', 'p25', 'p50', 'p75', 'p90'].map(k => (
+                      <td class={k === 'p50' ? 'col-int' : k === 'p90' ? 'col-eli' : ''}><span class="u-lb">{Math.round(c[k + '_lb'])}</span><span class="u-kg">{Math.round(c[k + '_kg'])}</span></td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">Percentiles of adult raw lifters in full-power meets since 2015, one result per lifter (their best bench). Weight classes are the current IPF classes.</p>
+        </section>
+
+        <PPPCta variant="mid" utmContent="standards-mid-1" context="If you're stuck at intermediate and want to reach advanced, the Primal Press Protocol is the exact system Jordan's clients used to add 50–100 lbs." />
+
+        <section id="women">
+          <h2>Bench Press Standards for Women by Bodyweight</h2>
+          <p>Same method and same data source as the men's table. Women's bench press is lower in absolute pounds at every bodyweight class, and the spread from the 10th to the 90th percentile is just as wide.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Bodyweight class</th>
+                  <th>Lifters</th>
+                  <th>10th</th>
+                  <th>25th</th>
+                  <th class="col-int">Median</th>
+                  <th>75th</th>
+                  <th class="col-eli">90th</th>
+                </tr>
+              </thead>
+              <tbody>
+                {womenCells.map(c => (
+                  <tr class={c.class_kg === 'all' ? 'row-all' : ''}>
+                    <td class="bw-col"><strong>{classLabel(c)}</strong></td>
+                    <td class="muted-cell">{c.n.toLocaleString('en-US')}</td>
+                    {['p10', 'p25', 'p50', 'p75', 'p90'].map(k => (
+                      <td class={k === 'p50' ? 'col-int' : k === 'p90' ? 'col-eli' : ''}><span class="u-lb">{Math.round(c[k + '_lb'])}</span><span class="u-kg">{Math.round(c[k + '_kg'])}</span></td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="by-age">
+          <h2>Bench Press Standards by Age</h2>
+          <p>This table shows bench press as a multiple of bodyweight for each age group, so it works at any weight. Multiply the number by your bodyweight to get a target in pounds or kilograms.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Age group</th>
+                  <th>Men, median</th>
+                  <th>Men, middle half</th>
+                  <th>180 lb man, median</th>
+                  <th>Women, median</th>
+                  <th>Women, middle half</th>
+                  <th>140 lb woman, median</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ageGroups.map(g => {
+                  const m = ageRow('M', g);
+                  const w = ageRow('F', g);
+                  return (
+                    <tr>
+                      <td><strong>{g.replace('-', ' to ')}</strong></td>
+                      <td class="col-int">{x2(m.p50)}</td>
+                      <td>{x2(m.p25)} to {x2(m.p75)}</td>
+                      <td><span class="u-lb">{Math.round(180 * m.p50)} lb</span><span class="u-kg">{Math.round((180 / KG_TO_LB) * m.p50)} kg</span></td>
+                      <td class="col-int">{x2(w.p50)}</td>
+                      <td>{x2(w.p25)} to {x2(w.p75)}</td>
+                      <td><span class="u-lb">{Math.round(140 * w.p50)} lb</span><span class="u-kg">{Math.round((140 / KG_TO_LB) * w.p50)} kg</span></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">Each lifter counts once per age group they competed in, using their best bench-to-bodyweight ratio in that group. Middle half means the 25th to 75th percentile.</p>
+
+          <div class="insight-box">
+            <span class="insight-label">Read this before you use it</span>
+            <p>Older lifters who still enter meets are a self-selected group of people who kept training. That makes the drop with age in this table look smaller than it is for men in general, so treat it as the best case rather than the typical case.</p>
+          </div>
+        </section>
+
+        <section id="bodyweight-ratio">
+          <h2>Bench Press to Bodyweight Ratio</h2>
+          <p>The simplest way to compare yourself across bodyweights is the ratio of your bench to your bodyweight. These are the same percentiles as above, pooled across all weight classes.</p>
+
+          <h3>Men</h3>
+          <div class="ratio-grid">
+            {[['p10', '10th percentile'], ['p25', '25th percentile'], ['p50', 'Median'], ['p75', '75th percentile'], ['p90', '90th percentile']].map(([k, label]) => (
+              <div class={k === 'p50' ? 'ratio-card ratio-highlight' : 'ratio-card'}>
+                <span class="ratio-num">{x2(ratioMen[k])}</span>
+                <span class="ratio-level">{label}</span>
+                <span class="ratio-ex">180 lb man: {Math.round(180 * ratioMen[k])} lb</span>
+              </div>
+            ))}
+          </div>
+
+          <h3>Women</h3>
+          <div class="ratio-grid">
+            {[['p10', '10th percentile'], ['p25', '25th percentile'], ['p50', 'Median'], ['p75', '75th percentile'], ['p90', '90th percentile']].map(([k, label]) => (
+              <div class={k === 'p50' ? 'ratio-card ratio-highlight' : 'ratio-card'}>
+                <span class="ratio-num">{x2(ratioWomen[k])}</span>
+                <span class="ratio-level">{label}</span>
+                <span class="ratio-ex">140 lb woman: {Math.round(140 * ratioWomen[k])} lb</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="coach-levels">
+          <h2>If You Train But Don't Compete</h2>
+          <p>Meet results only describe people who enter meets. Most people who lift never do, and no public dataset records them. The levels below are working benchmarks for that larger group. They are estimates, not measured data, and they are checked against the competition numbers above wherever the two overlap.</p>
+
+          <div class="level-defs">
+          <h2>Working Experience Levels</h2>
+          <p>These five levels are working benchmarks for people who train. They are estimates, not measured data. Only the upper levels can be checked against competition results.</p>
           <div class="level-grid">
             <div class="level-card level-beg">
               <span class="level-label">Beginner</span>
@@ -165,22 +347,22 @@ const femaleByWeight = [
             </div>
             <div class="level-card level-eli">
               <span class="level-label">Elite</span>
-              <p>Top 5% of lifters. Years of dedicated strength training. Near genetic ceiling.</p>
+              <p>Above the 90th percentile of meet lifters at your weight. Years of dedicated training.</p>
             </div>
           </div>
         </div>
 
-        <!-- Soft CTA -->
+        
+
+          <!-- Soft CTA -->
         <div class="cta-soft">
           <span class="cta-soft-label">Not sure where you land?</span>
-          <p>Take the <a href="/bench-press-tools/assessment-test/">free bench press assessment</a> — 3 minutes to pinpoint your exact level and what's holding you back.</p>
+          <p>Take the <a href="/bench-press-tools/assessment-test/">free bench press assessment</a>. It takes 3 minutes to pinpoint your exact level and what's holding you back.</p>
         </div>
 
-        <!-- Men by Bodyweight Table -->
-        <section id="men-by-weight">
-          <h2>Bench Press Standards for Men by Bodyweight (lbs)</h2>
-          <p>All values represent 1-rep max (1RM) with full range of motion — bar touching chest, arms locked out. These are raw standards (no bench shirt).</p>
+        
 
+          <h3>Working Benchmarks for Men by Bodyweight (lbs)</h3>
           <div class="table-wrap">
             <table>
               <thead>
@@ -194,7 +376,7 @@ const femaleByWeight = [
                 </tr>
               </thead>
               <tbody>
-                {maleByWeight.map(row => (
+                {coachMen.map(row => (
                   <tr>
                     <td class="bw-col"><strong>{row.bw}</strong></td>
                     <td class="col-beg">{row.beg}</td>
@@ -207,34 +389,29 @@ const femaleByWeight = [
               </tbody>
             </table>
           </div>
-          <p class="table-note">All values in lbs. 1-rep max, raw (no equipment). Based on data from 10,000+ lifters.</p>
-        </section>
 
-        <PPPCta variant="mid" utmContent="standards-mid-1" context="If you're stuck at intermediate and want to reach advanced — the Primal Press Protocol is the exact system Jordan's clients used to add 50–100 lbs." />
-
-        <!-- By Age Table -->
-        <section id="by-age">
-          <h2>Bench Press Standards by Age (Strength Multipliers)</h2>
-          <p>Strength peaks in your late 20s and declines gradually with age. Use the multipliers below to adjust the bodyweight table for your age group.</p>
-          <p><strong>How to use:</strong> Find your standard in the bodyweight table above, then multiply by the age factor below.</p>
-
+          <h3>Working Benchmarks for Women by Bodyweight (lbs)</h3>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Age Group</th>
-                  <th>Multiplier</th>
-                  <th>Example: 180 lb Intermediate</th>
-                  <th>Notes</th>
+                  <th>Bodyweight</th>
+                  <th class="col-beg">Beginner</th>
+                  <th class="col-nov">Novice</th>
+                  <th class="col-int">Intermediate</th>
+                  <th class="col-adv">Advanced</th>
+                  <th class="col-eli">Elite</th>
                 </tr>
               </thead>
               <tbody>
-                {byAge.map(row => (
+                {coachWomen.map(row => (
                   <tr>
-                    <td><strong>{row.age}</strong></td>
-                    <td>{row.mult}x</td>
-                    <td>{Math.round(230 * row.mult)} lbs</td>
-                    <td class="muted-cell">{row.note}</td>
+                    <td class="bw-col"><strong>{row.bw}</strong></td>
+                    <td class="col-beg">{row.beg}</td>
+                    <td class="col-nov">{row.nov}</td>
+                    <td class="col-int">{row.int}</td>
+                    <td class="col-adv">{row.adv}</td>
+                    <td class="col-eli">{row.elite}</td>
                   </tr>
                 ))}
               </tbody>
@@ -242,112 +419,35 @@ const femaleByWeight = [
           </div>
 
           <div class="insight-box">
-            <span class="insight-label">Coach's Note</span>
-            <p>Age-related strength decline is real but slower than most people think — and largely offset by intelligent programming. Jordan's oldest clients in their 50s and 60s are still adding weight to their bench with the right periodization approach.</p>
+            <span class="insight-label">How these line up with the meet data</span>
+            <p>For a 181 lb man, intermediate ({refMan.int} lb) is {approxPercentile(manCell, refMan.int)} of meet lifters in his class, advanced ({refMan.adv} lb) is {approxPercentile(manCell, refMan.adv)}, and elite ({refMan.elite} lb) is {approxPercentile(manCell, refMan.elite)}. For a 132 lb woman, intermediate ({refWoman.int} lb) is {approxPercentile(womanCell, refWoman.int)}, advanced ({refWoman.adv} lb) is {approxPercentile(womanCell, refWoman.adv)}, and elite ({refWoman.elite} lb) is {approxPercentile(womanCell, refWoman.elite)}. Beginner and novice sit below the meet data, because people at those levels do not enter meets, so those two levels cannot be checked against it.</p>
           </div>
         </section>
 
-        <!-- Women's Standards -->
-        <section id="women">
-          <h2>Bench Press Standards for Women by Bodyweight (lbs)</h2>
-          <p>Women's bench press standards reflect real physiological differences in upper body muscle mass distribution — not capability. Many women can and do press bodyweight at intermediate-to-advanced levels.</p>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Bodyweight</th>
-                  <th class="col-beg">Beginner</th>
-                  <th class="col-nov">Novice</th>
-                  <th class="col-int">Intermediate</th>
-                  <th class="col-adv">Advanced</th>
-                  <th class="col-eli">Elite</th>
-                </tr>
-              </thead>
-              <tbody>
-                {femaleByWeight.map(row => (
-                  <tr>
-                    <td class="bw-col"><strong>{row.bw}</strong></td>
-                    <td class="col-beg">{row.beg}</td>
-                    <td class="col-nov">{row.nov}</td>
-                    <td class="col-int">{row.int}</td>
-                    <td class="col-adv">{row.adv}</td>
-                    <td class="col-eli">{row.elite}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <section id="method">
+          <h2>Where These Numbers Come From</h2>
+          <p>The percentile tables use the <a href="https://www.openpowerlifting.org" target="_blank" rel="noopener">OpenPowerlifting</a> database, which is released into the public domain. This page was built from the {dataDate} release. Here is exactly what went into it:</p>
+          <ul>
+            <li><strong>Who:</strong> adults (18 and older) in raw full-power meets (squat, bench and deadlift) from January 2015 to {data.meet_date_range[1].slice(0, 7)}. That is {data.lifters.M.toLocaleString('en-US')} men and {data.lifters.F.toLocaleString('en-US')} women.</li>
+            <li><strong>One result each:</strong> every lifter counts once, with their best successful bench. People are matched by name, so two lifters who share a name are counted as one.</li>
+            <li><strong>Weight classes:</strong> the current IPF classes, using the bodyweight recorded at the meet where the best bench was made.</li>
+            <li><strong>Removed:</strong> disqualified, no-show and doping-flagged results, and any lifter with no age information.</li>
+            <li><strong>Age table:</strong> needs a recorded age. A lifter counts once in each age group they competed in.</li>
+            <li><strong>Small groups:</strong> any weight class with fewer than 200 lifters is left out.</li>
+          </ul>
+          <p><strong>What it does not describe.</strong> These are people who chose to enter a meet, which is a stronger group than lifters in general. Competition benches are also paused on the chest, which is harder than touch and go. If you do not compete, treat the 10th to 25th percentile columns as a realistic target for a strong, well-trained lifter and use the working benchmarks above for earlier levels.</p>
         </section>
 
-        <!-- Bodyweight Ratio -->
-        <section id="bodyweight-ratio">
-          <h2>Bench Press to Bodyweight Ratio Standards</h2>
-          <p>The simplest way to benchmark yourself across bodyweights:</p>
-
-          <div class="ratio-grid">
-            <div class="ratio-card">
-              <span class="ratio-num">0.5x</span>
-              <span class="ratio-level">Beginner</span>
-              <span class="ratio-ex">90 lb man → 45 lbs</span>
-            </div>
-            <div class="ratio-card">
-              <span class="ratio-num">0.75x</span>
-              <span class="ratio-level">Novice</span>
-              <span class="ratio-ex">180 lb man → 135 lbs</span>
-            </div>
-            <div class="ratio-card ratio-highlight">
-              <span class="ratio-num">1.0x</span>
-              <span class="ratio-level">Intermediate</span>
-              <span class="ratio-ex">180 lb man → 180 lbs</span>
-            </div>
-            <div class="ratio-card">
-              <span class="ratio-num">1.25x</span>
-              <span class="ratio-level">Advanced</span>
-              <span class="ratio-ex">180 lb man → 225 lbs</span>
-            </div>
-            <div class="ratio-card">
-              <span class="ratio-num">1.5x+</span>
-              <span class="ratio-level">Elite</span>
-              <span class="ratio-ex">180 lb man → 270+ lbs</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- FAQ Section -->
         <section id="faq">
           <h2>Frequently Asked Questions</h2>
 
           <div class="faq-list">
-            <details class="faq-item">
-              <summary>What is a good bench press for a man?</summary>
-              <p>A good bench press for the average man is being able to press your own bodyweight for 1 rep — this is the intermediate standard. For a 180 lb man, that's 180 lbs. If you can press 1.25x bodyweight, you're advanced. Below 0.75x bodyweight is novice territory.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>What is the average bench press for a 40 year old man?</summary>
-              <p>An untrained 40 year old man averages 135–155 lbs on the bench press. A trained intermediate 40 year old at 180 lbs bodyweight typically benches 185–210 lbs. Apply the 0.90x age multiplier to the standard for your bodyweight in the table above.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>Is 225 lbs a good bench press?</summary>
-              <p>Yes — 225 lbs (two 45-lb plates per side) is a meaningful milestone. For most men in the 165–185 lb range, it represents advanced-level strength. For heavier men (220+ lbs), it's intermediate. It puts you well above the average gym-goer.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>How long does it take to bench press 225 lbs?</summary>
-              <p>For most men starting from scratch, reaching 225 lbs takes 1.5–3 years of consistent, structured training. Factors that affect timeline: starting bodyweight, training frequency, programming quality, nutrition, and sleep. With a proper program like the Primal Press Protocol, intermediate lifters typically add 50+ lbs within 60–90 days.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>What is the bench press standard for a 50 year old man?</summary>
-              <p>Apply the 0.82x multiplier to the standard for your bodyweight. A 180 lb, 50 year old intermediate lifter would target approximately 189 lbs (230 × 0.82). Age-related decline is real but manageable with smart programming — Jordan coaches multiple clients in their 50s who continue to make strength gains.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>How much should I bench press for my weight?</summary>
-              <p>Use the bodyweight ratio as your guide: Beginner = 0.5x, Novice = 0.75x, Intermediate = 1.0x, Advanced = 1.25x, Elite = 1.5x+. Find your bodyweight in the table above for the exact lbs target at your experience level.</p>
-            </details>
+            {faq.map(f => (
+              <details class="faq-item">
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
           </div>
         </section>
 
@@ -359,7 +459,7 @@ const femaleByWeight = [
           <div class="improve-grid">
             <div class="improve-card">
               <span class="improve-level">Beginner → Novice</span>
-              <p>Linear progression works. Bench 3x/week, add 5 lbs every session. Focus entirely on technique — bar path, leg drive, scapular retraction.</p>
+              <p>Linear progression works. Bench 3x/week, add 5 lbs every session. Focus entirely on technique: bar path, leg drive, scapular retraction.</p>
               <a href="/bench-press-programming/beginners/">Beginner Program →</a>
             </div>
             <div class="improve-card">
@@ -382,7 +482,7 @@ const femaleByWeight = [
         <div class="author-box">
           <div class="author-info">
             <h4>Written by Jordan Hoppel</h4>
-            <p>Two-time All-American sprinter · Exercise Science, Ashland University '14 · 16 years strength coaching · Creator of the Primal Press Protocol · Head coach at 5 Star Fitness, Scottsdale AZ</p>
+            <p>Two-time All-American sprinter · Exercise Science, Ashland University '14 · 17 years strength coaching · Creator of the Primal Press Protocol · Head coach at 5 Star Fitness, Scottsdale AZ</p>
             <a href="/about-jordan-hoppel/">Full Bio →</a>
           </div>
         </div>
@@ -420,7 +520,7 @@ const femaleByWeight = [
               <span>✓ Dan Y. +100 lbs / 5 months</span>
             </div>
             <a href="https://primalpressprotocol.com?utm_source=modernmensfitness&utm_medium=sidebar&utm_campaign=standards-sidebar" class="btn-primary sidebar-btn" target="_blank" rel="noopener">
-              Get PPP — $37
+              Get PPP for $37
             </a>
           </div>
 
@@ -513,6 +613,7 @@ const femaleByWeight = [
 
 /* Layout */
 .standards-layout { padding: 60px 0; }
+.standards-article { min-width: 0; }
 .standards-inner {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -817,3 +918,23 @@ const femaleByWeight = [
   .ratio-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
+
+<style is:global>
+.u-kg { display: none; }
+body[data-unit="kg"] .u-lb { display: none; }
+body[data-unit="kg"] .u-kg { display: inline; }
+.unit-switch { display: flex; align-items: center; gap: 8px; margin: 28px 0 0; }
+.unit-switch-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.u-btn { background: transparent; border: 1px solid var(--steel); color: var(--muted); font-family: var(--font-mono); font-size: 0.75rem; padding: 8px 16px; cursor: pointer; }
+.u-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+.row-all td { border-top: 2px solid var(--steel); }
+</style>
+
+<script>
+document.querySelectorAll<HTMLButtonElement>('.u-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.body.dataset.unit = btn.dataset.unit;
+    document.querySelectorAll('.u-btn').forEach((b) => b.classList.toggle('active', b === btn));
+  });
+});
+</script>
