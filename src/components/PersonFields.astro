@@ -1,0 +1,61 @@
+---
+import { ACTIVITY_LEVELS } from '../lib/nutrition';
+interface Props { activity?: boolean; bodyFat?: boolean }
+const { activity = true, bodyFat = false } = Astro.props;
+---
+<div class="input-group">
+  <label class="input-label">Units</label>
+  <div class="seg" id="units-seg">
+    <button type="button" class="seg-btn active" data-units="imperial">Pounds, feet</button>
+    <button type="button" class="seg-btn" data-units="metric">Kilograms, cm</button>
+  </div>
+</div>
+
+<div class="input-group">
+  <label class="input-label">Sex (used by the formula)</label>
+  <div class="seg" id="sex-seg">
+    <button type="button" class="seg-btn active" data-sex="M">Male</button>
+    <button type="button" class="seg-btn" data-sex="F">Female</button>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="input-group">
+    <label class="input-label" for="age">Age</label>
+    <input type="number" id="age" class="calc-input" placeholder="30" min="18" max="100" inputmode="numeric" />
+  </div>
+  <div class="input-group">
+    <label class="input-label" for="weight" id="weight-label">Weight (lb)</label>
+    <input type="number" id="weight" class="calc-input" placeholder="180" min="1" max="800" step="any" inputmode="decimal" />
+  </div>
+</div>
+
+<div class="input-group">
+  <label class="input-label">Height</label>
+  <div class="two-col" id="height-imperial">
+    <input type="number" id="height-ft" class="calc-input" placeholder="5 ft" min="3" max="8" inputmode="numeric" aria-label="Height, feet" />
+    <input type="number" id="height-in" class="calc-input" placeholder="10 in" min="0" max="11.9" step="any" inputmode="decimal" aria-label="Height, inches" />
+  </div>
+  <div id="height-metric" hidden>
+    <input type="number" id="height-cm" class="calc-input" placeholder="178 cm" min="100" max="250" step="any" inputmode="decimal" aria-label="Height, centimetres" />
+  </div>
+</div>
+
+{activity && (
+  <div class="input-group">
+    <label class="input-label" for="activity">Activity level</label>
+    <select id="activity" class="calc-select">
+      {ACTIVITY_LEVELS.map((a) => (
+        <option value={a.factor} selected={a.key === 'moderate'}>{a.label}: {a.detail}</option>
+      ))}
+    </select>
+  </div>
+)}
+
+{bodyFat && (
+  <div class="input-group">
+    <label class="input-label" for="bodyfat">Body fat % (optional)</label>
+    <input type="number" id="bodyfat" class="calc-input" placeholder="Leave blank if you do not know it" min="3" max="60" step="any" inputmode="decimal" />
+    <p class="hint">If you enter it, the Katch-McArdle formula is used, which accounts for muscle. You can estimate it with the <a href="/nutrition-calculators/body-fat-calculator/">body fat calculator</a>.</p>
+  </div>
+)}

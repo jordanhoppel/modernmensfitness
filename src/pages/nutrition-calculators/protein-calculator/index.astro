@@ -1,0 +1,160 @@
+---
+import NutritionCalcPage from '../../../layouts/NutritionCalcPage.astro';
+import { PROTEIN_GOALS, LB_PER_KG } from '../../../lib/nutrition';
+
+const calcSchema = (name: string, url: string, desc: string) => ({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": name,
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "url": url,
+  "description": desc,
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+});
+const faqSchemaOf = (faq: { q: string; a: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+});
+
+const url = 'https://modernmensfitness.com/nutrition-calculators/protein-calculator/';
+const goals = Object.entries(PROTEIN_GOALS) as [string, (typeof PROTEIN_GOALS)[keyof typeof PROTEIN_GOALS]][];
+const perLb = (g: number) => (g / LB_PER_KG).toFixed(2);
+const faq = [
+  { q: 'How much protein do I need per day?', a: 'The recommended dietary allowance for adults is 0.8 grams per kilogram of body weight, about 0.36 grams per pound, which is set to meet the needs of nearly all healthy people who are not training. If you exercise or lift, the International Society of Sports Nutrition suggests 1.4 to 2.0 grams per kilogram (0.64 to 0.91 per pound).' },
+  { q: 'How much protein do I need to build muscle?', a: 'A 2018 meta-analysis of 49 studies by Morton and colleagues found that intakes above about 1.6 grams per kilogram per day (0.73 per pound) did not add further muscle from resistance training on average. The ISSN range goes up to 2.0. Aiming between 1.6 and 2.0 grams per kilogram covers it for most lifters.' },
+  { q: 'Do I need more protein when I am cutting?', a: 'Lean, resistance-trained people eating in a calorie deficit may benefit from more. The ISSN position stand says 2.3 to 3.1 grams per kilogram of body weight may be needed to hold on to lean mass in that situation. That range is for people who are already lean and training hard, so it is not a target for someone with a lot of body fat to lose.' },
+  { q: 'Should I count my weight or my goal weight?', a: 'This calculator uses your current body weight. If you carry a large amount of body fat, going by your goal weight or your lean mass gives a more sensible number, because protein needs follow lean tissue more than fat.' },
+  { q: 'Is a high protein intake safe?', a: 'For healthy adults the amounts on this page are within ranges studied in research. If you have kidney disease or another medical condition, ask your doctor before raising your protein intake.' },
+];
+---
+
+<NutritionCalcPage
+  title="Protein Calculator: How Much Protein Per Day (Grams by Goal)"
+  description="Free protein calculator. Enter your weight and goal to see how many grams of protein to eat per day, with a range, a per-meal split, and the research behind each number."
+  canonical={url}
+  schema={[calcSchema('Protein Calculator', url, 'Free protein calculator that gives a daily protein target in grams for general health, training, muscle gain or cutting.'), faqSchemaOf(faq)]}
+  crumb="Protein Calculator"
+  h1a="Protein"
+  h1b="Calculator."
+  sub="Find out how many grams of protein to eat each day for your weight and your goal, with the research behind every number."
+>
+  <div class="calc-card">
+    <div class="calc-header"><span class="input-label">// Your weight and goal</span></div>
+    <div class="calc-inputs">
+      <div class="input-group">
+        <label class="input-label">Units</label>
+        <div class="seg" id="units-seg">
+          <button type="button" class="seg-btn active" data-units="imperial">Pounds</button>
+          <button type="button" class="seg-btn" data-units="metric">Kilograms</button>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="input-group">
+          <label class="input-label" for="weight" id="weight-label">Body weight (lb)</label>
+          <input type="number" id="weight" class="calc-input" placeholder="180" min="1" max="800" step="any" inputmode="decimal" />
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="meals">Meals per day</label>
+          <select id="meals" class="calc-select">
+            <option value="3">3 meals</option><option value="4" selected>4 meals</option><option value="5">5 meals</option><option value="6">6 meals</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-group">
+        <label class="input-label" for="goal">Goal</label>
+        <select id="goal" class="calc-select">
+          {goals.map(([key, g]) => (<option value={key} selected={key === 'muscle'}>{g.label}</option>))}
+        </select>
+      </div>
+    </div>
+    <p class="calc-error" id="calc-error" role="alert" hidden></p>
+    <button type="button" class="calc-btn" id="calculate-btn">Calculate My Protein →</button>
+
+    <div class="calc-results" id="calc-results" hidden>
+      <div class="result-grid">
+        <div class="result-main"><span class="result-tag">// Daily target</span><div class="result-num" id="out-target">--</div><span class="result-unit">grams of protein per day</span></div>
+        <div class="result-main"><span class="result-tag">// Range</span><div class="result-num" id="out-range" style="font-size:2rem;">--</div><span class="result-unit" id="out-ratio"></span></div>
+        <div class="result-main"><span class="result-tag">// Per meal</span><div class="result-num" id="out-meal">--</div><span class="result-unit" id="out-meal-unit">grams per meal</span></div>
+      </div>
+      <p class="result-note" id="out-source"></p>
+      <p class="result-note">That is about <strong id="out-kcal">--</strong> calories from protein. <a href="/nutrition-calculators/macro-calculator/">Build the rest of your macros</a> around it.</p>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top:48px;">
+    <h2>How Much Protein You Need by Goal</h2>
+    <div class="chart-wrap">
+      <table class="pct-table data-table">
+        <thead><tr><th>Goal</th><th>Grams per kg</th><th>Grams per lb</th><th>Source</th></tr></thead>
+        <tbody>
+          {goals.map(([, g]) => (
+            <tr><td class="wrap">{g.label}</td><td>{g.low === g.high ? g.low.toFixed(1) : `${g.low.toFixed(1)} to ${g.high.toFixed(1)}`}</td><td>{g.low === g.high ? perLb(g.low) : `${perLb(g.low)} to ${perLb(g.high)}`}</td><td class="wrap">{g.source}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="chart-note">The calculator picks a target inside each range: the low end for general health, and a point near the middle for the training goals.</p>
+
+    <h2>Where the Numbers Come From</h2>
+    <ul>
+      <li><strong>0.8 g per kg:</strong> the recommended dietary allowance for adults, a minimum to cover the needs of nearly all healthy people. It is not a muscle building target.</li>
+      <li><strong>1.4 to 2.0 g per kg:</strong> the International Society of Sports Nutrition position stand on protein and exercise (Jager et al., 2017) for building and maintaining muscle in most exercising people.</li>
+      <li><strong>About 1.6 g per kg:</strong> the point beyond which extra protein stopped adding muscle on average in a 2018 meta-analysis of 49 studies and 1,863 people (Morton et al., British Journal of Sports Medicine).</li>
+      <li><strong>2.3 to 3.1 g per kg:</strong> the ISSN's range for lean, resistance-trained people eating in a calorie deficit.</li>
+    </ul>
+    <p>These ranges are averages. A few grams either way will not matter, so hit a number you can eat consistently.</p>
+
+    <h2>How to Spread Your Protein</h2>
+    <p>The ISSN position stand suggests spreading protein across the day, roughly every three to four hours, rather than eating most of it at one meal. The per-meal figure here just divides your daily target by the number of meals you choose.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    {faq.map(f => (<details class="faq-item"><summary>{f.q}</summary><p>{f.a}</p></details>))}
+    <p class="chart-note" style="margin-top:20px;">Sources: Jager R et al., J Int Soc Sports Nutr 2017;14:20. Morton RW et al., Br J Sports Med 2018;52:376-384. Institute of Medicine, Dietary Reference Intakes.</p>
+  </div>
+</NutritionCalcPage>
+
+<script>
+import { PROTEIN_GOALS, LB_PER_KG, KCAL_PER_G, proteinGrams, type ProteinGoal } from '../../../lib/nutrition';
+
+const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+const out = (id: string) => document.getElementById(id)!;
+let units: 'imperial' | 'metric' = 'imperial';
+const fmt = (n: number) => Math.round(n).toLocaleString('en-US');
+
+function run(clicked: boolean) {
+  const w = parseFloat($('weight').value);
+  const errEl = out('calc-error');
+  if (!(w > 0)) { errEl.textContent = clicked ? 'Enter your body weight.' : ''; errEl.hidden = !errEl.textContent; return; }
+  const kg = units === 'metric' ? w : w / LB_PER_KG;
+  if (kg < 30 || kg > 300) { errEl.textContent = 'Enter a body weight between 66 and 660 lb (30 and 300 kg).'; errEl.hidden = false; out('calc-results').hidden = true; return; }
+  errEl.hidden = true;
+  const goal = $('goal').value as ProteinGoal;
+  const meals = parseInt($('meals').value);
+  const g = proteinGrams(kg, goal);
+  out('out-target').textContent = fmt(g.target);
+  out('out-range').textContent = g.low === g.high ? `${fmt(g.low)}` : `${fmt(g.low)} to ${fmt(g.high)}`;
+  const pg = PROTEIN_GOALS[goal];
+  out('out-ratio').textContent = `${pg.low === pg.high ? pg.low.toFixed(1) : pg.low.toFixed(1) + ' to ' + pg.high.toFixed(1)} g per kg`;
+  out('out-meal').textContent = fmt(g.target / meals);
+  out('out-meal-unit').textContent = `grams per meal over ${meals} meals`;
+  out('out-source').textContent = `Basis: ${PROTEIN_GOALS[goal].source}.`;
+  out('out-kcal').textContent = fmt(g.target * KCAL_PER_G.protein);
+  out('calc-results').hidden = false;
+  if (clicked) out('calc-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+document.querySelectorAll<HTMLButtonElement>('#units-seg .seg-btn').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('#units-seg .seg-btn').forEach((x) => x.classList.toggle('active', x === b));
+  const next = b.dataset.units as typeof units;
+  const w = parseFloat($('weight').value);
+  if (next !== units && w > 0) $('weight').value = String(Math.round((next === 'metric' ? w / LB_PER_KG : w * LB_PER_KG) * 10) / 10);
+  units = next;
+  out('weight-label').textContent = units === 'metric' ? 'Body weight (kg)' : 'Body weight (lb)';
+  run(false);
+}));
+['weight', 'goal', 'meals'].forEach((id) => $(id).addEventListener('input', () => run(false)));
+out('calculate-btn').addEventListener('click', () => run(true));
+</script>

@@ -1,0 +1,158 @@
+---
+import NutritionCalcPage from '../../../layouts/NutritionCalcPage.astro';
+import PersonFields from '../../../components/PersonFields.astro';
+
+const calcSchema = (name: string, url: string, desc: string) => ({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": name,
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "url": url,
+  "description": desc,
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+});
+const faqSchemaOf = (faq: { q: string; a: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+});
+
+const url = 'https://modernmensfitness.com/nutrition-calculators/calorie-deficit-calculator/';
+const faq = [
+  { q: 'How many calories should I cut to lose weight?', a: 'Most people lose weight at a steady pace with a deficit of about 250 to 500 calories below maintenance, which is roughly half a pound to a pound a week on the common 3,500 calorie rule. The CDC describes about 1 to 2 pounds a week as a gradual, steady pace that people are more likely to keep off. Bigger gaps are harder to sustain and cost more muscle.' },
+  { q: 'Is the 3,500 calories per pound rule accurate?', a: 'Not over time. Hall and Chow (International Journal of Obesity, 2013) showed that the rule overestimates weight loss, because your body burns fewer calories as you get lighter and the mix of fat and lean mass lost changes. It works as an estimate for the first few weeks. Expect real progress to slow.' },
+  { q: 'Why does the calculator warn me about my BMR?', a: 'Your BMR is the energy your body needs at rest. If your target is below it, you are asking for a very large deficit that is hard to keep up, usually costs muscle, and is best done only with medical guidance. Pick a slower rate instead.' },
+  { q: 'Can I build muscle in a calorie deficit?', a: 'Beginners and people returning to lifting can often add some muscle while losing fat, especially with high protein and hard training. For most trained lifters, a smaller deficit and enough protein mainly protects the muscle you have. Use the protein calculator to set that target.' },
+  { q: 'Can I use this to gain weight?', a: 'Yes. Enter a goal weight above your current weight and the calculator switches to a surplus: the calories to eat above maintenance to gain at the rate you pick. The same 3,500 calorie approximation applies, so gaining muscle usually runs slower than the number suggests.' },
+];
+---
+
+<NutritionCalcPage
+  title="Calorie Deficit Calculator: How Many Calories to Eat to Lose Weight"
+  description="Free calorie deficit calculator. Enter your details and goal weight to get a daily calorie target, the size of the deficit, and how many weeks it should take."
+  canonical={url}
+  schema={[calcSchema('Calorie Deficit Calculator', url, 'Free calculator that turns a goal weight and weekly rate into a daily calorie target and an estimated timeline.'), faqSchemaOf(faq)]}
+  crumb="Calorie Deficit Calculator"
+  h1a="Calorie Deficit"
+  h1b="Calculator."
+  sub="Turn a goal weight and a weekly rate into a daily calorie target and a realistic timeline."
+>
+  <div class="calc-card">
+    <div class="calc-header"><span class="input-label">// Your details and your goal</span></div>
+    <div class="calc-inputs">
+      <PersonFields />
+      <div class="two-col">
+        <div class="input-group">
+          <label class="input-label" for="goal" id="goal-label">Goal weight (lb)</label>
+          <input type="number" id="goal" class="calc-input" placeholder="165" min="1" max="800" step="any" inputmode="decimal" />
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="rate">Rate per week</label>
+          <select id="rate" class="calc-select"></select>
+        </div>
+      </div>
+    </div>
+    <p class="calc-error" id="calc-error" role="alert" hidden></p>
+    <button type="button" class="calc-btn" id="calculate-btn">Calculate My Deficit →</button>
+
+    <div class="calc-results" id="calc-results" hidden>
+      <div class="result-grid">
+        <div class="result-main"><span class="result-tag" id="tag-target">// Daily calories</span><div class="result-num" id="out-target">--</div><span class="result-unit">calories per day</span></div>
+        <div class="result-main"><span class="result-tag" id="tag-change">// Daily deficit</span><div class="result-num" id="out-change">--</div><span class="result-unit" id="out-change-unit">calories below maintenance</span></div>
+        <div class="result-main"><span class="result-tag">// Estimated time</span><div class="result-num" id="out-weeks">--</div><span class="result-unit" id="out-date"></span></div>
+      </div>
+      <p class="result-note" id="out-note"></p>
+      <p class="result-note">Your maintenance is <strong id="out-tdee">--</strong> calories and your BMR is <strong id="out-bmr">--</strong>. <a href="/nutrition-calculators/protein-calculator/">Set your protein</a> so the weight you lose is fat, not muscle.</p>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top:48px;">
+    <h2>How the Calorie Deficit Calculator Works</h2>
+    <p>It estimates your maintenance calories with the Mifflin-St Jeor equation and your activity level (the same method as the <a href="/nutrition-calculators/tdee-calculator/">TDEE calculator</a>). Then it converts the weekly rate you choose into a daily calorie gap using the common rule that a pound of body weight is worth about 3,500 calories: pounds per week x 3,500 / 7. A rate of 1 pound a week is a gap of 500 calories a day, and the target is your maintenance minus that gap.</p>
+    <p>The timeline is the distance to your goal weight divided by your weekly rate.</p>
+
+    <h2>Why the Timeline Is an Estimate</h2>
+    <p>The 3,500 calorie rule is a good first approximation and a poor long-term predictor. Hall and Chow showed in 2013 that it overestimates loss: as you get lighter you burn less, and what you lose is not all fat. Treat the weeks as the soonest you could get there, not a promise. If the scale stalls for two to three weeks, recalculate with your new weight.</p>
+
+    <h2>What Rate Should I Pick?</h2>
+    <p>The CDC describes about 1 to 2 pounds a week as a gradual, steady pace that people are more likely to keep off than faster losses. The calculator warns you when you pick something faster than that, or when your target falls below your BMR. If you lift, the slower end protects more muscle.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    {faq.map(f => (<details class="faq-item"><summary>{f.q}</summary><p>{f.a}</p></details>))}
+    <p class="chart-note" style="margin-top:20px;">Sources: Hall KD, Chow CC, Int J Obes 2013;37:1.  CDC, Steps for Losing Weight. Mifflin MD et al., Am J Clin Nutr 1990;51:241-247.</p>
+  </div>
+</NutritionCalcPage>
+
+<script>
+import { initPerson, readPerson, fmt, state, type Units } from '../../../lib/personForm';
+import { mifflinBmr, tdee, dailyEnergyChange, weeksToGoal, LB_PER_KG } from '../../../lib/nutrition';
+
+const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+const goalEl = $('goal');
+const rateEl = document.getElementById('rate') as HTMLSelectElement;
+
+const RATES: Record<Units, number[]> = { imperial: [0.5, 1, 1.5, 2], metric: [0.25, 0.5, 0.75, 1] };
+function fillRates() {
+  const unit = state.units === 'metric' ? 'kg' : 'lb';
+  const pick = state.units === 'metric' ? 0.5 : 1;
+  rateEl.innerHTML = RATES[state.units].map((r) => `<option value="${r}" ${r === pick ? 'selected' : ''}>${r} ${unit} a week</option>`).join('');
+  document.getElementById('goal-label')!.textContent = `Goal weight (${unit})`;
+}
+fillRates();
+
+let lastUnits: Units = state.units;
+function run(clicked: boolean) {
+  if (state.units !== lastUnits) { // units flipped: convert the goal and re-fill the rate list
+    const g = parseFloat(goalEl.value);
+    if (g > 0) goalEl.value = String(Math.round((state.units === 'metric' ? g / LB_PER_KG : g * LB_PER_KG) * 10) / 10);
+    lastUnits = state.units; fillRates();
+  }
+  const { person, error, incomplete } = readPerson();
+  const errEl = $('calc-error') as unknown as HTMLElement;
+  const goalIn = parseFloat(goalEl.value);
+  let msg = error;
+  if (!person && !error && clicked && incomplete) msg = 'Fill in your age, weight and height.';
+  if (person && !(goalIn > 0)) msg = clicked ? 'Enter a goal weight.' : '';
+  const goalKg = state.units === 'metric' ? goalIn : goalIn / LB_PER_KG;
+  if (person && goalIn > 0 && Math.abs(goalKg - person.weightKg) < 0.05) msg = 'Your goal weight is the same as your current weight.';
+  if (person && goalIn > 0 && (goalKg < 30 || goalKg > 300)) msg = 'Enter a goal weight between 66 and 660 lb (30 and 300 kg).';
+  errEl.textContent = msg; errEl.hidden = !msg;
+  if (msg || !person || !(goalIn > 0)) { if (msg) $('calc-results').hidden = true; return; }
+
+  const rateKg = state.units === 'metric' ? parseFloat(rateEl.value) : parseFloat(rateEl.value) / LB_PER_KG;
+  const losing = goalKg < person.weightKg;
+  const bmr = mifflinBmr(person.sex, person.weightKg, person.heightCm, person.age);
+  const maint = tdee(bmr, person.activityFactor);
+  const change = dailyEnergyChange(rateKg);
+  const target = losing ? maint - change : maint + change;
+  const weeks = weeksToGoal(person.weightKg, goalKg, rateKg);
+
+  $('tag-target').textContent = '// Daily calories';
+  $('out-target').textContent = fmt(target);
+  $('tag-change').textContent = losing ? '// Daily deficit' : '// Daily surplus';
+  $('out-change').textContent = fmt(change);
+  $('out-change-unit').textContent = losing ? 'calories below maintenance' : 'calories above maintenance';
+  $('out-weeks').textContent = weeks < 1 ? '<1' : String(Math.round(weeks));
+  const when = new Date(Date.now() + weeks * 7 * 86400000);
+  $('out-date').textContent = `weeks, around ${when.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`;
+  $('out-tdee').textContent = fmt(maint); $('out-bmr').textContent = fmt(bmr);
+
+  const notes: string[] = [];
+  const lbPerWeek = rateKg * LB_PER_KG;
+  if (losing && target < bmr) notes.push('This target is below your estimated BMR. That is a very large deficit and is best only with medical guidance. Pick a slower rate.');
+  if (losing && lbPerWeek > 2.05) notes.push('This is faster than the 1 to 2 pounds a week the CDC describes as a gradual, steady pace.');
+  if (weeks > 78) notes.push('Over a year and a half at this rate, real progress will slow, so recalculate every few weeks.');
+  const note = $('out-note') as unknown as HTMLElement;
+  note.textContent = notes.length ? notes.join(' ') : 'This is an estimate based on the 3,500 calories per pound rule, which tends to overstate long-term loss. Recalculate with your new weight every few weeks.';
+  note.className = 'result-note' + (notes.length ? ' warn' : '');
+  $('calc-results').hidden = false;
+  if (clicked) $('calc-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+initPerson(() => run(false));
+goalEl.addEventListener('input', () => run(false));
+rateEl.addEventListener('input', () => run(false));
+$('calculate-btn').addEventListener('click', () => run(true));
+</script>

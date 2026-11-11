@@ -1,0 +1,157 @@
+---
+import NutritionCalcPage from '../../../layouts/NutritionCalcPage.astro';
+import PersonFields from '../../../components/PersonFields.astro';
+import { PROTEIN_GOALS } from '../../../lib/nutrition';
+
+const calcSchema = (name: string, url: string, desc: string) => ({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": name,
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "url": url,
+  "description": desc,
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+});
+const faqSchemaOf = (faq: { q: string; a: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+});
+
+const url = 'https://modernmensfitness.com/nutrition-calculators/macro-calculator/';
+const proteinOptions = (['active', 'muscle', 'cut', 'health'] as const).map((k) => ({ key: k, g: PROTEIN_GOALS[k] }));
+const faq = [
+  { q: 'How do I calculate my macros?', a: 'Start with your calorie target, which is your maintenance calories plus or minus an adjustment for your goal. Set protein in grams per kilogram of body weight, set fat as a share of calories, and fill the rest of the calories with carbohydrate. Protein and carbohydrate have 4 calories per gram and fat has 9.' },
+  { q: 'What macro split is best?', a: 'There is no single best split. Protein matters most for keeping and building muscle, so set that first. For fat, the Institute of Medicine suggests 20 to 35 percent of calories for adults, and this calculator keeps you inside that range. Carbohydrate takes whatever calories are left, which suits most lifters because it fuels training.' },
+  { q: 'How much fat do I need?', a: 'The Institute of Medicine range is 20 to 35 percent of calories. Going much below 20 percent for long is not recommended. A 25 to 30 percent share is a common starting point.' },
+  { q: 'Do I have to hit my macros exactly?', a: 'No. Daily numbers wobble. Aim to be close on protein, roughly right on calories, and consistent over a week. If your weight is not moving the way you want after two to three weeks, adjust calories first.' },
+  { q: 'Why is my carbohydrate number so low or negative?', a: 'When calories are low and protein is high, there may not be many calories left for carbohydrate. If it comes out negative, your calories are too low for that protein and fat, so raise calories, lower the fat share, or choose a smaller protein goal.' },
+];
+---
+
+<NutritionCalcPage
+  title="Macro Calculator: Daily Protein, Carbs and Fat for Your Goal"
+  description="Free macro calculator. Get your daily calories, then your grams of protein, carbs and fat for fat loss, maintenance or muscle gain, with research-based protein targets."
+  canonical={url}
+  schema={[calcSchema('Macro Calculator', url, 'Free macro calculator that turns your calorie target into grams of protein, carbohydrate and fat.'), faqSchemaOf(faq)]}
+  crumb="Macro Calculator"
+  h1a="Macro"
+  h1b="Calculator."
+  sub="Turn your calorie target into daily grams of protein, carbs and fat for fat loss, maintenance or muscle gain."
+>
+  <div class="calc-card">
+    <div class="calc-header"><span class="input-label">// Your details and your goal</span></div>
+    <div class="calc-inputs">
+      <PersonFields bodyFat={true} />
+      <div class="input-group">
+        <label class="input-label" for="adjust">Calorie goal</label>
+        <select id="adjust" class="calc-select">
+          <option value="-500">Lose weight faster (500 below maintenance)</option>
+          <option value="-250">Lose weight slowly (250 below maintenance)</option>
+          <option value="0" selected>Maintain weight</option>
+          <option value="250">Gain slowly (250 above maintenance)</option>
+          <option value="500">Gain faster (500 above maintenance)</option>
+        </select>
+      </div>
+      <div class="two-col">
+        <div class="input-group">
+          <label class="input-label" for="protein-goal">Protein</label>
+          <select id="protein-goal" class="calc-select">
+            {proteinOptions.map(({ key, g }) => (<option value={key} selected={key === 'muscle'}>{g.label} ({g.target} g/kg)</option>))}
+          </select>
+        </div>
+        <div class="input-group">
+          <label class="input-label" for="fat-share">Fat (share of calories)</label>
+          <select id="fat-share" class="calc-select">
+            <option value="0.20">20%</option><option value="0.25" selected>25%</option><option value="0.30">30%</option><option value="0.35">35%</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <p class="calc-error" id="calc-error" role="alert" hidden></p>
+    <button type="button" class="calc-btn" id="calculate-btn">Calculate My Macros →</button>
+
+    <div class="calc-results" id="calc-results" hidden>
+      <div class="result-grid">
+        <div class="result-main"><span class="result-tag">// Calories per day</span><div class="result-num" id="out-kcal">--</div><span class="result-unit" id="out-basis"></span></div>
+      </div>
+      <table class="pct-table data-table">
+        <thead><tr><th>Macro</th><th>Grams per day</th><th>Calories</th><th>% of calories</th></tr></thead>
+        <tbody id="macro-body"></tbody>
+      </table>
+      <p class="result-note" id="out-note" style="margin-top:12px;"></p>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top:48px;">
+    <h2>How the Macro Calculator Works</h2>
+    <ol>
+      <li><strong>Calories.</strong> It estimates your maintenance calories (the same method as the <a href="/nutrition-calculators/tdee-calculator/">TDEE calculator</a>) and adds or subtracts the amount for your goal.</li>
+      <li><strong>Protein.</strong> Grams per kilogram of body weight, from the research on the <a href="/nutrition-calculators/protein-calculator/">protein calculator</a>.</li>
+      <li><strong>Fat.</strong> A share of your calories, kept between 20 and 35 percent, the adult range set by the Institute of Medicine.</li>
+      <li><strong>Carbohydrate.</strong> Whatever calories are left. Protein and carbohydrate are 4 calories per gram and fat is 9.</li>
+    </ol>
+
+    <h2>Why Protein First</h2>
+    <p>Protein is the macro with the strongest evidence for keeping and building muscle, so it gets a fixed target. Fat has a floor for health. Carbohydrate is the flexible one, and for people who lift it is the main fuel for hard sessions, so it takes the remaining calories.</p>
+
+    <h2>Use It as a Starting Point</h2>
+    <p>Every input here is an estimate, from your maintenance calories to your activity level. Follow the numbers for two to three weeks while you weigh yourself, then adjust calories up or down by what your weight actually does.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    {faq.map(f => (<details class="faq-item"><summary>{f.q}</summary><p>{f.a}</p></details>))}
+    <p class="chart-note" style="margin-top:20px;">Sources: Institute of Medicine, Dietary Reference Intakes (acceptable macronutrient distribution range for fat, 20 to 35 percent of calories). Jager R et al., J Int Soc Sports Nutrition 2017;14:20. Mifflin MD et al., Am J Clin Nutr 1990;51:241-247.</p>
+  </div>
+</NutritionCalcPage>
+
+<script>
+import { initPerson, readPerson, fmt } from '../../../lib/personForm';
+import { mifflinBmr, katchMcArdleBmr, leanMassKg, tdee, macroSplit, calories, KCAL_PER_G, PROTEIN_GOALS, type ProteinGoal } from '../../../lib/nutrition';
+
+const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+const out = (id: string) => document.getElementById(id)!;
+
+function run(clicked: boolean) {
+  const { person, error, incomplete } = readPerson();
+  const errEl = out('calc-error');
+  if (!person) {
+    errEl.textContent = error || (clicked && incomplete ? 'Fill in your age, weight and height.' : '');
+    errEl.hidden = !errEl.textContent;
+    if (error || (clicked && incomplete)) out('calc-results').hidden = true;
+    return;
+  }
+  errEl.hidden = true;
+  const bmr = person.bodyFatPct !== null ? katchMcArdleBmr(leanMassKg(person.weightKg, person.bodyFatPct)) : mifflinBmr(person.sex, person.weightKg, person.heightCm, person.age);
+  const maint = tdee(bmr, person.activityFactor);
+  const adjust = parseFloat($('adjust').value);
+  const target = maint + adjust;
+  const perKg = PROTEIN_GOALS[$('protein-goal').value as ProteinGoal].target;
+  const fatShare = parseFloat($('fat-share').value);
+  const m = macroSplit(target, person.weightKg, perKg, fatShare);
+
+  out('out-kcal').textContent = fmt(target);
+  out('out-basis').textContent = `maintenance ${fmt(maint)} ${adjust === 0 ? '' : adjust > 0 ? '+ ' + adjust : '- ' + Math.abs(adjust)}`;
+  const rows: [string, number, number][] = [
+    ['Protein', m.protein, KCAL_PER_G.protein],
+    ['Carbohydrate', Math.max(m.carbs, 0), KCAL_PER_G.carbs],
+    ['Fat', m.fat, KCAL_PER_G.fat],
+  ];
+  const total = calories(m.protein, Math.max(m.carbs, 0), m.fat) || 1;
+  out('macro-body').innerHTML = rows.map(([label, g, per]) => `<tr><td>${label}</td><td style="color:var(--text);font-weight:600;">${fmt(g)} g</td><td>${fmt(g * per)}</td><td>${Math.round((g * per / total) * 100)}%</td></tr>`).join('');
+
+  const note = out('out-note');
+  const notes: string[] = [];
+  if (m.carbs < 0) notes.push('Your calories are too low for this much protein and fat, so carbohydrate comes out below zero. Raise your calories, lower the fat share, or pick a smaller protein goal.');
+  if (target < bmr) notes.push('This target is below your estimated BMR. Eating that low for long is best done only with medical guidance.');
+  note.textContent = notes.join(' ');
+  note.className = 'result-note' + (notes.length ? ' warn' : '');
+  out('calc-results').hidden = false;
+  if (clicked) out('calc-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+initPerson(() => run(false));
+['adjust', 'protein-goal', 'fat-share'].forEach((id) => $(id).addEventListener('input', () => run(false)));
+out('calculate-btn').addEventListener('click', () => run(true));
+</script>

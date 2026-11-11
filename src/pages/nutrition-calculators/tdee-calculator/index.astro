@@ -1,0 +1,142 @@
+---
+import NutritionCalcPage from '../../../layouts/NutritionCalcPage.astro';
+import PersonFields from '../../../components/PersonFields.astro';
+import { ACTIVITY_LEVELS, mifflinBmr, katchMcArdleBmr, leanMassKg, tdee } from '../../../lib/nutrition';
+
+const calcSchema = (name: string, url: string, desc: string) => ({
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": name,
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Web",
+  "url": url,
+  "description": desc,
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+});
+const faqSchemaOf = (faq: { q: string; a: string }[]) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faq.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })),
+});
+
+const url = 'https://modernmensfitness.com/nutrition-calculators/tdee-calculator/';
+const exBmr = Math.round(mifflinBmr('M', 80, 180, 30));
+const exTdee = Math.round(tdee(mifflinBmr('M', 80, 180, 30), 1.55));
+const faq = [
+  { q: 'What is TDEE?', a: 'TDEE stands for total daily energy expenditure, the number of calories you burn in a day. It is your basal metabolic rate (what your body burns at rest) multiplied by an activity factor that accounts for movement and exercise. Eat around your TDEE and your weight should hold steady.' },
+  { q: 'How accurate is a TDEE calculator?', a: 'It is an estimate. A 2005 systematic review in the Journal of the American Dietetic Association found Mifflin-St Jeor was the most reliable of four common equations, but it is still only approximate for any one person. Treat the result as a starting point, eat at it for two to three weeks while you weigh yourself, and adjust by what your weight actually does.' },
+  { q: 'Which activity level should I pick?', a: 'Pick the level that matches an ordinary week, and be honest. People tend to overrate it. If you lift three or four days a week but sit at a desk the rest of the time, moderately active is usually the right choice. If you are unsure between two levels, choose the lower one.' },
+  { q: 'Should I use Mifflin-St Jeor or Katch-McArdle?', a: 'Mifflin-St Jeor needs only your sex, age, height and weight and is the default here. Katch-McArdle needs your body fat percentage and uses your lean mass, so it can suit a muscular person better. It is only as good as the body fat number you give it, and body fat estimates are rough.' },
+  { q: 'How many calories should I eat to lose weight?', a: 'Eat below your TDEE. The table shows targets 250 and 500 calories below it. A 500 calorie daily gap works out to about a pound a week on the common 3,500 calorie rule, which overestimates over time, so treat it as a guide. The calorie deficit calculator turns a goal weight into a daily target and a timeline.' },
+];
+---
+
+<NutritionCalcPage
+  title="TDEE Calculator: Maintenance Calories and BMR (Mifflin-St Jeor)"
+  description="Free TDEE calculator. Enter your age, height, weight and activity level to get your BMR, your maintenance calories, and calorie targets for fat loss or muscle gain."
+  canonical={url}
+  schema={[calcSchema('TDEE Calculator', url, 'Free TDEE calculator that estimates BMR and maintenance calories from age, sex, height, weight and activity level.'), faqSchemaOf(faq)]}
+  crumb="TDEE Calculator"
+  h1a="TDEE"
+  h1b="Calculator."
+  sub="Estimate your BMR, your maintenance calories, and the calorie targets for losing fat or gaining muscle."
+>
+  <div class="calc-card">
+    <div class="calc-header"><span class="input-label">// Your details</span></div>
+    <div class="calc-inputs">
+      <PersonFields bodyFat={true} />
+    </div>
+    <p class="calc-error" id="calc-error" role="alert" hidden></p>
+    <button type="button" class="calc-btn" id="calculate-btn">Calculate My TDEE →</button>
+
+    <div class="calc-results" id="calc-results" hidden>
+      <div class="result-grid">
+        <div class="result-main"><span class="result-tag">// Maintenance calories (TDEE)</span><div class="result-num" id="out-tdee">--</div><span class="result-unit">calories per day</span></div>
+        <div class="result-main"><span class="result-tag">// BMR</span><div class="result-num" id="out-bmr">--</div><span class="result-unit" id="out-formula">calories at rest</span></div>
+      </div>
+      <p class="result-note" id="out-note"></p>
+      <table class="pct-table data-table">
+        <thead><tr><th>Goal</th><th>Calories per day</th><th>% of TDEE</th></tr></thead>
+        <tbody id="targets"></tbody>
+      </table>
+      <p class="result-note" style="margin-top:12px;">Next: <a href="/nutrition-calculators/calorie-deficit-calculator/">turn a goal weight into a daily target</a> or <a href="/nutrition-calculators/macro-calculator/">split these calories into protein, carbs and fat</a>.</p>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top:48px;">
+    <h2>What Is TDEE?</h2>
+    <p>Your total daily energy expenditure is the calories you burn in a day. It has two big parts. Your basal metabolic rate (BMR) is what your body burns at rest to keep you alive. Activity, from walking to lifting, is multiplied on top of that. Eat around your TDEE and your weight holds steady. Eat below it and you lose weight. Eat above it and you gain.</p>
+
+    <h2>How This TDEE Calculator Works</h2>
+    <p>It works in two steps. First it estimates your BMR with the Mifflin-St Jeor equation:</p>
+    <ul>
+      <li><strong>Men:</strong> BMR = 10 x weight (kg) + 6.25 x height (cm) - 5 x age + 5</li>
+      <li><strong>Women:</strong> BMR = 10 x weight (kg) + 6.25 x height (cm) - 5 x age - 161</li>
+    </ul>
+    <p>If you enter a body fat percentage it uses the Katch-McArdle equation instead, which is BMR = 370 + 21.6 x lean body mass (kg). Then it multiplies your BMR by an activity factor to get your TDEE. For example, a 30 year old man who is 180 cm and 80 kg has a BMR of {exBmr} calories, and at the moderately active factor of 1.55 a TDEE of {exTdee}.</p>
+
+    <h2>Activity Levels</h2>
+    <div class="chart-wrap">
+      <table class="pct-table data-table">
+        <thead><tr><th>Level</th><th>Multiplier</th><th>What it means</th></tr></thead>
+        <tbody>
+          {ACTIVITY_LEVELS.map(a => (<tr><td>{a.label}</td><td>{a.factor}</td><td class="wrap">{a.detail}</td></tr>))}
+        </tbody>
+      </table>
+    </div>
+    <p class="chart-note">These are the multipliers in common use. If you are between two levels, pick the lower one, because most people overestimate how active they are.</p>
+
+    <h2>How Accurate Is It?</h2>
+    <p>Mifflin-St Jeor came out as the most reliable of four common equations in a 2005 systematic review by Frankenfield and colleagues, and it is the one most dietitians use. It is still an estimate. The review noted real errors when equations are applied to individuals. The practical fix is simple: eat at your result for two to three weeks while weighing yourself each morning, and adjust by what the scale does.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    {faq.map(f => (<details class="faq-item"><summary>{f.q}</summary><p>{f.a}</p></details>))}
+    <p class="chart-note" style="margin-top:20px;">Sources: Mifflin MD et al., Am J Clin Nutr 1990;51:241-247. Frankenfield D et al., J Am Diet Assoc 2005;105:775-789. McArdle WD, Katch FI, Katch VL, Exercise Physiology.</p>
+  </div>
+</NutritionCalcPage>
+
+<script>
+import { initPerson, readPerson, fmt } from '../../../lib/personForm';
+import { mifflinBmr, katchMcArdleBmr, leanMassKg, tdee } from '../../../lib/nutrition';
+
+const $ = (id: string) => document.getElementById(id)!;
+
+function run(clicked: boolean) {
+  const { person, error, incomplete } = readPerson();
+  const errEl = $('calc-error');
+  if (!person) {
+    errEl.textContent = error || (clicked && incomplete ? 'Fill in your age, weight and height.' : '');
+    errEl.hidden = !errEl.textContent;
+    if (error || (clicked && incomplete)) $('calc-results').hidden = true;
+    return;
+  }
+  errEl.hidden = true;
+  const useKatch = person.bodyFatPct !== null;
+  const bmr = useKatch ? katchMcArdleBmr(leanMassKg(person.weightKg, person.bodyFatPct!)) : mifflinBmr(person.sex, person.weightKg, person.heightCm, person.age);
+  const total = tdee(bmr, person.activityFactor);
+  $('out-tdee').textContent = fmt(total);
+  $('out-bmr').textContent = fmt(bmr);
+  $('out-formula').textContent = useKatch ? 'calories at rest (Katch-McArdle)' : 'calories at rest (Mifflin-St Jeor)';
+
+  const rows: [string, number][] = [
+    ['Lose weight faster (-500)', total - 500],
+    ['Lose weight slowly (-250)', total - 250],
+    ['Maintain weight', total],
+    ['Gain slowly (+250)', total + 250],
+    ['Gain faster (+500)', total + 500],
+  ];
+  $('targets').innerHTML = rows.map(([label, kcal]) => {
+    const low = kcal < bmr;
+    return `<tr><td>${label}</td><td style="color:var(--text);font-weight:600;">${fmt(kcal)}${low ? ' *' : ''}</td><td>${Math.round((kcal / total) * 100)}%</td></tr>`;
+  }).join('');
+  const anyLow = rows.some(([, k]) => k < bmr);
+  $('out-note').textContent = anyLow ? '* This target is below your estimated BMR. Eating that low for long is not a good idea without medical guidance.' : 'A gap of 500 calories a day is about a pound a week on the common 3,500 calorie rule. Real results run slower over time.';
+  $('out-note').className = 'result-note' + (anyLow ? ' warn' : '');
+  $('calc-results').hidden = false;
+  if (clicked) $('calc-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+initPerson(() => run(false));
+$('calculate-btn').addEventListener('click', () => run(true));
+</script>

@@ -96,6 +96,8 @@ const schema = {
         ))}
       </div>
 
+      <p class="nutrition-link">Training is half of it. See the <a href="/nutrition-calculators/">nutrition calculators</a> for TDEE, calorie deficit, protein, macros and body fat.</p>
+
       <div class="tools-ppp">
         <div class="tools-ppp-left">
           <span class="eyebrow">// Why These Tools Exist</span>
@@ -152,4 +154,6 @@ const schema = {
 .ppp-proof strong { color: var(--text); }
 
 @media (max-width: 900px) { .tools-grid { grid-template-columns: 1fr; } .tools-ppp { grid-template-columns: 1fr; gap: 40px; } }
+.nutrition-link { margin-top: 32px; font-size: 0.9rem; color: var(--muted); }
+.nutrition-link a { color: var(--lime); }
 </style>

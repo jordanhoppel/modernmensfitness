@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const tools = [
+  { num: '01', title: 'TDEE Calculator', desc: 'Estimate your BMR and your maintenance calories, with targets for fat loss or muscle gain.', href: '/nutrition-calculators/tdee-calculator/' },
+  { num: '02', title: 'Calorie Deficit Calculator', desc: 'Turn a goal weight and a weekly rate into a daily calorie target and a realistic timeline.', href: '/nutrition-calculators/calorie-deficit-calculator/' },
+  { num: '03', title: 'Protein Calculator', desc: 'How many grams of protein to eat per day for health, training, muscle gain or cutting, with the research behind it.', href: '/nutrition-calculators/protein-calculator/' },
+  { num: '04', title: 'Macro Calculator', desc: 'Your daily calories split into grams of protein, carbohydrate and fat.', href: '/nutrition-calculators/macro-calculator/' },
+  { num: '05', title: 'Body Fat Calculator', desc: 'Estimate your body fat percentage from a tape measure using the US Navy method.', href: '/nutrition-calculators/body-fat-calculator/' },
+];
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Free Nutrition Calculators",
+  "description": "Free TDEE, calorie deficit, protein, macro and body fat calculators.",
+  "url": "https://modernmensfitness.com/nutrition-calculators/",
+  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" }
+};
+---
+
+<BaseLayout
+  title="Free Nutrition Calculators: TDEE, Calorie Deficit, Protein, Macros, Body Fat"
+  description="Free nutrition calculators for lifters: TDEE and maintenance calories, calorie deficit, daily protein, macros and body fat. Each one shows its formula and its sources."
+  canonical="https://modernmensfitness.com/nutrition-calculators/"
+  schema={schema}
+>
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb"><a href="/">Home</a> <span>›</span> <span>Nutrition Calculators</span></nav>
+      <span class="eyebrow">Free Tools</span>
+      <h1>Nutrition<br /><em>Calculators.</em></h1>
+      <p class="page-sub">Calories, protein, macros and body fat. Every calculator shows its formula and the research behind it, so you know what the number means and how far to trust it.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tools-grid">
+        {tools.map((t) => (
+          <a href={t.href} class="tool-card">
+            <div class="tool-top"><span class="tool-num mono">{t.num}</span><span class="tool-tag mono">Free</span></div>
+            <h3>{t.title}</h3>
+            <p>{t.desc}</p>
+            <span class="btn-ghost">Use Calculator →</span>
+          </a>
+        ))}
+      </div>
+      <p class="hub-note">These calculators give estimates for healthy adults. They are not medical advice. If you have a medical condition, are pregnant, or have a history of disordered eating, talk to a doctor or a registered dietitian before changing how you eat. Looking for strength tools? See the <a href="/bench-press-tools/">bench press calculators</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; }
+.breadcrumb a { color: var(--muted2); text-decoration: none; }
+.page-hero h1 { margin: 16px 0; }
+.page-sub { font-size: 1rem; color: var(--muted); max-width: 560px; font-weight: 300; }
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.tool-card { display: flex; flex-direction: column; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 28px 24px; text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s; }
+.tool-card:hover { transform: translateY(-3px); border-color: var(--lime); }
+.tool-top { display: flex; justify-content: space-between; }
+.tool-num, .tool-tag { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); }
+.tool-tag { color: var(--lime); }
+.tool-card h3 { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.02em; margin: 0; }
+.tool-card p { font-size: 0.9rem; color: var(--muted); margin: 0; flex: 1; }
+.hub-note { margin-top: 40px; font-size: 0.8rem; color: var(--muted2); max-width: 760px; }
+.hub-note a { color: var(--lime); }
+</style>

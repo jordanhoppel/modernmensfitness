@@ -1,0 +1,145 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  schema?: object | object[];
+  crumb: string;
+  h1a: string;
+  h1b: string;
+  sub: string;
+}
+const { title, description, canonical, schema, crumb, h1a, h1b, sub } = Astro.props;
+
+const tools = [
+  { href: '/nutrition-calculators/tdee-calculator/', label: 'TDEE Calculator' },
+  { href: '/nutrition-calculators/calorie-deficit-calculator/', label: 'Calorie Deficit Calculator' },
+  { href: '/nutrition-calculators/protein-calculator/', label: 'Protein Calculator' },
+  { href: '/nutrition-calculators/macro-calculator/', label: 'Macro Calculator' },
+  { href: '/nutrition-calculators/body-fat-calculator/', label: 'Body Fat Calculator' },
+].filter((t) => t.href !== canonical.replace('https://modernmensfitness.com', ''));
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} schema={schema}>
+  <div class="nc">
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb">
+          <a href="/">Home</a> <span>›</span>
+          <a href="/nutrition-calculators/">Nutrition Calculators</a> <span>›</span>
+          <span>{crumb}</span>
+        </nav>
+        <span class="eyebrow">Free Tool</span>
+        <h1>{h1a}<br /><em>{h1b}</em></h1>
+        <p class="page-sub">{sub}</p>
+      </div>
+    </section>
+
+    <section class="section calc-section">
+      <div class="container calc-layout">
+        <div class="calc-main">
+          <slot />
+          <p class="nc-disclaimer">These calculators give estimates for healthy adults. They are not medical advice. If you have a medical condition, are pregnant, or have a history of disordered eating, talk to a doctor or a registered dietitian before changing how you eat.</p>
+        </div>
+
+        <aside class="calc-sidebar">
+          <div class="sidebar-sticky">
+            <div class="sidebar-widget">
+              <h5>More Nutrition Calculators</h5>
+              {tools.map((t) => (
+                <a href={t.href} class="sidebar-link"><span>{t.label}</span><span>→</span></a>
+              ))}
+            </div>
+            <div class="sidebar-widget">
+              <h5>Strength Tools</h5>
+              <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link"><span>1RM Calculator</span><span>→</span></a>
+              <a href="/bench-press-standards/" class="sidebar-link"><span>Bench Press Standards</span><span>→</span></a>
+            </div>
+            <div class="sidebar-ppp">
+              <span class="eyebrow">The Program</span>
+              <h4>Train It, Don't Guess It</h4>
+              <p>The Primal Press Protocol builds a 12 week bench press plan around your numbers, with every weight calculated for you.</p>
+              <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=nutrition-calculator&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">Get PPP for $37 →</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+.nc .page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
+.nc .breadcrumb { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; }
+.nc .breadcrumb a { color: var(--muted2); text-decoration: none; }
+.nc .breadcrumb a:hover { color: var(--text); }
+.nc .page-hero h1 { margin: 16px 0; }
+.nc .page-sub { font-size: 1rem; color: var(--muted); max-width: 560px; font-weight: 300; }
+.nc .calc-section { background: var(--bg); }
+.nc .calc-layout { display: grid; grid-template-columns: 1fr 300px; gap: 60px; align-items: start; }
+.nc .calc-main { min-width: 0; }
+
+.nc .calc-card { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); overflow: hidden; }
+.nc .calc-header { padding: 16px 24px; border-bottom: 1px solid var(--border); background: var(--lime-glow); }
+.nc .calc-inputs { padding: 28px 24px 0; display: flex; flex-direction: column; gap: 24px; }
+.nc .input-group { display: flex; flex-direction: column; gap: 10px; }
+.nc .input-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); }
+.nc .input-row { display: flex; gap: 8px; align-items: center; }
+.nc .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.nc .calc-input, .nc .calc-select { flex: 1; min-width: 0; width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--text); font-family: var(--font-body); font-size: 1.05rem; font-weight: 500; padding: 12px 16px; outline: none; transition: border-color 0.2s; }
+.nc .calc-input:focus, .nc .calc-select:focus { border-color: var(--lime); }
+.nc .calc-input::placeholder { color: var(--muted2); }
+.nc .seg { display: flex; gap: 2px; }
+.nc .seg-btn { flex: 1; background: var(--card); border: 1px solid var(--border); color: var(--muted); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 10px; cursor: pointer; transition: all 0.2s; }
+.nc .seg-btn.active { background: var(--lime); color: #0a0a0a; border-color: var(--lime); }
+.nc .hint { font-size: 0.78rem; color: var(--muted2); margin: 0; }
+.nc [hidden] { display: none !important; }
+
+.nc .calc-error { margin: 16px 24px 0; padding: 10px 14px; border-left: 3px solid #ff5a4f; background: var(--card); color: var(--text); font-size: 0.85rem; }
+.nc .calc-btn { display: block; width: calc(100% - 48px); margin: 24px; background: var(--lime); color: #0a0a0a; font-family: var(--font-body); font-size: 1rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 16px; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+.nc .calc-btn:hover { background: #ccff00; transform: translateY(-1px); }
+
+.nc .calc-results { padding: 0 24px 28px; }
+.nc .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.nc .result-main { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--lime); padding: 18px 20px; display: flex; flex-direction: column; gap: 4px; }
+.nc .result-tag { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); }
+.nc .result-num { font-family: var(--font-display); font-size: 3rem; color: var(--lime); line-height: 1; letter-spacing: 0.02em; }
+.nc .result-unit { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); }
+.nc .result-note { font-size: 0.82rem; color: var(--muted); margin: 0 0 12px; }
+.nc .result-note.warn { color: #ffb08a; }
+.nc .result-note a { color: var(--lime); }
+
+.nc .chart-wrap { overflow-x: auto; margin: 16px 0 8px; }
+.nc .data-table td, .nc .data-table th { text-align: center; white-space: nowrap; }
+.nc .data-table td:first-child, .nc .data-table th:first-child { text-align: left; }
+.nc .data-table .wrap { white-space: normal; text-align: left; }
+.nc .chart-note { font-size: 0.8rem; color: var(--muted2); }
+.nc .nc-disclaimer { margin-top: 40px; font-size: 0.78rem; color: var(--muted2); border-top: 1px solid var(--border); padding-top: 16px; }
+
+.nc .faq-item { border: 1px solid var(--border); border-bottom: none; overflow: hidden; }
+.nc .faq-item:last-of-type { border-bottom: 1px solid var(--border); }
+.nc .faq-item summary { padding: 16px 20px; font-weight: 600; font-size: 0.95rem; cursor: pointer; background: var(--surface); color: var(--text); list-style: none; display: flex; justify-content: space-between; }
+.nc .faq-item summary:hover { background: var(--card); }
+.nc .faq-item summary::after { content: '+'; color: var(--lime); }
+.nc .faq-item[open] summary::after { content: '−'; }
+.nc .faq-item p { padding: 14px 20px; margin: 0; background: var(--card); font-size: 0.875rem; }
+
+.nc .calc-sidebar { position: relative; }
+.nc .sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
+.nc .sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 24px 20px; }
+.nc .sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.02em; margin: 8px 0 10px; color: var(--text); }
+.nc .sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 16px; }
+.nc .sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
+.nc .sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.nc .sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.nc .sidebar-link:last-child { border-bottom: none; }
+.nc .sidebar-link:hover { color: var(--text); }
+
+@media (max-width: 900px) {
+  .nc .calc-layout { grid-template-columns: 1fr; }
+  .nc .calc-sidebar { display: none; }
+  .nc .two-col { grid-template-columns: 1fr; }
+}
+</style>
