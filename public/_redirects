@@ -172,7 +172,7 @@
 /how-to-create-a-stable-arch-bench-pressing/           /bench-press-technique/arch/  301
 /how-to-bench-press-without-wrist-wraps/               /bench-press-elbow-wrist-shoulder-pain/  301
 /how-to-fix-shoulder-collapse-on-bench/                /bench-press-elbow-wrist-shoulder-pain/  301
-/bench-press-range-of-motion-mistakes/                 /common-bench-press-technique-mistakes/  301
+/bench-press-range-of-motion-mistakes/                 /bench-press-technique/  301
 /how-to-brace-properly-for-heavy-bench-press/          /bench-press-technique/setup/  301
 /how-to-strengthen-top-range-bench-pressing/           /bench-press-plateau/weak-at-lockout/  301
 
@@ -272,6 +272,28 @@
 /how-to-avoid-soft-lockouts-in-bench-press/                  /bench-press-plateau/weak-at-lockout/  301
 /why-bench-feels-weak-at-top/                                /bench-press-plateau/weak-at-lockout/  301
 /how-to-fix-chest-muscle-imbalance-bench-press/              /bench-press-left-right-imbalance/  301
+
+# LAST STUBS REDIRECTED TO EXISTING PAGES (2026-11-11)
+/add-50-lbs-to-bench-press/                                  /bench-press-program-by-level/  301
+/how-to-improve-bench-press-strength/                        /bench-press-program-by-level/  301
+/how-to-increase-bench-press-fast/                           /bench-press-program-by-level/  301
+/bench-press-strength-program/                               /bench-press-program-by-level/  301
+/bench-press-progression-model-for-naturals/                 /bench-press-program-by-level/  301
+/best-bench-press-training-schedule/                         /bench-press-programming/frequency/  301
+/bench-press-assistance-exercises/                           /bench-press-plateau/  301
+/best-bench-press-accessories-for-strength/                  /bench-press-plateau/  301
+/bench-press-form-for-long-arms/                             /bench-press-technique/  301
+/bench-press-technique-for-beginners-long-tail/              /bench-press-technique/  301
+/the-fundamentals-of-bench-press-technique/                  /bench-press-technique/  301
+/common-bench-press-technique-mistakes/                      /bench-press-technique/  301
+/how-to-avoid-bouncing-the-bar-bench-press/                  /bench-press-technique/  301
+/how-to-bench-press-on-a-home-bench-safely/                  /bench-press-technique/  301
+/how-to-bench-press-safely-without-a-spotter/                /bench-press-technique/  301
+/bench-press-power-output-mistakes/                          /bench-press-peaking-speed-work-wave-loading/  301
+/fixing-slow-reps-on-bench-press/                            /bench-press-peaking-speed-work-wave-loading/  301
+/how-to-diagnose-technique-vs-strength-weakness/             /why-my-bench-press-is-weak/  301
+/why-bench-press-feels-heavy-suddenly/                       /why-bench-press-stalls-despite-good-diet/  301
+/weak-shoulders-bench-press/                                 /bench-press-plateau/weak-shoulders/  301
 
 # Splat rule last: Cloudflare counts every rule after a splat as dynamic (max 100).
 /author/jordanhoppel/*                       /about-jordan-hoppel/      301
