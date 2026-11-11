@@ -1,0 +1,78 @@
+---
+import ArticlePage from '../../layouts/ArticlePage.astro';
+
+const faq = [
+  { q: 'How do I know which level I am?', a: 'Go by how long you have trained consistently, not by how much you lift. The American College of Sports Medicine defines a novice as someone with no resistance training experience or who has not trained for several years, an intermediate as someone with about 6 months of consistent training, and an advanced lifter as someone with years of experience. Jordan\'s definition of a true beginner is stricter: someone who has never played a sport, done anything physical, or formally lifted. Gym class in middle or high school does not count.' },
+  { q: 'How many days a week should I train?', a: 'The ACSM recommends 2 to 3 training days a week for novices, 3 to 4 for intermediates and 4 to 5 for advanced lifters. Jordan says that for most people 3 to 5 days a week is enough, and that frequency is limited by how quickly you can recover.' },
+  { q: 'Should I follow a program or make it up as I go?', a: 'Follow a program that fits you. Jordan says most people do not really pick a program. They follow random advice from social media or people with good physiques. He says to look at who wrote it, how much experience that person has and whether it fits your goals, and he is blunt that giving everyone the same program with nothing individualized is "cheap" and "dishonest".' },
+  { q: 'When do I move up a level?', a: 'When your training age catches up, not when you hit a number. Early on, most of your progress is neurological, and gains come fast and then slow. Jordan warns beginners not to assume they will keep advancing at that early rate, and says not to progress yourself too fast.' },
+];
+---
+
+<ArticlePage
+  title="Bench Press Program by Level: Beginner, Intermediate and Advanced"
+  description="How to set up a bench press program for your level: the ACSM's guidelines for novice, intermediate and advanced lifters, what the research adds, Jordan Hoppel's rules for progressing, and example structures for each stage."
+  canonical="https://modernmensfitness.com/bench-press-program-by-level/"
+  heading="Bench Press Program by Level: Beginner, Intermediate and Advanced"
+  eyebrow="Programming"
+  updated="2026-11-10"
+  shortAnswer="A bench program should match how long you have trained consistently. The American College of Sports Medicine separates novices (untrained, or away from lifting for years), intermediates (about 6 months of consistent training) and advanced lifters (years of experience). It recommends 8 to 12 rep loads and 2 to 3 training days a week for novices, and for intermediate and advanced lifters a wider 1 to 12 rep range used in a periodized way, ending with emphasis on heavy 1 to 6 rep work, at 3 to 4 days a week (intermediate) or 4 to 5 (advanced). Jordan's rules sit on top: master the fundamentals first, add reps before weight, and give a program 8 to 12 weeks."
+  sources={[{ text: 'American College of Sports Medicine. American College of Sports Medicine position stand: progression models in resistance training for healthy adults. Med Sci Sports Exerc. 2009;41(3):687-708.', doi: '10.1249/MSS.0b013e3181915670' }, { text: 'Peterson MD, Rhea MR, Alvar BA. Maximizing strength development in athletes: a meta-analysis to determine the dose-response relationship. J Strength Cond Res. 2004;18(2):377-382.', doi: '10.1519/R-12842.1' }, { text: 'Williams TD, Tolusso DV, Fedewa MV, Esco MR. Comparison of periodized and non-periodized resistance training on maximal strength: a meta-analysis. Sports Med. 2017;47(10):2083-2100.', doi: '10.1007/s40279-017-0734-y' }, { text: 'Moesgaard L, Beck MM, Christiansen L, Aagaard P, Lundbye-Jensen J. Effects of periodization on strength and muscle hypertrophy in volume-equated resistance training programs: a systematic review and meta-analysis. Sports Med. 2022;52(7):1647-1666.', doi: '10.1007/s40279-021-01636-1' }]}
+  faq={faq}
+  related={[
+    { href: '/rpe-bench-press-program/', label: 'RPE bench press program with a 4 week plan' },
+    { href: '/bench-press-programming/frequency/', label: 'How often to bench press' },
+    { href: '/bench-press-programming-for-plateaus/', label: 'Bench press programming for plateaus' },
+    { href: '/bench-press-standards/', label: 'Bench press standards by weight, age and sex' },
+  ]}
+>
+  <h2>The three levels</h2>
+  <div class="chart-wrap">
+    <table class="pct-table data-table">
+      <thead><tr><th>Level</th><th>Who (ACSM)</th><th>Loads</th><th>Training days a week</th></tr></thead>
+      <tbody>
+        <tr><td>Novice</td><td class="wrap">No resistance training experience, or has not trained for several years</td><td class="wrap">8 to 12 rep max</td><td>2 to 3</td></tr>
+        <tr><td>Intermediate</td><td class="wrap">About 6 months of consistent training</td><td class="wrap">1 to 12 rep max, periodized, eventually emphasizing heavy 1 to 6</td><td>3 to 4</td></tr>
+        <tr><td>Advanced</td><td class="wrap">Years of training experience</td><td class="wrap">1 to 12 rep max, periodized, eventually emphasizing heavy 1 to 6 (the ACSM groups intermediate and advanced loading together)</td><td>4 to 5</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="chart-note">From the ACSM position stand on progression models in resistance training for healthy adults (2009). These are guidelines for healthy adults, not rules, and training days are for your whole week, not only the bench.</p>
+  <p>To see how your actual numbers compare, use the <a href="/bench-press-standards/">bench press standards</a>. They show where lifters land by bodyweight, age and sex.</p>
+
+  <h2>Beginner</h2>
+  <ul>
+    <li><strong>Jordan's definition.</strong> A true beginner has never played a sport, done anything physical with their body, or formally lifted weights.</li>
+    <li><strong>The first weeks.</strong> He starts with an exploratory week: about 5 to 15 exercises or machines, 1 to 3 sets each, to see how the person moves, what they like and how their form looks. He teaches movement patterns more than specific lifts.</li>
+    <li><strong>What to learn first.</strong> The fundamentals, and perfecting them before anything more advanced. Beginners get rapid early gains, get excited, and assume the pace will hold. It will not.</li>
+    <li><strong>Adding weight.</strong> Add 5 pounds, at most 10 per set, at a pace that depends on the program, your progress and your goals.</li>
+    <li><strong>If you stall.</strong> It is usually form: not positioned correctly, not using the right muscles in the right order, or movements that are not smooth and coordinated.</li>
+  </ul>
+  <p>Research agrees that beginners gain fastest. In a pooled analysis of periodized and non-periodized programs (Williams and colleagues, 2017), strength gains were larger in untrained participants.</p>
+  <p><strong>Example structure (not a prescription).</strong> Two or three bench days a week, each with 3 sets of 8 to 10 reps at a weight that leaves a couple of reps in the tank, adding a small amount of weight when you hit every rep.</p>
+
+  <h2>Intermediate</h2>
+  <ul>
+    <li><strong>Periodize.</strong> The ACSM recommends moving through a wider rep range over time, ending with heavier 1 to 6 rep work, with 3 to 5 minutes of rest between heavy sets and a moderate rep speed of about 1 to 2 seconds up and 1 to 2 seconds down.</li>
+    <li><strong>Vary the stimulus.</strong> Moesgaard and colleagues (2022) found undulating periodization, with weekly or daily changes in volume and intensity, beat linear periodization for maximal strength in trained lifters. The estimate was moderate to large (0.61) but uncertain.</li>
+    <li><strong>A progression rule.</strong> When you can do one or two reps more than your target at a given load, the ACSM says to increase the load by 2 to 10 percent.</li>
+    <li><strong>Jordan's order of changes.</strong> Add reps first, then weight. Do not use the same load forever.</li>
+  </ul>
+  <p><strong>Example structure.</strong> Three bench days: a heavy day, a volume day and a technique day, as in the <a href="/rpe-bench-press-program/">RPE bench press program</a>.</p>
+
+  <h2>Advanced</h2>
+  <ul>
+    <li><strong>More days, more planning.</strong> The ACSM recommends 4 to 5 training days a week with periodized heavy work.</li>
+    <li><strong>What strong athletes do on average.</strong> In a meta-analysis of collegiate and professional athletes (Peterson and colleagues, 2004), maximal strength gains were greatest at a mean intensity of 85 percent of one rep max, 2 days a week, and about 8 sets per muscle group. That describes athletes in studies, so it is context and not a template.</li>
+    <li><strong>Break plateaus with tempo.</strong> Jordan's first moves when adding weight stops working are a slower lowering phase or a 3 second pause at the bottom. See <a href="/controlling-eccentric-on-bench-press-tips/">tempo and eccentric control</a>.</li>
+    <li><strong>Finish a block properly.</strong> Toward the end, mix in faster dynamic lifts, then move light weight very fast and maximal weight for very low reps.</li>
+    <li><strong>Test sensibly.</strong> Jordan uses a 3 or 5 rep max as a stand-in for a one rep max, and says numbers from higher rep sets are not very reliable.</li>
+    <li><strong>Deload.</strong> Cut volume in half and keep the weights about the same. See <a href="/how-to-deload-bench-press-properly/">how to deload your bench</a>.</li>
+  </ul>
+
+  <h2>Moving up a level</h2>
+  <p>Frequency goes up with experience, but recovery sets the limit. Jordan says frequency is based on how quickly you can recover, and that it cannot outpace recovery if you want continued quality progress. See <a href="/bench-press-programming/frequency/">how often to bench press</a>. He also advises against progressing too fast and against making promises to yourself that you cannot keep.</p>
+
+  <h2>What this evidence cannot tell you</h2>
+  <p>The ACSM categories are broad guidelines for healthy adults, and much of the research behind them mixes lifters of different levels. The meta-analyses cited here cover many exercises, not only the bench press. Use the structures above as starting points, change one thing at a time, and judge each change over 8 to 12 weeks.</p>
+</ArticlePage>

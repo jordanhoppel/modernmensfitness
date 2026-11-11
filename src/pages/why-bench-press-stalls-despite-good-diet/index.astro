@@ -1,116 +1,83 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PPPCta from '../../components/PPPCta.astro';
+import ArticlePage from '../../layouts/ArticlePage.astro';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Why Bench Press Stalls Despite Good Diet",
-  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
-  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
-  "datePublished": "2025-11-17",
-  "dateModified": "2025-11-17",
-  "mainEntityOfPage": "https://modernmensfitness.com/why-bench-press-stalls-despite-good-diet/"
-};
+const LB_PER_KG = 2.20462262;
+const bwLb = 180;
+const bwKg = bwLb / LB_PER_KG;
+const g = (perKg: number) => Math.round(bwKg * perKg);
+const issnLow = g(1.4), issnHigh = g(2.0), morton = g(1.62), jordan = bwLb;
+
+const faq = [
+  { q: 'How much protein do I need to keep my bench going up?', a: `Jordan\'s easy rule is one gram of protein per pound of body weight. Research gives a lower range: the International Society of Sports Nutrition says 1.4 to 2.0 grams per kilogram per day is enough for most exercising people, and a meta-analysis found no extra muscle gain from protein beyond about 1.6 grams per kilogram. For a ${bwLb} lb person that is about ${issnLow} to ${issnHigh} grams a day on the research range and ${jordan} grams on Jordan\'s rule.` },
+  { q: 'Does it matter when I eat protein?', a: 'Total daily protein matters most. Jordan says the post-workout window does not matter. The ISSN position stand says the best timing is likely a matter of individual tolerance, since benefits come from before or after training, and that the effect of a workout lasts at least 24 hours. It suggests spreading protein across the day, roughly every 3 to 4 hours.' },
+  { q: 'Is creatine safe?', a: 'The ISSN position stand concludes that short- and long-term creatine supplementation, with studies of up to 30 grams a day for 5 years, is safe and well tolerated in healthy people. Jordan says to get health advice from your doctor, ideally someone who measures the levels in your body, and to handle the basics before supplements.' },
+  { q: 'Do I have to eat in a surplus to get stronger?', a: 'Jordan\'s starting point for gaining muscle is to estimate your maintenance calories and add 300 to 500. If you are eating at or below maintenance and your bench is stuck, it is one of the first things to check. Use the TDEE calculator to find your number.' },
+];
 ---
 
-<BaseLayout
-  title="Why Bench Press Stalls Despite Good Diet | Modern Men's Fitness"
-  description="Why Bench Press Stalls Despite Good Diet — Expert guide by Jordan Hoppel, strength coach with 16 years experience and 1,300+ athletes coached."
+<ArticlePage
+  title="Bench Press Stalled Even Though You Eat Well? What to Check"
+  description="If your bench press has stalled and your diet looks fine, here is what to check: protein, calories, sleep and creatine, with what the research says and Jordan Hoppel's own rules."
   canonical="https://modernmensfitness.com/why-bench-press-stalls-despite-good-diet/"
-  schema={articleSchema}
-  pageType="article"
-  publishDate="2025-11-17"
-  modifiedDate="2025-11-17"
+  heading="Bench Press Stalled Even Though You Eat Well? What to Check"
+  eyebrow="Plateau Fix"
+  updated="2026-11-10"
+  shortAnswer="Check four things before blaming your program: protein, calories, sleep and, if you are interested, creatine. Jordan's rules are one gram of protein per pound of body weight, maintenance calories plus 300 to 500 to gain, as much sleep as you can get, and creatine if you want it. The research is a little lower on protein (1.4 to 2.0 grams per kilogram, with no extra muscle gain past about 1.6) and well supports creatine's safety. If all four are fine, the cause is probably training, so look at technique, recovery and programming."
+  sources={[{ text: 'Morton RW, Murphy KT, McKellar SR, et al. A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass and strength in healthy adults. Br J Sports Med. 2018;52(6):376-384.', doi: '10.1136/bjsports-2017-097608' }, { text: 'Jager R, Kerksick CM, Campbell BI, et al. International Society of Sports Nutrition position stand: protein and exercise. J Int Soc Sports Nutr. 2017;14:20.', doi: '10.1186/s12970-017-0177-8' }, { text: 'Kreider RB, Kalman DS, Antonio J, et al. International Society of Sports Nutrition position stand: safety and efficacy of creatine supplementation in exercise, sport, and medicine. J Int Soc Sports Nutr. 2017;14:18.', doi: '10.1186/s12970-017-0173-z' }]}
+  faq={faq}
+  related={[
+    { href: '/nutrition-calculators/protein-calculator/', label: 'Protein calculator' },
+    { href: '/nutrition-calculators/tdee-calculator/', label: 'TDEE calculator' },
+    { href: '/why-my-bench-press-is-weak/', label: 'Why your bench press is weak' },
+    { href: '/bench-press-programming-for-plateaus/', label: 'Bench press programming for plateaus' },
+  ]}
 >
+  <h2>Protein: how much and how often</h2>
+  <p>Jordan's rule of thumb is a gram of protein per pound of body weight. The research range is lower, and the two are worth comparing for a {bwLb} lb person:</p>
+  <div class="chart-wrap">
+    <table class="pct-table data-table">
+      <thead><tr><th>Source</th><th>Daily protein for {bwLb} lb</th></tr></thead>
+      <tbody>
+        <tr><td class="wrap">ISSN position stand: 1.4 to 2.0 g per kg for most exercising people (Jager et al., 2017)</td><td>{issnLow} to {issnHigh} g</td></tr>
+        <tr><td class="wrap">Meta-analysis of 49 trials: no extra muscle gain beyond about 1.6 g per kg (Morton et al., 2018)</td><td>about {morton} g</td></tr>
+        <tr><td class="wrap">Jordan's rule: 1 g per lb</td><td>{jordan} g</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Jordan's rule is easy to remember and sits above the point where the studies stopped finding added gains, so if you are already near it, more protein is unlikely to be the problem. The <a href="/nutrition-calculators/protein-calculator/">protein calculator</a> works out your own range.</p>
+  <ul>
+    <li><strong>Timing.</strong> Jordan says the post-workout window does not matter. The ISSN says the best timing is likely individual, since benefits come from protein before or after training, and the effect of a workout lasts at least 24 hours. It suggests spreading protein across the day, roughly every 3 to 4 hours, with about 0.25 g per kg or 20 to 40 g per serving. Total daily protein matters most.</li>
+    <li><strong>Quality.</strong> Jordan's one specific food advice is to get complete proteins. All animal-derived proteins are complete, with all the essential and non-essential amino acids.</li>
+    <li><strong>Supplements.</strong> Whey is another complete source and an easy way to get protein in, but Jordan says you should not rely on shakes.</li>
+  </ul>
 
-  <section class="page-hero">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="/">Home</a> <span>›</span>
-        <a href="/bench-press-plateau/">Plateau Fix</a> <span>›</span>
-        <span>Why Bench Press Stalls Despite Good Diet</span>
-      </nav>
-      <span class="eyebrow">Plateau Fix</span>
-      <h1>Why Bench Press Stalls Despite Good Diet</h1>
-      <div class="page-meta mono">
-        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · 2025-11
-      </div>
-    </div>
-  </section>
+  <h2>Calories</h2>
+  <p>To gain muscle, Jordan estimates maintenance calories and adds 300 to 500. If you are eating at or below maintenance and your bench has stalled, check this before anything else. The <a href="/nutrition-calculators/tdee-calculator/">TDEE calculator</a> estimates maintenance for you. Jordan's tip for busy people is to have food at home that you know you will eat that day, since being unprepared and hungry at the end of the day leads to grabbing the closest food.</p>
 
-  <section class="section">
-    <div class="container post-layout">
-      <article class="prose">
+  <h2>Sleep</h2>
+  <p>Jordan calls sleep critically important for everything to do with fitness, and says to get as much as you possibly can. His tips for bad sleepers:</p>
+  <ul>
+    <li>Get into a routine.</li>
+    <li>Keep the room cool and crisp.</li>
+    <li>Take a hot shower at night, so your body cools afterward.</li>
+    <li>Avoid bright lights and screens before bed.</li>
+    <li>Eat enough calories and protein through the day so hunger does not wake you.</li>
+    <li>Wind down stress at the end of the day, for example by reading.</li>
+  </ul>
+  <p>This is Jordan's advice from his coaching interview. We did not cite a study for it.</p>
 
-        <PPPCta variant="soft" utmContent="why-bench-press-stalls-despite-good-diet-top" />
+  <h2>Creatine</h2>
+  <p>The ISSN position stand on creatine (Kreider and colleagues, 2017) reports that creatine supplementation raises muscle creatine and improves high-intensity exercise performance, leading to greater training adaptations. It also concludes that short- and long-term supplementation, in studies of up to 30 grams a day for 5 years, is safe and well tolerated in healthy people.</p>
+  <p>Jordan's coaching answers on how to use it, which are his and not from the paper:</p>
+  <ul>
+    <li>Handle the basics first, and get health advice from your doctor.</li>
+    <li>He starts people around 5 grams a day and raises it as needed. An alternative he describes is a loading phase of 10 to 20 grams for the first 10 days, then a lower maintenance dose. The paper's abstract does not give these doses.</li>
+    <li>Take it at a time you will remember every day. Consistency matters. Many people take it in the morning or after training.</li>
+    <li>It can raise your weight because muscle holds more water, which is not fat gain.</li>
+    <li>Women may not need as much, because women tend to be smaller overall.</li>
+  </ul>
+  <p>He also says that if caffeine or a pre-workout affects your sleep, it is a poor trade for the workout.</p>
 
-        <p>This guide covers why bench press stalls despite good diet from a coaching perspective — based on 16 years of working with 1,300+ athletes at 5 Star Fitness in Scottsdale, Arizona.</p>
-
-        <h2>Key Points</h2>
-        <ul>
-          <li>Understanding the root cause is always the first step</li>
-          <li>Most fixes require addressing both technique and programming simultaneously</li>
-          <li>Consistent application of the correct fix over 4-6 weeks produces measurable results</li>
-        </ul>
-
-        <PPPCta variant="mid" utmContent="why-bench-press-stalls-despite-good-diet-mid" context="The Primal Press Protocol classifies your specific plateau type on Day 1 — then prescribes the exact fix. Not generic advice. Your actual problem." />
-
-        <h2>The Coach's Perspective</h2>
-        <p>After working with hundreds of lifters on this exact issue, the pattern is consistent: most people apply generic fixes to specific problems. The right approach is diagnosing what's actually happening first — then prescribing the correct solution.</p>
-
-        <p>If you want a systematic approach to diagnosing and fixing your specific bench press limiter, the Primal Press Protocol walks you through the entire diagnostic framework on Day 1.</p>
-
-        <PPPCta variant="hard" utmContent="why-bench-press-stalls-despite-good-diet-bottom" />
-
-      </article>
-
-      <aside class="post-sidebar">
-        <div class="sidebar-sticky">
-          <div class="sidebar-widget">
-            <h5>Plateau Fix Resources</h5>
-            <a href="/bench-press-plateau/" class="sidebar-link">
-              <span>Back to Plateau Fix</span><span>→</span>
-            </a>
-            <a href="/bench-press-standards/" class="sidebar-link">
-              <span>Strength Standards</span><span>→</span>
-            </a>
-            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link">
-              <span>1RM Calculator</span><span>→</span>
-            </a>
-          </div>
-          <div class="sidebar-ppp">
-            <span class="eyebrow">The Program</span>
-            <h4>Primal Press Protocol™</h4>
-            <p>The complete 12-week bench press system. $37 one-time.</p>
-            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=post-sidebar&utm_campaign=why-bench-press-stalls-despite-good-diet" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get PPP — $37 →
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-</BaseLayout>
-
-<style>
-.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
-.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
-.breadcrumb a { color: var(--muted2); text-decoration: none; }
-.breadcrumb a:hover { color: var(--text); }
-.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 5rem); }
-.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
-.page-meta a { color: var(--muted); }
-.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
-.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
-.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
-.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.sidebar-link:last-child { border-bottom: none; }
-.sidebar-link:hover { color: var(--text); }
-.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
-.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
-.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
-@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
-</style>
+  <h2>If all of that is fine</h2>
+  <p>Then the cause is probably in the training. Jordan's first suspects for a stall are technique, then recovery and hidden injuries, then programming. See <a href="/why-my-bench-press-is-weak/">why your bench is weak</a> and <a href="/bench-press-programming-for-plateaus/">programming for plateaus</a>.</p>
+</ArticlePage>

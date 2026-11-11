@@ -3,9 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PPPCta from '../../components/PPPCta.astro';
 
 const clusters = [
-  { title: 'Beginner Program', desc: 'Linear progression, 3x/week, 5 lb jumps per session. The only thing you need for the first 6-12 months.', href: '/bench-press-programming/beginners/', tag: '0–12 months' },
-  { title: 'Intermediate Program', desc: 'Weekly progression, added volume, weak point accessories. When linear stops working.', href: '/bench-press-programming/intermediate/', tag: '1–3 years' },
-  { title: 'Advanced Program', desc: 'Block periodization, intensity cycling, max effort work. For lifters who\'ve plateaued on intermediate methods.', href: '/bench-press-programming/advanced/', tag: '3+ years' },
+  { title: 'Beginner Program', desc: 'Linear progression, 3x/week, 5 lb jumps per session. The only thing you need for the first 6-12 months.', href: '/bench-press-program-by-level/', tag: '0–12 months' },
+  { title: 'Intermediate Program', desc: 'Weekly progression, added volume, weak point accessories. When linear stops working.', href: '/bench-press-program-by-level/', tag: '1–3 years' },
+  { title: 'Advanced Program', desc: 'Block periodization, intensity cycling, max effort work. For lifters who\'ve plateaued on intermediate methods.', href: '/bench-press-program-by-level/', tag: '3+ years' },
   { title: 'Frequency Guide', desc: 'How often to bench press for strength gains — the research and Jordan\'s coaching recommendations.', href: '/bench-press-programming/frequency/', tag: '2x vs 3x/week' },
   { title: 'Periodization', desc: 'Linear, undulating, block — which periodization model is right for your training age and goals.', href: '/bench-press-programming/periodization/', tag: 'Program Design' },
   { title: 'Deload Protocol', desc: 'When to deload, how to deload, and why most lifters either never deload or deload wrong.', href: '/bench-press-programming/deload/', tag: 'Recovery' },
@@ -46,17 +46,17 @@ const schema = {
       <div class="level-selector">
         <span class="eyebrow">// Find Your Level</span>
         <div class="level-cards">
-          <a href="/bench-press-programming/beginners/" class="level-card">
+          <a href="/bench-press-program-by-level/" class="level-card">
             <span class="level-label mono">Beginner</span>
             <span class="level-def">Less than 1 year, still making session-to-session progress</span>
             <span class="btn-ghost">Start Here →</span>
           </a>
-          <a href="/bench-press-programming/intermediate/" class="level-card level-featured">
+          <a href="/bench-press-program-by-level/" class="level-card level-featured">
             <span class="level-label mono">Intermediate</span>
             <span class="level-def">1-3 years, linear progression has stalled, need weekly overload</span>
             <span class="btn-ghost">Start Here →</span>
           </a>
-          <a href="/bench-press-programming/advanced/" class="level-card">
+          <a href="/bench-press-program-by-level/" class="level-card">
             <span class="level-label mono">Advanced</span>
             <span class="level-def">3+ years, weekly progress has stalled, need block periodization</span>
             <span class="btn-ghost">Start Here →</span>

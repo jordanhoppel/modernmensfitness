@@ -171,8 +171,8 @@
 /how-to-correct-asymmetrical-bar-press/                /bench-press-left-right-imbalance/  301
 /bench-press-overreach-week-examples/                  /bench-press-programming/periodization/  301
 /how-to-create-a-stable-arch-bench-pressing/           /bench-press-technique/arch/  301
-/how-to-bench-press-without-wrist-wraps/               /correct-wrist-angle-for-bench-pressing/  301
-/how-to-fix-shoulder-collapse-on-bench/                /how-to-bench-press-without-shoulder-pain/  301
+/how-to-bench-press-without-wrist-wraps/               /bench-press-elbow-wrist-shoulder-pain/  301
+/how-to-fix-shoulder-collapse-on-bench/                /bench-press-elbow-wrist-shoulder-pain/  301
 /bench-press-range-of-motion-mistakes/                 /common-bench-press-technique-mistakes/  301
 /how-to-brace-properly-for-heavy-bench-press/          /bench-press-technique/setup/  301
 /how-to-strengthen-top-range-bench-pressing/           /how-to-avoid-soft-lockouts-in-bench-press/  301
@@ -198,4 +198,21 @@
 /how-to-break-through-bench-press-plateau/             /bench-press-programming-for-plateaus/  301
 /bench-press-weak-off-chest-programming-fixes/         /bench-press-programming-for-plateaus/  301
 /bench-press-plateau/programming-fixes/                /bench-press-programming-for-plateaus/  301
+
+# ============================================
+# MORE STUBS MERGED INTO REWRITTEN ARTICLES (2026-11-10, batch 3)
+# ============================================
+/bench-press-program-based-on-strength-level/          /bench-press-program-by-level/  301
+/bench-press-program-for-intermediates/                /bench-press-program-by-level/  301
+/bench-press-program-for-advanced-lifters/             /bench-press-program-by-level/  301
+/bench-press-program-for-beginners/                    /bench-press-program-by-level/  301
+/bench-press-progressive-overload-long-tail/           /bench-press-program-by-level/  301
+/bench-press-specialization-program-layout/            /bench-press-program-by-level/  301
+/bench-press-programming/beginners/                    /bench-press-program-by-level/  301
+/bench-press-programming/intermediate/                 /bench-press-program-by-level/  301
+/bench-press-programming/advanced/                     /bench-press-program-by-level/  301
+/how-to-fix-elbow-pain-caused-by-bench-press/          /bench-press-elbow-wrist-shoulder-pain/  301
+/weak-forearms-hurting-bench-performance/              /bench-press-elbow-wrist-shoulder-pain/  301
+/correct-wrist-angle-for-bench-pressing/               /bench-press-elbow-wrist-shoulder-pain/  301
+/how-to-bench-press-without-shoulder-pain/             /bench-press-elbow-wrist-shoulder-pain/  301
 /primal-press-protocol-review/ /primal-press-protocol-review.html 200

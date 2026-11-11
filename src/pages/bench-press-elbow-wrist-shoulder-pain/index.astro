@@ -1,0 +1,68 @@
+---
+import ArticlePage from '../../layouts/ArticlePage.astro';
+
+const faq = [
+  { q: 'Is some pain on the bench press normal?', a: 'It is common. In a survey of 245 competitive powerlifters, 43 percent reported problems during routine workouts, and many of those did not require them to stop training. Common does not mean harmless, and it does not tell you what your own pain is.' },
+  { q: 'Should I train through elbow or shoulder pain?', a: 'We cannot tell you what is safe for your body. As a general rule, sharp pain is a reason to stop that rep and not push through it. If it keeps coming back, gets worse, or comes with numbness, tingling, weakness or swelling, see a doctor or physical therapist.' },
+  { q: 'Do weak forearms cause bench press problems?', a: 'We did not find research linking forearm strength to bench press performance or to pain. Wrist or forearm pain is worth getting looked at instead of treating as a strength problem to train away.' },
+  { q: 'Can changing my grip help?', a: 'Grip width changes how load falls on the shoulder and elbow, so if one joint always hurts, it is something a coach or clinician can look at. A study of 14 men found wide and medium grips put more horizontal load on the shoulder than a narrow grip. That is not evidence that a given grip will fix your pain.' },
+];
+---
+
+<ArticlePage
+  title="Elbow, Wrist and Shoulder Pain on the Bench Press: What the Injury Data Shows"
+  description="Where bench pressers and powerlifters get hurt, who is at higher risk, what research does and does not say about forearms, wrists and grip width, and when to see a doctor or physical therapist."
+  canonical="https://modernmensfitness.com/bench-press-elbow-wrist-shoulder-pain/"
+  heading="Elbow, Wrist and Shoulder Pain on the Bench Press: What the Injury Data Shows"
+  eyebrow="Technique"
+  updated="2026-11-10"
+  shortAnswer="Pain on the bench is common enough to plan for, and it is not a reason to panic or to train through it. In a survey of 245 competitive powerlifters, 43 percent reported problems during routine workouts, and the shoulder, lower back and knee were the most commonly injured regions. Elbow and hand and wrist problems were more common in lifters over 40, and hand and wrist problems in women. We found no research linking forearm strength or wrist angle to bench pain, so this page does not offer fixes for them. If pain keeps coming back, gets worse, or comes with numbness or weakness, see a doctor or physical therapist."
+  sources={[{ text: 'Keogh J, Hume PA, Pearson S. Retrospective injury epidemiology of one hundred one competitive Oceania power lifters: the effects of age, body mass, competitive standard, and gender. J Strength Cond Res. 2006;20(3):672-681.', doi: '10.1519/R-18325.1' }, { text: 'Siewe J, Rudat J, Rollinghoff M, Schlegel UJ, Eysel P, Michael JW. Injuries and overuse syndromes in powerlifting. Int J Sports Med. 2011;32(9):703-711.', doi: '10.1055/s-0031-1277207' }, { text: 'Larsen S, Gomo O, van den Tillaar R. A biomechanical analysis of wide, medium, and narrow grip width effects on kinematics, horizontal kinetics, and muscle activity on the sticking region in recreationally trained males during 1-RM bench pressing. Front Sports Act Living. 2021;2:637066.', doi: '10.3389/fspor.2020.637066' }, { text: 'Gomo O, van den Tillaar R. The effects of grip width on sticking region in bench press. J Sports Sci. 2016;34(3):232-238.', doi: '10.1080/02640414.2015.1046395' }]}
+  faq={faq}
+  related={[
+    { href: '/why-my-bench-press-is-weak/', label: 'Why your bench press is weak' },
+    { href: '/bench-press-left-right-imbalance/', label: 'Bench press imbalance' },
+    { href: '/how-to-deload-bench-press-properly/', label: 'How to deload your bench press' },
+  ]}
+>
+  <p class="chart-note">This page gives general information about injury research. It cannot diagnose pain or tell you what is safe for your body. If you are hurt, see a doctor or physical therapist.</p>
+
+  <h2>Where lifters get hurt</h2>
+  <p>Two surveys of competitive powerlifters give the most direct numbers we found. Both are retrospective and self-reported, and both describe lifters who compete, not everyone who benches.</p>
+  <ul>
+    <li><strong>Keogh and colleagues (2006)</strong> surveyed 101 lifters from Oceania (82 men and 19 women) about a year of injuries, defined as damage that made them miss or change training or a competition. They reported 118 injuries, or about 1.2 per lifter per year. The most commonly injured regions were the shoulder (36 percent), lower back (24 percent), elbow (11 percent) and knee (9 percent). More injuries were sudden (59 percent) than gradual (41 percent).</li>
+    <li><strong>Siewe and colleagues (2011)</strong> surveyed 245 competitive and elite lifters from 97 powerlifting clubs. Of them, 43.3 percent reported problems during routine workouts. The injury rate worked out to about 0.3 per lifter per year, and the most commonly injured regions were the shoulder, lower back and knee.</li>
+  </ul>
+  <p>Both papers describe powerlifting as having a low or moderately low injury risk compared with other sports. Siewe also noted that a large share of lifters train with disorders that do not make them stop.</p>
+
+  <h2>Who is at higher risk</h2>
+  <p>In the 245-lifter survey, lifters over 40 had a significantly higher rate of upper-limb injuries, at the shoulder, elbow and hand and wrist. Women had a higher rate of hand and wrist injuries. These are associations in a survey, so they do not predict what will happen to you.</p>
+
+  <h2>What the research does not tell us</h2>
+  <ul>
+    <li>We did not find research linking forearm or grip strength to bench press performance or to bench press pain.</li>
+    <li>We did not find a trial that tests a fix for wrist or elbow pain from benching.</li>
+    <li>Both injury surveys are retrospective, with small samples of competitive lifters.</li>
+  </ul>
+  <p>That is why this page avoids advice such as "strengthen your forearms" or "set your wrist at a certain angle". Nothing we found supports it.</p>
+
+  <h2>Grip width and where the load falls</h2>
+  <p>Two lab studies show that grip width changes the mechanics of the lift.</p>
+  <ul>
+    <li>Gomo and van den Tillaar (2016) had 12 experienced powerlifters do one rep max bench presses with narrow, medium and wide grips. The sticking region did not occur at the same elbow and shoulder angles across grips.</li>
+    <li>Larsen and colleagues (2021) had 14 bench-trained men do the same. Wide and medium grips produced greater horizontal shoulder moments than the narrow grip, and triceps medialis activity was greater with medium and narrow grips than with the wide one. The men lifted about 110, 109 and 104 kg with the wide, medium and narrow grips.</li>
+  </ul>
+  <p>These were healthy lifters and the studies did not look at pain. What they do show is that grip width shifts the load between the shoulder and the elbow. If one joint always hurts, a coach or clinician can look at your grip as one part of the picture. This is general practice, not a proven treatment.</p>
+
+  <h2>Practical points</h2>
+  <p>These are general safety points, not findings from the studies above.</p>
+  <ul>
+    <li>Sharp pain is a reason to stop that rep, lower the weight or end the set.</li>
+    <li>Note exactly where it hurts and when: at the bottom, in the middle, at lockout, or after the session. That is useful information for a clinician.</li>
+    <li>Asked why a squat stops going up, Jordan named an underlying injury the lifter does not realize is holding them back as one of the first things to consider. He also says good form is the foundation of everything, and that you should not progress too fast.</li>
+    <li>Use a spotter or safety arms for heavy sets.</li>
+  </ul>
+
+  <h2>When to get it checked</h2>
+  <p>See a doctor or physical therapist if the pain keeps coming back or gets worse, wakes you at night, comes with numbness, tingling, weakness or swelling, started with a sudden pop or a fall, or follows an injury. A coach or an article cannot tell you what is happening inside a joint.</p>
+</ArticlePage>

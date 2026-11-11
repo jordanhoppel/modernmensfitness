@@ -91,24 +91,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://modernmensfitness.com/bench-press-programming/beginners/</loc>
-    <lastmod>2026-04-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://modernmensfitness.com/bench-press-programming/intermediate/</loc>
-    <lastmod>2026-04-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://modernmensfitness.com/bench-press-programming/advanced/</loc>
-    <lastmod>2026-04-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://modernmensfitness.com/bench-press-programming/frequency/</loc>
     <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -320,6 +302,24 @@
   </url>
   <url>
     <loc>https://modernmensfitness.com/bench-press-periodization-for-older-lifters/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://modernmensfitness.com/bench-press-program-by-level/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://modernmensfitness.com/why-bench-press-stalls-despite-good-diet/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://modernmensfitness.com/bench-press-elbow-wrist-shoulder-pain/</loc>
     <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
