@@ -1,0 +1,77 @@
+---
+import ArticlePage from '../../../layouts/ArticlePage.astro';
+import data from '../../../data/benchStandards.json';
+
+const men = data.lifters.M.toLocaleString('en-US');
+const women = data.lifters.F.toLocaleString('en-US');
+const entries = data.counts.qualifying_entries.toLocaleString('en-US');
+const release = data.data_file.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? '';
+const base = 'https://modernmensfitness.com/data/bench-press-standards';
+const files = [
+  { file: 'weight_class_percentiles.csv', what: 'Best bench in kilograms and pounds at the 10th, 25th, 50th, 75th and 90th percentile, by sex and IPF weight class.' },
+  { file: 'bodyweight_ratio_percentiles.csv', what: 'Bench divided by bodyweight, by sex.' },
+  { file: 'age_ratio_percentiles.csv', what: 'Bench divided by bodyweight, by sex and age group.' },
+];
+
+const dataset = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Raw bench press percentiles from OpenPowerlifting full-power meets, 2015 to 2026',
+  description: `Percentile tables of the best raw bench press for adults in full-power powerlifting meets, by IPF weight class, by bodyweight ratio and by age group. Built from the ${release} OpenPowerlifting release: ${men} men and ${women} women.`,
+  url: 'https://modernmensfitness.com/bench-press-standards/data/',
+  license: 'https://creativecommons.org/publicdomain/zero/1.0/',
+  creator: { '@type': 'Person', name: 'Jordan Hoppel', url: 'https://modernmensfitness.com/about-jordan-hoppel/' },
+  isBasedOn: { '@type': 'Dataset', name: 'OpenPowerlifting', url: 'https://www.openpowerlifting.org' },
+  temporalCoverage: `${data.meet_date_range[0]}/${data.meet_date_range[1]}`,
+  keywords: ['bench press', 'powerlifting', 'strength standards', 'percentiles'],
+  distribution: files.map((f) => ({ '@type': 'DataDownload', encodingFormat: 'text/csv', name: f.file, contentUrl: `${base}/${f.file}` })),
+};
+
+const faq = [
+  { q: 'Can I reuse these tables?', a: 'Yes. The tables and the scripts that build them are released under CC0, so you can copy them without asking. A link back to this page is welcome and not required.' },
+  { q: 'Do these numbers describe the average lifter?', a: 'No. They describe people who entered a raw full-power meet, who are on average stronger than people who only train. Read the 10th to 25th percentile columns as the range for a strong, well-trained lifter who has not competed.' },
+  { q: 'How often is it updated?', a: `The current release is built from the ${release} OpenPowerlifting data. We rebuild when the data has grown enough to move the numbers, and the page date changes only when we do.` },
+];
+---
+
+<ArticlePage
+  title="Bench Press Standards Data: Download the Percentile Tables"
+  description="Free CSV tables of raw bench press percentiles by weight class, bodyweight ratio and age, built from public OpenPowerlifting results, with the method and limits written out."
+  canonical="https://modernmensfitness.com/bench-press-standards/data/"
+  heading="Bench Press Standards Data: Download the Percentile Tables"
+  eyebrow="Data"
+  updated="2026-11-11"
+  shortAnswer={`These are the tables behind our bench press standards, as free CSV files. They come from ${men} men and ${women} women in OpenPowerlifting's public full-power results (raw, adults, meets from 2015 on, ${release} release). They describe people who chose to compete, so they run stronger than a typical gym.`}
+  sources={[{ text: 'OpenPowerlifting. Public powerlifting results database, released into the public domain. https://www.openpowerlifting.org' }]}
+  faq={faq}
+  related={[
+    { href: '/bench-press-standards/', label: 'Bench press standards' },
+    { href: '/bench-press-tools/', label: 'Bench press tools' },
+    { href: '/bench-press-program-by-level/', label: 'Bench press program by level' },
+  ]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(dataset)} />
+
+  <h2>The files</h2>
+  <p>Each file is plain CSV, no signup. Open them in any spreadsheet.</p>
+  <ul>
+    {files.map((f) => (
+      <li><a href={`/data/bench-press-standards/${f.file}`}><code>{f.file}</code></a>: {f.what}</li>
+    ))}
+  </ul>
+
+  <h2>What went in</h2>
+  <p>We took adults who entered raw, full-power meets from January 2015 to {data.meet_date_range[1].slice(0, 7)}. After removing disqualified, no-show, doping-flagged and age-less entries, that left {entries} qualifying results from {men} men and {women} women. Each lifter is counted once, using their best successful bench. A weight class is dropped if it has fewer than 200 lifters.</p>
+  <p>The tables on the <a href="/bench-press-standards/#method">standards page</a> and these files come from the same run, so they always agree.</p>
+
+  <h2>What it does not tell you</h2>
+  <ul>
+    <li>It describes competitors. People who sign up for a meet are stronger than people who train without competing.</li>
+    <li>Lifters are matched by name, so two people with the same name are merged. That slightly lowers the counts and does not raise any value.</li>
+    <li>Competition benches are paused on the chest, which is harder than touch and go.</li>
+  </ul>
+
+  <h2>How to cite it</h2>
+  <p>Hoppel, J. (2026). Raw bench press percentiles from OpenPowerlifting full-power meets, 2015 to 2026 [Data set]. Modern Men's Fitness. https://modernmensfitness.com/bench-press-standards/data/</p>
+  <p>The tables and scripts are CC0. The source data belongs to OpenPowerlifting and is also public domain.</p>
+</ArticlePage>
