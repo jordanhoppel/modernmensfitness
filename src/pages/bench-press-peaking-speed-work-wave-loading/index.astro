@@ -1,0 +1,62 @@
+---
+import ArticlePage from '../../layouts/ArticlePage.astro';
+
+const faq = [
+  { q: 'How do I peak my bench press for a meet?', a: 'There is no proven protocol. A 2020 review of tapering and peaking for powerlifting found that evidence is lacking and that many studies do not give enough detail to use, so coaches rely on trial and error. Keep a plan that you have tested in training before the meet.' },
+  { q: 'Is wave loading better than straight sets?', a: 'We did not find a trial that compares wave loading with straight sets. One 20-week study found that starting the waves at 82.5 and 75 percent of 1RM produced similar bench gains to starting at 87.5 and 80 percent, so a lighter start did not cost progress.' },
+  { q: 'Does speed work or dynamic effort work make the bench go up?', a: 'We did not find a trial that tests a speed-day or dynamic effort method on the bench press, so we cannot say it does. Coaches use it, but that is practice, not proven.' },
+  { q: 'Is it better to change the loading every session or keep it the same?', a: 'On average, varied (periodized) programs beat non-periodized ones for 1RM strength in a meta-analysis of 18 studies, and undulating programs looked more favourable. The effect was moderate and says nothing about the best program for a single lifter.' },
+];
+---
+
+<ArticlePage
+  title="Peaking, Speed Work and Wave Loading for the Bench Press: What Is Actually Proven"
+  description="What research shows about tapering for a meet, wave loading, undulating periodization and varying intensities for the bench press, and what is still based on coaching practice."
+  canonical="https://modernmensfitness.com/bench-press-peaking-speed-work-wave-loading/"
+  heading="Peaking, Speed Work and Wave Loading for the Bench Press: What Is Actually Proven"
+  eyebrow="Programming"
+  updated="2026-11-10"
+  shortAnswer="Varying your training works: a meta-analysis of 18 studies found periodized programs beat non-periodized ones for 1RM strength (effect size 0.43), with undulating programs looking more favourable. Beyond that, the research is thin. A 2020 review found that evidence for how to peak maximal strength for powerlifting is lacking, so coaches use trial and error. In a 20-week bench study, starting a wave at lighter loads gave similar gains to starting heavier. We did not find trials of max effort, dynamic effort or conjugate bench training, so those methods are coaching practice, not proven."
+  sources={[{ text: 'Travis SK, Mujika I, Gentles JA, Stone MH, Bazyler CD. Tapering and peaking maximal strength for powerlifting performance: a review. Sports (Basel). 2020;8(9):125.', doi: '10.3390/sports8090125' }, { text: 'Wood PP, Goodwin JE, Cleather DJ. Lighter and heavier initial loads yield similar gains in strength when employing a progressive wave loading scheme. Biol Sport. 2016;33(3):257-261.', doi: '10.5604/20831862.1201912' }, { text: 'Zourdos MC, Jo E, Khamoui AV, Lee SR, Park BS, Ormsbee MJ, Panton LB, Contreras RJ, Kim JS. Modified daily undulating periodization model produces greater performance than a traditional configuration in powerlifters. J Strength Cond Res. 2016;30(3):784-791.', doi: '10.1519/JSC.0000000000001165' }, { text: 'Williams TD, Tolusso DV, Fedewa MV, Esco MR. Comparison of periodized and non-periodized resistance training on maximal strength: a meta-analysis. Sports Med. 2017;47(10):2083-2100.', doi: '10.1007/s40279-017-0734-y' }]}
+  faq={faq}
+  related={[
+    { href: '/bench-press-programming/periodization/', label: 'Bench press periodization' },
+    { href: '/how-to-deload-bench-press-properly/', label: 'How to deload your bench press' },
+    { href: '/bench-press-program-by-level/', label: 'Bench press program by level' },
+    { href: '/bench-press-tools/rpe-calculator/', label: 'RPE calculator' },
+  ]}
+>
+  <h2>Varying training beats not varying it</h2>
+  <p>Williams and colleagues (2017) pooled 18 studies, published between 1988 and 2015, that compared periodized with non-periodized resistance training on 1RM. Periodized training produced larger gains (effect size 0.43, a moderate effect). Undulating programs looked more favourable than other forms, gains were larger in untrained people, and longer studies and higher training frequency were also linked with bigger gains.</p>
+  <p>The studies in that analysis were not all bench-specific, so treat it as general evidence that planned variation helps strength. It does not tell you which schedule to use.</p>
+
+  <h2>Daily undulating order and the bench</h2>
+  <p>Zourdos and colleagues (2016) assigned 18 college-aged male powerlifters to one of two versions of daily undulating periodization for 6 weeks, training the squat, bench press and deadlift three times a week. One group trained hypertrophy, then strength, then power days. The other trained hypertrophy, then power, then strength. The second order produced greater bench press 1RM gains and more total bench volume, with meaningful effect sizes for squat and bench. Squat and deadlift 1RM did not differ significantly.</p>
+  <p>This is a small, short study of men in their early twenties, so it shows that session order can matter for the bench. It does not make that order the best for everyone.</p>
+
+  <h2>Wave loading</h2>
+  <p>Wood and colleagues (2016) had 34 resistance-trained men do bench press wave loading twice a week for 20 weeks: one session of 6 sets of 2 repetitions and one of 5 sets of 5. Load went up in steps, then dropped and started to climb again. One group started its waves at 87.5 and 80 percent of 1RM, the other at 82.5 and 75 percent. Both groups improved their bench press significantly, and the improvement did not differ between groups. The lighter group went from 105.7 kg to 114.3 kg.</p>
+  <p>That supports a lighter start to each wave, which costs less effort for the same progress. It does not show that wave loading beats other schemes, because the study had no non-wave control.</p>
+
+  <h2>Peaking for a meet</h2>
+  <p>Travis and colleagues (2020) reviewed tapering and training cessation for powerlifting. They found that most peaking research comes from endurance sports, that evidence for strength and power athletes is lacking, and that many studies do not give enough detail for coaches to apply. Their conclusion was that practitioners must use trial and error to find what works.</p>
+  <p>So any specific "last two weeks" plan you read is a coaching opinion. If you compete, practise your plan in training first so that the meet is not the first time you test it.</p>
+
+  <h2>What the research does not tell us</h2>
+  <ul>
+    <li>We did not find a trial of max effort, dynamic effort or conjugate-style bench training.</li>
+    <li>We did not find a trial showing that speed work or a particular bar speed target raises a bench 1RM.</li>
+    <li>We did not find a proven way to cycle intensities or peak for the bench press alone.</li>
+  </ul>
+  <p>Those methods may work for coaches who use them. This page does not claim they do, and it does not give a template.</p>
+
+  <h2>Practical points</h2>
+  <p>These are general coaching points, not findings from the studies above.</p>
+  <ul>
+    <li>Plan some variation in load across the week or the block. The evidence for variation is the strongest part of this page.</li>
+    <li>If you use wave loading, a lighter starting load is supported by one 20-week study.</li>
+    <li>If you compete, try your peaking plan in a training block before the meet and change one thing at a time.</li>
+    <li>Plan a <a href="/how-to-deload-bench-press-properly/">deload</a> into the schedule, and use our <a href="/bench-press-tools/rpe-calculator/">RPE calculator</a> to check that heavy days are not drifting too hard.</li>
+  </ul>
+  <p>For how to organize a block, see <a href="/bench-press-programming/periodization/">bench press periodization</a> and the <a href="/bench-press-program-by-level/">program by level</a> page.</p>
+</ArticlePage>
