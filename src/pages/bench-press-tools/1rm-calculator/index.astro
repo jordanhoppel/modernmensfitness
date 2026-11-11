@@ -1,6 +1,13 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PPPCta from '../../../components/PPPCta.astro';
+import { estimateOneRepMax } from '../../../lib/oneRepMax';
+
+const chartReps = [1, 2, 3, 4, 5, 6, 8, 10];
+const makeChart = (weights: number[]) =>
+  weights.map((w) => ({ w, row: chartReps.map((r) => Math.round(estimateOneRepMax(w, r))) }));
+const lbChart = makeChart([95, 115, 135, 155, 185, 205, 225, 245, 275, 295, 315, 365, 405]);
+const kgChart = makeChart([40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160]);
 
 const calcSchema = {
   "@context": "https://schema.org",
@@ -47,8 +54,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Bench Press 1RM Calculator — Estimate Your One Rep Max (2026)"
-  description="Free bench press one-rep max calculator. Enter any weight and reps to instantly estimate your 1RM and get all training percentages. Uses 6 proven formulas."
+  title="Bench Press 1RM Calculator: Estimate Your One Rep Max (lbs and kg)"
+  description="Free bench press one rep max calculator. Enter the weight and reps from any set to estimate your 1RM, see all 6 formulas side by side, and get your training percentages. Includes a 1RM chart in lbs and kg."
   canonical="https://modernmensfitness.com/bench-press-tools/1rm-calculator/"
   schema={[calcSchema, faqSchema]}
 >
@@ -100,6 +107,8 @@ const faqSchema = {
             </div>
           </div>
 
+          <p class="calc-error" id="calc-error" role="alert" hidden></p>
+
           <button class="calc-btn" id="calculate-btn">
             Calculate My 1RM →
           </button>
@@ -129,8 +138,16 @@ const faqSchema = {
               </table>
             </div>
 
+            <details class="formula-detail">
+              <summary class="mono">See each formula</summary>
+              <table class="pct-table">
+                <thead><tr><th>Formula</th><th>Estimated 1RM</th></tr></thead>
+                <tbody id="formula-body"></tbody>
+              </table>
+            </details>
+
             <div class="formula-note mono">
-              Average of Epley, Brzycki, Lombardi, Mayhew, O'Conner & Wathan formulas
+              The result is the average of Epley, Brzycki, Lombardi, Mayhew, O'Conner and Wathan. One rep is your max, so a 1-rep set is not estimated.
             </div>
           </div>
 
@@ -141,20 +158,46 @@ const faqSchema = {
           <h2>How to Use the 1RM Calculator</h2>
           <p>Enter the weight you lifted and how many reps you completed. For most accurate results:</p>
           <ul>
-            <li>Use a set where you stopped 1-2 reps before failure — don't use a set where you ground out every last rep with terrible form</li>
-            <li>Stick to <strong>1-5 reps for highest accuracy</strong> — estimates get less reliable above 10 reps</li>
-            <li>Use this as an estimate, not gospel — test your actual 1RM every 8-12 weeks</li>
+            <li>Use a set where you stopped 1-2 reps before failure. Don't use a set where you ground out every last rep with terrible form</li>
+            <li>Stick to <strong>1-5 reps for highest accuracy</strong>. Estimates get less reliable above 10 reps</li>
+            <li>Use this as an estimate, not gospel. Test your actual 1RM every 8-12 weeks</li>
           </ul>
 
           <h2>What is a 1RM?</h2>
           <p>A one-rep max (1RM) is the maximum weight you can lift for one complete repetition with full range of motion and good technique. It's the gold standard for measuring strength and is used to calculate training percentages for periodized programs.</p>
 
+          <h2>Bench Press 1RM Chart (lbs)</h2>
+          <p>Find the weight you lifted down the left, the reps you got across the top, and read off your estimated one rep max. Same maths as the calculator above.</p>
+          <div class="chart-wrap">
+            <table class="pct-table one-rm-chart">
+              <thead><tr><th>Weight lifted</th>{chartReps.map(r => <th>{r} {r === 1 ? 'rep' : 'reps'}</th>)}</tr></thead>
+              <tbody>
+                {lbChart.map(({ w, row }) => (
+                  <tr><td class="chart-w">{w} lbs</td>{row.map(v => <td>{v}</td>)}</tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Bench Press 1RM Chart (kg)</h2>
+          <div class="chart-wrap">
+            <table class="pct-table one-rm-chart">
+              <thead><tr><th>Weight lifted</th>{chartReps.map(r => <th>{r} {r === 1 ? 'rep' : 'reps'}</th>)}</tr></thead>
+              <tbody>
+                {kgChart.map(({ w, row }) => (
+                  <tr><td class="chart-w">{w} kg</td>{row.map(v => <td>{v}</td>)}</tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="chart-note">Estimates from sets of 1 to 5 reps are the most reliable. Past 10 reps every formula drifts, so treat those cells as a rough guide.</p>
+
           <h2>Training Percentages Explained</h2>
-          <p><strong>90-100% (1-3 reps)</strong> — Maximal strength. Used for peaking and testing. High neural demand, low volume.</p>
-          <p><strong>80-90% (3-5 reps)</strong> — Strength development. The primary zone for building absolute strength. Core of most powerlifting programs.</p>
-          <p><strong>70-80% (6-8 reps)</strong> — Strength-hypertrophy. Builds both size and strength simultaneously. Most versatile training zone.</p>
-          <p><strong>60-70% (8-12 reps)</strong> — Hypertrophy. Primary muscle-building zone. Lower neural fatigue allows higher volume.</p>
-          <p><strong>50-60% (12-20 reps)</strong> — Muscular endurance. Speed work, technical practice, or conditioning.</p>
+          <p><strong>90-100% (1-3 reps)</strong>: Maximal strength. Used for peaking and testing. High neural demand, low volume.</p>
+          <p><strong>80-90% (3-5 reps)</strong>: Strength development. The primary zone for building absolute strength. Core of most powerlifting programs.</p>
+          <p><strong>70-80% (6-8 reps)</strong>: Strength-hypertrophy. Builds both size and strength simultaneously. Most versatile training zone.</p>
+          <p><strong>60-70% (8-12 reps)</strong>: Hypertrophy. Primary muscle-building zone. Lower neural fatigue allows higher volume.</p>
+          <p><strong>50-60% (12-20 reps)</strong>: Muscular endurance. Speed work, technical practice, or conditioning.</p>
 
           <h2>Frequently Asked Questions</h2>
           <details class="faq-item">
@@ -178,9 +221,9 @@ const faqSchema = {
           <div class="sidebar-ppp">
             <span class="eyebrow">The Program</span>
             <h4>Auto-Calculate Every Training Weight</h4>
-            <p>The Primal Press Protocol uses your 1RM to auto-calculate every training weight for all 12 weeks. Enter your max once — the entire program is done.</p>
+            <p>The Primal Press Protocol uses your 1RM to auto-calculate every training weight for all 12 weeks. Enter your max once and the whole program is done.</p>
             <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=1rm-calculator&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get PPP — $37 →
+              Get PPP for $37 →
             </a>
             <p class="mono" style="font-size:0.65rem;color:var(--muted2);margin:12px 0 0;text-align:center;">60-day guarantee · No subscription</p>
           </div>
@@ -236,6 +279,8 @@ const faqSchema = {
   gap: 60px;
   align-items: start;
 }
+
+.calc-main { min-width: 0; }
 
 /* Calculator Card */
 .calc-card {
@@ -319,6 +364,17 @@ const faqSchema = {
   text-align: center; letter-spacing: 0.06em;
 }
 
+.calc-error { margin: 16px 24px 0; padding: 10px 14px; border-left: 3px solid #ff5a4f; background: var(--card); color: var(--text); font-size: 0.85rem; }
+.calc-error[hidden] { display: none; }
+.formula-detail { margin-top: 16px; border: 1px solid var(--border); }
+.formula-detail summary { padding: 12px 16px; cursor: pointer; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); }
+.formula-detail table { margin: 0; }
+.chart-wrap { overflow-x: auto; margin: 16px 0 8px; }
+.one-rm-chart td, .one-rm-chart th { text-align: center; white-space: nowrap; }
+.one-rm-chart .chart-w { text-align: left; color: var(--lime); font-family: var(--font-mono); font-weight: 600; }
+.chart-note { font-size: 0.8rem; color: var(--muted2); }
+.result-note a { color: var(--lime); }
+
 /* FAQ */
 .faq-item {
   border: 1px solid var(--border);
@@ -369,6 +425,8 @@ const faqSchema = {
 </style>
 
 <script>
+import { estimateOneRepMax, perFormula, MAX_RELIABLE_REPS, MAX_REPS } from '../../../lib/oneRepMax';
+
 // Unit toggle
 let currentUnit = 'lbs';
 document.querySelectorAll('.unit-btn').forEach(btn => {
@@ -399,59 +457,64 @@ document.getElementById('reps-input').addEventListener('input', (e) => {
 });
 
 // Calculate
-document.getElementById('calculate-btn').addEventListener('click', calculate);
-document.getElementById('weight').addEventListener('keypress', e => { if(e.key === 'Enter') calculate(); });
+const weightEl = document.getElementById('weight') as HTMLInputElement;
+const repsEl = document.getElementById('reps-input') as HTMLInputElement;
+const errorEl = document.getElementById('calc-error') as HTMLElement;
+const resultsEl = document.getElementById('calc-results') as HTMLElement;
 
-function calculate() {
-  const weight = parseFloat(document.getElementById('weight').value);
-  const reps = selectedReps || parseInt(document.getElementById('reps-input').value);
+const showError = (msg: string) => {
+  errorEl.textContent = msg;
+  errorEl.hidden = !msg;
+};
 
-  if (!weight || !reps || weight <= 0 || reps <= 0) {
-    alert('Please enter a valid weight and rep count.');
+document.getElementById('calculate-btn')!.addEventListener('click', () => calculate(true));
+weightEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') calculate(true); });
+// Live update once there is a valid set, so nobody has to hunt for the button.
+weightEl.addEventListener('input', () => calculate(false));
+repsEl.addEventListener('input', () => calculate(false));
+document.querySelectorAll('.rep-btn, .unit-btn').forEach((b) => b.addEventListener('click', () => calculate(false)));
+
+function calculate(userClicked: boolean) {
+  const weight = parseFloat(weightEl.value);
+  const reps = selectedReps || parseInt(repsEl.value);
+  const valid = weight > 0 && reps >= 1 && reps <= MAX_REPS;
+
+  if (!valid) {
+    if (userClicked) showError(`Enter the weight you lifted and a rep count from 1 to ${MAX_REPS}.`);
     return;
   }
+  showError('');
 
-  // 6 formulas averaged
-  const epley    = weight * (1 + reps / 30);
-  const brzycki  = reps === 1 ? weight : weight * (36 / (37 - reps));
-  const lombardi = weight * Math.pow(reps, 0.10);
-  const mayhew   = (100 * weight) / (52.2 + 41.9 * Math.exp(-0.055 * reps));
-  const oconner  = weight * (1 + reps / 40);
-  const wathan   = (100 * weight) / (48.8 + 53.8 * Math.exp(-0.075 * reps));
+  const oneRM = Math.round(estimateOneRepMax(weight, reps));
+  document.getElementById('result-1rm')!.textContent = String(oneRM);
+  document.getElementById('result-unit')!.textContent = currentUnit;
 
-  const avg = (epley + brzycki + lombardi + mayhew + oconner + wathan) / 6;
-  const oneRM = Math.round(avg);
+  const note = document.getElementById('result-level')!;
+  note.className = 'result-level result-note';
+  note.innerHTML = reps > MAX_RELIABLE_REPS
+    ? `Sets above ${MAX_RELIABLE_REPS} reps are the least reliable. For a better number, test a set of 3-5 reps. `
+    : `Want to know where that puts you? See the <a href="/bench-press-standards/">bench press standards by bodyweight</a>.`;
 
-  document.getElementById('result-1rm').textContent = oneRM;
-  document.getElementById('result-unit').textContent = currentUnit;
-
-  // Strength level
-  const bwRatio = currentUnit === 'lbs' ? oneRM / 175 : (oneRM * 2.205) / 175;
-  let level = '';
-  if (bwRatio < 0.5)       level = '// Beginner — focus on technique and linear progression';
-  else if (bwRatio < 0.75) level = '// Novice — solid start, add 5 lbs per session';
-  else if (bwRatio < 1.0)  level = '// Intermediate — weekly progress, dial in programming';
-  else if (bwRatio < 1.25) level = '// Advanced — periodization and weak point work needed';
-  else                      level = '// Elite — you\'re in the top 5% of lifters';
-  document.getElementById('result-level').textContent = level;
+  document.getElementById('formula-body')!.innerHTML = perFormula(weight, reps)
+    .map((f) => `<tr><td>${f.name}</td><td style="color:var(--text);font-weight:600;">${Math.round(f.value)} ${currentUnit}</td></tr>`)
+    .join('');
 
   // Percentages table
   const pcts = [
     { pct: 100, purpose: 'Max effort / testing', reps: '1' },
-    { pct: 95,  purpose: 'Near-maximal strength', reps: '1–2' },
-    { pct: 90,  purpose: 'Maximal strength', reps: '2–3' },
-    { pct: 85,  purpose: 'Heavy strength', reps: '3–4' },
-    { pct: 80,  purpose: 'Strength development', reps: '4–5' },
-    { pct: 75,  purpose: 'Strength-hypertrophy', reps: '5–7' },
-    { pct: 70,  purpose: 'Hypertrophy', reps: '6–8' },
-    { pct: 65,  purpose: 'Moderate hypertrophy', reps: '8–10' },
-    { pct: 60,  purpose: 'Volume / technique', reps: '10–12' },
-    { pct: 55,  purpose: 'Speed / endurance', reps: '12–15' },
-    { pct: 50,  purpose: 'Warm-up / recovery', reps: '15–20' },
+    { pct: 95,  purpose: 'Near-maximal strength', reps: '1-2' },
+    { pct: 90,  purpose: 'Maximal strength', reps: '2-3' },
+    { pct: 85,  purpose: 'Heavy strength', reps: '3-4' },
+    { pct: 80,  purpose: 'Strength development', reps: '4-5' },
+    { pct: 75,  purpose: 'Strength-hypertrophy', reps: '5-7' },
+    { pct: 70,  purpose: 'Hypertrophy', reps: '6-8' },
+    { pct: 65,  purpose: 'Moderate hypertrophy', reps: '8-10' },
+    { pct: 60,  purpose: 'Volume / technique', reps: '10-12' },
+    { pct: 55,  purpose: 'Speed / endurance', reps: '12-15' },
+    { pct: 50,  purpose: 'Warm-up / recovery', reps: '15-20' },
   ];
 
-  const tbody = document.getElementById('pct-body');
-  tbody.innerHTML = pcts.map(p => {
+  document.getElementById('pct-body')!.innerHTML = pcts.map((p) => {
     const w = Math.round(oneRM * p.pct / 100);
     return `<tr>
       <td style="color:var(--lime);font-family:var(--font-mono);font-weight:600;">${p.pct}%</td>
@@ -461,7 +524,8 @@ function calculate() {
     </tr>`;
   }).join('');
 
-  document.getElementById('calc-results').style.display = 'block';
-  document.getElementById('calc-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  resultsEl.style.display = 'block';
+  // Only scroll on an explicit click; live updates must not yank the page around while typing.
+  if (userClicked) resultsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 </script>

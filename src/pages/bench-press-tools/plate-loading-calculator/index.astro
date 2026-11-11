@@ -15,7 +15,7 @@ const schema = {
 ---
 
 <BaseLayout
-  title="Barbell Plate Loading Calculator — Bench Press (lbs & kg)"
+  title="Barbell Plate Calculator: What Plates to Load (lbs and kg)"
   description="Free barbell plate calculator. Enter your target bench press weight and instantly see exactly which plates go on each side. Works with lbs and kg."
   canonical="https://modernmensfitness.com/bench-press-tools/plate-loading-calculator/"
   schema={schema}
@@ -30,7 +30,7 @@ const schema = {
       </nav>
       <span class="eyebrow">Free Tool</span>
       <h1>Plate Loading<br/><em>Calculator.</em></h1>
-      <p class="page-sub">Stop doing bar math in your head. Enter your target weight and see exactly which plates go on each side — every time.</p>
+      <p class="page-sub">Stop doing bar math in your head. Enter your target weight and see exactly which plates go on each side, every time.</p>
     </div>
   </section>
 
@@ -62,6 +62,13 @@ const schema = {
               </div>
             </div>
           </div>
+          <div class="calc-inputs" style="padding-top:0;">
+            <div class="input-group">
+              <label class="input-label mono">Plates your gym has (tap to turn off)</label>
+              <div class="plate-chips" id="plate-chips"></div>
+            </div>
+          </div>
+          <p class="calc-error" id="calc-error" role="alert" hidden></p>
           <button class="calc-btn" id="calc-btn">Calculate Plates →</button>
 
           <div class="calc-results" id="calc-results" style="display:none;">
@@ -82,16 +89,16 @@ const schema = {
           <p>Enter your target total weight including the bar. The calculator shows exactly which plates go on each side. Standard Olympic barbell weighs 45 lbs (20 kg). Women's barbells weigh 35 lbs (15 kg).</p>
 
           <h2>Common Bench Press Plate Combinations</h2>
-          <p><strong>135 lbs</strong> — One 45-lb plate each side (1 plate)<br/>
-          <strong>185 lbs</strong> — 45 + 25 each side<br/>
-          <strong>225 lbs</strong> — Two 45-lb plates each side (2 plates)<br/>
-          <strong>275 lbs</strong> — 45 + 45 + 25 each side<br/>
-          <strong>315 lbs</strong> — Three 45-lb plates each side (3 plates)<br/>
-          <strong>365 lbs</strong> — 45 + 45 + 45 + 25 each side<br/>
-          <strong>405 lbs</strong> — Four 45-lb plates each side (4 plates)</p>
+          <p><strong>135 lbs</strong>: One 45-lb plate each side (1 plate)<br/>
+          <strong>185 lbs</strong>: 45 + 25 each side<br/>
+          <strong>225 lbs</strong>: Two 45-lb plates each side (2 plates)<br/>
+          <strong>275 lbs</strong>: 45 + 45 + 25 each side<br/>
+          <strong>315 lbs</strong>: Three 45-lb plates each side (3 plates)<br/>
+          <strong>365 lbs</strong>: 45 + 45 + 45 + 25 each side<br/>
+          <strong>405 lbs</strong>: Four 45-lb plates each side (4 plates)</p>
 
           <h2>Why "How Many Plates" Matters</h2>
-          <p>Bench press milestones are typically measured in plates — one plate (135 lbs), two plates (225 lbs), three plates (315 lbs). These are the strength benchmarks most lifters use to gauge progress. The Primal Press Protocol is built to take intermediate lifters from wherever they are to the next plate milestone.</p>
+          <p>Bench press milestones are typically measured in plates: one plate (135 lbs), two plates (225 lbs), three plates (315 lbs). These are the strength benchmarks most lifters use to gauge progress. The Primal Press Protocol is built to take intermediate lifters from wherever they are to the next plate milestone.</p>
         </div>
       </div>
 
@@ -101,7 +108,7 @@ const schema = {
             <span class="eyebrow">The Program</span>
             <h4>Auto-Calculate Every Set</h4>
             <p>The Primal Press Protocol calculates your plate loading for every set in the 12-week program automatically.</p>
-            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=plate-calc&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">Get PPP — $37 →</a>
+            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=plate-calc&utm_campaign=sidebar" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">Get PPP for $37 →</a>
           </div>
           <div class="sidebar-widget">
             <h5>More Tools</h5>
@@ -160,98 +167,158 @@ const schema = {
 .sidebar-link:last-child { border-bottom: none; }
 .sidebar-link:hover { color: var(--text); }
 @media (max-width: 900px) { .calc-layout { grid-template-columns: 1fr; } .calc-sidebar { display: none; } }
+.calc-main { min-width: 0; }
+.plate-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: var(--card); border: 1px solid var(--border); color: var(--muted2); font-family: var(--font-mono); font-size: 0.75rem; padding: 8px 12px; cursor: pointer; text-decoration: line-through; transition: all 0.2s; }
+.chip.on { background: var(--lime); color: #0a0a0a; border-color: var(--lime); text-decoration: none; }
+.calc-error { margin: 16px 24px 0; padding: 10px 14px; border-left: 3px solid #ff5a4f; background: var(--card); color: var(--text); font-size: 0.85rem; }
+.calc-error[hidden] { display: none; }
+.quick-item { cursor: pointer; }
 </style>
 
 <script>
+type Unit = 'lbs' | 'kg';
+
+const PLATE_SETS: Record<Unit, number[]> = {
+  lbs: [45, 35, 25, 10, 5, 2.5],
+  kg: [25, 20, 15, 10, 5, 2.5, 1.25],
+};
+const DEFAULT_BAR: Record<Unit, number> = { lbs: 45, kg: 20 };
+const QUICK: Record<Unit, number[]> = {
+  lbs: [95, 115, 135, 155, 185, 205, 225, 245, 275, 295, 315, 335],
+  kg: [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150],
+};
+
+let unit: Unit = 'lbs';
 let barWeight = 45;
-let currentUnit = 'lbs';
+let enabled: Record<Unit, Set<number>> = { lbs: new Set(PLATE_SETS.lbs), kg: new Set(PLATE_SETS.kg) };
 
-const LB_PLATES = [100, 65, 55, 45, 35, 25, 15, 10, 5, 2.5, 1.25];
-const KG_PLATES = [50, 45, 35, 25, 20, 15, 10, 5, 2.5, 1.25, 0.5];
+const targetEl = document.getElementById('target-weight') as HTMLInputElement;
+const errorEl = document.getElementById('calc-error') as HTMLElement;
+const chipsEl = document.getElementById('plate-chips') as HTMLElement;
 
-document.querySelectorAll('.bar-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.bar-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    barWeight = parseFloat(btn.dataset.bar);
-  });
-});
+const showError = (msg: string) => { errorEl.textContent = msg; errorEl.hidden = !msg; };
+const activePlates = () => PLATE_SETS[unit].filter((p) => enabled[unit].has(p)); // already largest first
 
-document.querySelectorAll('.unit-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentUnit = btn.dataset.unit;
-  });
-});
-
-document.getElementById('calc-btn').addEventListener('click', calculate);
-document.getElementById('target-weight').addEventListener('keypress', e => { if(e.key === 'Enter') calculate(); });
-
-function getPlates() { return currentUnit === 'lbs' ? LB_PLATES : KG_PLATES; }
-
-function calculatePlatesForWeight(totalWeight) {
-  const plates = getPlates();
-  const perSide = (totalWeight - barWeight) / 2;
-  if (perSide < 0) return null;
-  let remaining = perSide;
-  const result = [];
-  for (const plate of plates) {
-    while (remaining >= plate - 0.001) {
-      result.push(plate);
-      remaining -= plate;
-      remaining = Math.round(remaining * 1000) / 1000;
+/** Fewest plates per side that add up exactly, preferring bigger plates on ties. Works in quarter units to avoid float drift. */
+function fitPlates(perSide: number, plates: number[]) {
+  const Q = 4;
+  const goal = Math.round(perSide * Q);
+  if (Math.abs(perSide * Q - goal) > 1e-6 || goal < 0) return null;
+  const sizes = plates.map((p) => Math.round(p * Q));
+  const limit = goal + 8 * Q;
+  const best: number[] = new Array(limit + 1).fill(Infinity);
+  const pick: number[] = new Array(limit + 1).fill(-1);
+  best[0] = 0;
+  for (let t = 1; t <= limit; t++) {
+    for (let i = 0; i < sizes.length; i++) {
+      const left = t - sizes[i];
+      if (left >= 0 && best[left] + 1 < best[t]) { best[t] = best[left] + 1; pick[t] = i; }
     }
   }
-  if (remaining > 0.1) return null;
-  return result;
+  const build = (t: number) => {
+    const out: number[] = [];
+    while (t > 0) { out.push(plates[pick[t]]); t -= sizes[pick[t]]; }
+    return out;
+  };
+  return { exact: best[goal] < Infinity ? build(goal) : null, reachable: (t: number) => t >= 0 && t <= limit && best[t] < Infinity, build, goal, Q };
 }
 
-function formatPlates(plates) {
-  if (!plates || plates.length === 0) return 'Bar only';
-  const counts = {};
-  plates.forEach(p => counts[p] = (counts[p] || 0) + 1);
-  return Object.entries(counts)
-    .map(([p, c]) => c > 1 ? `${c}×${p}` : `${p}`)
-    .join(' + ');
+const formatPlates = (plates: number[]) => {
+  if (plates.length === 0) return 'Bar only';
+  const counts = new Map<number, number>();
+  plates.forEach((p) => counts.set(p, (counts.get(p) || 0) + 1));
+  return [...counts.entries()].map(([p, c]) => (c > 1 ? `${c}×${p}` : `${p}`)).join(' + ');
+};
+
+const platesFor = (total: number) => {
+  const fit = fitPlates((total - barWeight) / 2, activePlates());
+  return fit && fit.exact;
+};
+
+function renderChips() {
+  chipsEl.innerHTML = PLATE_SETS[unit]
+    .map((p) => `<button type="button" class="chip ${enabled[unit].has(p) ? 'on' : ''}" data-plate="${p}">${p}</button>`)
+    .join('');
 }
 
-function calculate() {
-  const target = parseFloat(document.getElementById('target-weight').value);
-  if (!target || target <= barWeight) {
-    alert('Enter a weight greater than the bar weight.');
-    return;
-  }
+function syncBarButtons() {
+  document.querySelectorAll<HTMLButtonElement>('.bar-btn').forEach((b) => {
+    const isKg = (b.textContent || '').includes('kg');
+    b.hidden = isKg !== (unit === 'kg');
+    b.classList.toggle('active', parseFloat(b.dataset.bar!) === barWeight);
+  });
+}
 
-  const plates = calculatePlatesForWeight(target);
-  const unit = currentUnit;
-
-  const display = document.getElementById('plates-display');
-  const breakdown = document.getElementById('weight-breakdown');
-
-  if (!plates) {
-    display.textContent = 'Cannot make this weight exactly with standard plates.';
-    breakdown.textContent = '';
-  } else {
-    display.textContent = plates.length === 0 ? 'Bar only (no plates)' : formatPlates(plates);
-    const perSide = (target - barWeight) / 2;
-    breakdown.textContent = `${perSide} ${unit} per side · ${barWeight} ${unit} bar · ${target} ${unit} total`;
-  }
-
-  // Quick reference grid
-  const quickWeights = currentUnit === 'lbs'
-    ? [95, 115, 135, 155, 185, 205, 225, 245, 275, 295, 315, 335]
-    : [40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
-
-  const grid = document.getElementById('quick-grid');
-  grid.innerHTML = quickWeights.map(w => {
-    const p = calculatePlatesForWeight(w);
-    return `<div class="quick-item" onclick="document.getElementById('target-weight').value=${w};calculate();">
-      <div class="q-weight">${w} ${unit}</div>
-      <div class="q-plates">${p ? formatPlates(p) : '—'}</div>
-    </div>`;
+function renderQuick() {
+  document.getElementById('quick-grid')!.innerHTML = QUICK[unit].map((w) => {
+    const p = platesFor(w);
+    return `<div class="quick-item" data-w="${w}"><div class="q-weight">${w} ${unit}</div><div class="q-plates">${p ? formatPlates(p) : '-'}</div></div>`;
   }).join('');
-
-  document.getElementById('calc-results').style.display = 'block';
 }
+
+function calculate(userClicked: boolean) {
+  const target = parseFloat(targetEl.value);
+  if (!target) { if (userClicked) showError('Enter the total weight you want on the bar.'); return; }
+  const results = document.getElementById('calc-results')!;
+  if (target < barWeight) { showError(`The bar alone is ${barWeight} ${unit}. Enter a heavier weight.`); results.style.display = 'none'; return; }
+  if (activePlates().length === 0) { showError('Turn at least one plate size on.'); results.style.display = 'none'; return; }
+  showError('');
+
+  const perSide = (target - barWeight) / 2;
+  const fit = fitPlates(perSide, activePlates())!;
+  const display = document.getElementById('plates-display')!;
+  const breakdown = document.getElementById('weight-breakdown')!;
+
+  if (fit && fit.exact) {
+    display.textContent = formatPlates(fit.exact);
+    breakdown.textContent = `${perSide} ${unit} per side · ${fit.exact.length} ${fit.exact.length === 1 ? 'plate' : 'plates'} each side · ${barWeight} ${unit} bar · ${target} ${unit} total`;
+  } else {
+    // Nearest weights that these plates can actually make.
+    const step = 1 / fit.Q;
+    let down: number | null = null, up: number | null = null;
+    for (let k = 1; k <= 8 * fit.Q && (down === null || up === null); k++) {
+      if (down === null && fit.reachable(fit.goal - k)) down = (fit.goal - k) * step;
+      if (up === null && fit.reachable(fit.goal + k)) up = (fit.goal + k) * step;
+    }
+    const total = (side: number) => side * 2 + barWeight;
+    display.textContent = `${target} ${unit} cannot be loaded exactly with these plates.`;
+    breakdown.textContent = [down !== null ? `Nearest lighter: ${total(down)} ${unit}` : '', up !== null ? `Nearest heavier: ${total(up)} ${unit}` : ''].filter(Boolean).join(' · ');
+  }
+
+  renderQuick();
+  document.getElementById('calc-results')!.style.display = 'block';
+}
+
+document.querySelectorAll<HTMLButtonElement>('.bar-btn').forEach((btn) => btn.addEventListener('click', () => {
+  barWeight = parseFloat(btn.dataset.bar!); syncBarButtons(); calculate(false);
+}));
+
+document.querySelectorAll<HTMLButtonElement>('.unit-btn').forEach((btn) => btn.addEventListener('click', () => {
+  document.querySelectorAll('.unit-btn').forEach((b) => b.classList.remove('active'));
+  btn.classList.add('active');
+  unit = btn.dataset.unit as Unit;
+  barWeight = DEFAULT_BAR[unit]; // a 45 kg bar does not exist, so reset the bar with the unit
+  renderChips(); syncBarButtons(); calculate(false);
+}));
+
+chipsEl.addEventListener('click', (e) => {
+  const chip = (e.target as HTMLElement).closest('.chip') as HTMLElement | null;
+  if (!chip) return;
+  const p = parseFloat(chip.dataset.plate!);
+  enabled[unit].has(p) ? enabled[unit].delete(p) : enabled[unit].add(p);
+  renderChips(); calculate(false);
+});
+
+document.getElementById('quick-grid')!.addEventListener('click', (e) => {
+  const item = (e.target as HTMLElement).closest('.quick-item') as HTMLElement | null;
+  if (!item) return;
+  targetEl.value = item.dataset.w!; calculate(true);
+});
+
+document.getElementById('calc-btn')!.addEventListener('click', () => calculate(true));
+targetEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') calculate(true); });
+targetEl.addEventListener('input', () => calculate(false));
+
+renderChips(); syncBarButtons(); renderQuick();
 </script>
