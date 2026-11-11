@@ -1,116 +1,51 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PPPCta from '../../components/PPPCta.astro';
+import ArticlePage from '../../layouts/ArticlePage.astro';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Bench Press Pyramid Sets Benefits",
-  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
-  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
-  "datePublished": "2025-12-26",
-  "dateModified": "2025-12-26",
-  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-pyramid-sets-benefits/"
-};
+const faq = [
+  { q: 'Are pyramid sets better than straight sets for the bench press?', a: 'Not on the evidence we found. In resistance-trained older women, a pyramid and a constant-load group improved chest press strength and muscle mass similarly. In well-trained men, a crescent pyramid and traditional training gave similar muscle growth. Pick the one that suits your session.' },
+  { q: 'Do pyramids build more strength?', a: 'Mostly no, but individuals varied. In the men\'s study, about two thirds of the lifters gained about the same leg press strength either way, four gained more on the pyramid and one gained more on straight sets. That study measured leg exercises, not the bench.' },
+  { q: 'What about reverse pyramids?', a: 'The studies behind this article tested ascending pyramids, so we cannot say anything about reverse pyramids from them. Treat them as another way to arrange sets, and judge them by your own log.' },
+  { q: 'What matters more than the set pattern?', a: 'How many hard sets you do each week, how heavy they are, and how close to failure you take them. Jordan says in strength work you are task driven, a certain weight for a certain number of reps, and that going to failure often works against you. For muscle growth you get close to failure.' },
+];
 ---
 
-<BaseLayout
-  title="Bench Press Pyramid Sets Benefits | Modern Men's Fitness"
-  description="Bench Press Pyramid Sets Benefits — Expert guide by Jordan Hoppel, strength coach with 16 years experience and 1,300+ athletes coached."
+<ArticlePage
+  title="Pyramid Sets for Bench Press: Do They Work?"
+  description="Do pyramid sets build more strength or muscle than straight sets on the bench press? What two trials found, where a pyramid is useful, and how to run one."
   canonical="https://modernmensfitness.com/bench-press-pyramid-sets-benefits/"
-  schema={articleSchema}
-  pageType="article"
-  publishDate="2025-12-26"
-  modifiedDate="2025-12-26"
+  heading="Pyramid Sets for Bench Press: Do They Work?"
+  eyebrow="Programming"
+  updated="2026-11-10"
+  shortAnswer="Pyramid sets, where you add weight and drop reps across your sets, are a fine way to organize a bench session, but the research we found does not show they build more strength or muscle than straight sets. In a trial of resistance-trained older women, pyramid and constant-load training improved chest press strength and muscle mass about equally. In a within-person trial of well-trained men, a crescent pyramid and traditional training gave about the same muscle growth. Choose by what suits the session, not by a promise of extra gains."
+  sources={[{ text: 'Ribeiro AS, Aguiar AF, Schoenfeld BJ, et al. Effects of different resistance training systems on muscular strength and hypertrophy in resistance-trained older women. J Strength Cond Res. 2018;32(2):545-553.', doi: '10.1519/JSC.0000000000002326' }, { text: 'Angleri V, Ugrinowitsch C, Libardi CA. Individual muscle adaptations in different resistance training systems in well-trained men. Int J Sports Med. 2022;43(1):55-60.', doi: '10.1055/a-1493-3121' }]}
+  faq={faq}
+  related={[
+    { href: '/rpe-bench-press-program/', label: 'RPE bench press program' },
+    { href: '/bench-press-programming-for-plateaus/', label: 'Bench press programming for plateaus' },
+    { href: '/bench-press-programming/', label: 'Bench press programming guides' },
+  ]}
 >
+  <h2>What a pyramid is</h2>
+  <p>In an ascending pyramid, each set is heavier and has fewer reps than the one before: for example 12, 10 and 8 reps at increasing weights. A straight set (also called constant load) repeats the same weight and rep target for every set. Pyramids are popular because they let you warm up into your working weight, and because they feel productive.</p>
 
-  <section class="page-hero">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="/">Home</a> <span>›</span>
-        <a href="/bench-press-programming/">Programming</a> <span>›</span>
-        <span>Bench Press Pyramid Sets Benefits</span>
-      </nav>
-      <span class="eyebrow">Programming</span>
-      <h1>Bench Press Pyramid Sets Benefits</h1>
-      <div class="page-meta mono">
-        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · 2025-12
-      </div>
-    </div>
-  </section>
+  <h2>What two trials found</h2>
+  <ul>
+    <li><strong>Resistance-trained older women (Ribeiro and colleagues, 2018).</strong> Thirty-three women with an average age of about 70 were randomly assigned to constant load (3 sets of 8 to 12 reps at the same weight) or an ascending pyramid (3 sets of 12, 10 and 8 reps with rising loads). They trained three days a week for 8 weeks after 24 weeks of conditioning. Chest press strength and muscle mass improved in both groups, with no difference between them. The authors concluded both systems work and the pyramid was not superior.</li>
+    <li><strong>Well-trained men (Angleri and colleagues, 2022).</strong> In a within-subject design, 15 well-trained men were compared with themselves on a crescent pyramid and on traditional training. Muscle cross-sectional area rose about the same with both (7.5 percent and 7.8 percent), and so did leg press strength (27.3 percent and 26.3 percent). Looking at individuals, 10 of the 15 gained about the same leg press strength either way, four gained more with the pyramid and one gained more with straight sets.</li>
+  </ul>
+  <p>Neither trial tested the barbell bench press, and both are small, so this is not the last word. The honest summary is that the set pattern is a minor variable.</p>
 
-  <section class="section">
-    <div class="container post-layout">
-      <article class="prose">
+  <h2>What matters more</h2>
+  <p>In his coaching interview, Jordan said strength work is task driven: a certain weight for a certain number of reps. The more you go to failure in strength training, the more it works against you and the more you plateau, so you want to complete the programmed reps. For muscle growth, you work close to failure to get mechanical tension. His rep ranges are 3 to 5 for strength and typically 6 to 12 for hypertrophy. Whether you pyramid or not, those decisions do the work.</p>
 
-        <PPPCta variant="soft" utmContent="bench-press-pyramid-sets-benefits-top" />
+  <h2>Where a pyramid is useful</h2>
+  <p>These uses are general coaching practice, not findings from the trials above.</p>
+  <ul>
+    <li><strong>Warming up into a top set.</strong> Ramping up in weight prepares you for the heavy work and lets you check how the bar feels.</li>
+    <li><strong>Finding the day's weight.</strong> If you train by RPE, a short climb shows you what weight gives the effort you want. See <a href="/rpe-bench-press-program/">the RPE bench press program</a>.</li>
+    <li><strong>Variety.</strong> Some lifters stay more engaged with a pattern that changes across sets.</li>
+  </ul>
 
-        <p>This guide covers bench press pyramid sets benefits from a coaching perspective — based on 16 years of working with 1,300+ athletes at 5 Star Fitness in Scottsdale, Arizona.</p>
-
-        <h2>Key Points</h2>
-        <ul>
-          <li>Understanding the root cause is always the first step</li>
-          <li>Most fixes require addressing both technique and programming simultaneously</li>
-          <li>Consistent application of the correct fix over 4-6 weeks produces measurable results</li>
-        </ul>
-
-        <PPPCta variant="mid" utmContent="bench-press-pyramid-sets-benefits-mid" context="The Primal Press Protocol is 12 weeks of structured, periodized bench press programming with every training weight auto-calculated from your 1RM." />
-
-        <h2>The Coach's Perspective</h2>
-        <p>After working with hundreds of lifters on this exact issue, the pattern is consistent: most people apply generic fixes to specific problems. The right approach is diagnosing what's actually happening first — then prescribing the correct solution.</p>
-
-        <p>If you want a systematic approach to diagnosing and fixing your specific bench press limiter, the Primal Press Protocol walks you through the entire diagnostic framework on Day 1.</p>
-
-        <PPPCta variant="hard" utmContent="bench-press-pyramid-sets-benefits-bottom" />
-
-      </article>
-
-      <aside class="post-sidebar">
-        <div class="sidebar-sticky">
-          <div class="sidebar-widget">
-            <h5>Programming Resources</h5>
-            <a href="/bench-press-programming/" class="sidebar-link">
-              <span>Back to Programming</span><span>→</span>
-            </a>
-            <a href="/bench-press-standards/" class="sidebar-link">
-              <span>Strength Standards</span><span>→</span>
-            </a>
-            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link">
-              <span>1RM Calculator</span><span>→</span>
-            </a>
-          </div>
-          <div class="sidebar-ppp">
-            <span class="eyebrow">The Program</span>
-            <h4>Primal Press Protocol™</h4>
-            <p>The complete 12-week bench press system. $37 one-time.</p>
-            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=post-sidebar&utm_campaign=bench-press-pyramid-sets-benefits" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get PPP — $37 →
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-</BaseLayout>
-
-<style>
-.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
-.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
-.breadcrumb a { color: var(--muted2); text-decoration: none; }
-.breadcrumb a:hover { color: var(--text); }
-.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 5rem); }
-.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
-.page-meta a { color: var(--muted); }
-.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
-.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
-.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
-.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.sidebar-link:last-child { border-bottom: none; }
-.sidebar-link:hover { color: var(--text); }
-.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
-.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
-.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
-@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
-</style>
+  <h2>How to run one on the bench</h2>
+  <p>An example for a lifter with a 275 lb max, aimed at muscle size: 12 reps at 165 lb, 10 reps at 185 lb, 8 reps at 205 lb, with the last set close to the edge of what you can do. For strength, keep the reps low and stop shy of failure: 5 reps at 205 lb, 3 reps at 235 lb, 3 reps at 245 lb. These numbers are only an illustration, so adjust them to your own max and recovery.</p>
+</ArticlePage>

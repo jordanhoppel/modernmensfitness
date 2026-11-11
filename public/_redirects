@@ -39,12 +39,12 @@
 # ============================================
 # FREQUENCY PAGE CONSOLIDATION → programming hub
 # ============================================
-/how-often-to-bench-press/                   /bench-press-programming/   301
-/ideal-bench-frequency-for-natural-lifters/  /bench-press-programming/   301
-/weekly-bench-press-training-split/          /bench-press-programming/   301
-/bench-press-frequency-for-strength/         /bench-press-programming/   301
-/2x-per-week-vs-3x-per-week-bench-results/  /bench-press-programming/   301
-/how-to-bench-press-twice-per-day/           /bench-press-programming/   301
+/how-often-to-bench-press/                   /bench-press-programming/frequency/  301
+/ideal-bench-frequency-for-natural-lifters/  /bench-press-programming/frequency/  301
+/weekly-bench-press-training-split/          /bench-press-programming/frequency/  301
+/bench-press-frequency-for-strength/         /bench-press-programming/frequency/  301
+/2x-per-week-vs-3x-per-week-bench-results/   /bench-press-programming/frequency/  301
+/how-to-bench-press-twice-per-day/           /bench-press-programming/frequency/  301
 
 # ============================================
 # LOCKOUT PAGE CONSOLIDATION → plateau hub
@@ -189,4 +189,13 @@
 /why-bench-press-feels-weak-at-bottom/                 /why-my-bench-press-is-weak/  301
 /why-bench-press-doesn-t-increase-with-training/       /why-my-bench-press-is-weak/  301
 /how-to-diagnose-bench-press-sticking-point/           /why-my-bench-press-is-weak/  301
+
+# ============================================
+# MORE STUBS MERGED INTO REWRITTEN ARTICLES (2026-11-10)
+# ============================================
+/bench-press-plateau-fix/                              /bench-press-programming-for-plateaus/  301
+/bench-press-strength-plateau-programming/             /bench-press-programming-for-plateaus/  301
+/how-to-break-through-bench-press-plateau/             /bench-press-programming-for-plateaus/  301
+/bench-press-weak-off-chest-programming-fixes/         /bench-press-programming-for-plateaus/  301
+/bench-press-plateau/programming-fixes/                /bench-press-programming-for-plateaus/  301
 /primal-press-protocol-review/ /primal-press-protocol-review.html 200

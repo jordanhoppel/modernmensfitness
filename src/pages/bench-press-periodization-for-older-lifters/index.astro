@@ -1,116 +1,73 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PPPCta from '../../components/PPPCta.astro';
+import ArticlePage from '../../layouts/ArticlePage.astro';
+import data from '../../data/benchStandards.json';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Bench Press Periodization for Older Lifters",
-  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
-  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
-  "datePublished": "2025-12-26",
-  "dateModified": "2025-12-26",
-  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-periodization-for-older-lifters/"
-};
+const groups = ['24-34', '40-49', '50-59', '60-69', '70+'];
+const row = (sex: string, g: string) => data.by_age_ratio.find((a) => a.sex === sex && a.age === g)!;
+const x2 = (n: number) => `${n.toFixed(2)}x`;
+const m2434 = row('M', '24-34'), m5059 = row('M', '50-59'), m6069 = row('M', '60-69'), m70 = row('M', '70+');
+
+const faq = [
+  { q: 'Can I still bench heavy in my 50s, 60s or 70s?', a: `Plenty of people do. Our meet data include ${row('M', '60-69').n.toLocaleString('en-US')} men aged 60 to 69 and ${row('M', '70+').n.toLocaleString('en-US')} aged 70 and over who competed in raw meets and benched. Whether heavy work is right for you depends on your health, so check with your doctor, especially if you have joint pain or a heart or blood pressure condition.` },
+  { q: 'Do older lifters need more recovery?', a: 'Recovery varies a lot between people at every age. Jordan\'s rule is the same for everyone: training frequency is based on how quickly you can recover, and it cannot outpace recovery if you want continued quality progress. Use your sleep, how training feels and your numbers to judge it, and deload when the signs show.' },
+  { q: 'Is there research on periodizing the bench press for older lifters?', a: 'We did not find a trial that tests periodized bench press programs in older lifters. The National Strength and Conditioning Association has a position statement on resistance training for older adults, and the periodization studies we cite mostly report on trained and untrained groups, not by age.' },
+  { q: 'How much should I add to the bar?', a: 'Small jumps. Jordan gave this answer for beginners: add 5 pounds, and at most 10 pounds, and how often depends on the program, your progress and your goals. It can be every set, every week or every month.' },
+];
 ---
 
-<BaseLayout
-  title="Bench Press Periodization for Older Lifters | Modern Men's Fitness"
-  description="Bench Press Periodization for Older Lifters — Expert guide by Jordan Hoppel, strength coach with 16 years experience and 1,300+ athletes coached."
+<ArticlePage
+  title="Bench Press for Older Lifters: What Changes With Age and How to Train Around It"
+  description="How bench press strength changes with age in real powerlifting data, what the NSCA says about resistance training for older adults, and Jordan Hoppel's rules on recovery, deloads and progressing in small steps."
   canonical="https://modernmensfitness.com/bench-press-periodization-for-older-lifters/"
-  schema={articleSchema}
-  pageType="article"
-  publishDate="2025-12-26"
-  modifiedDate="2025-12-26"
+  heading="Bench Press for Older Lifters: What Changes With Age and How to Train Around It"
+  eyebrow="Programming"
+  updated="2026-11-10"
+  shortAnswer={`Bench press strength does fall with age, but resistance training is one of the best supported ways to slow that. In real powerlifting results, the median bench relative to bodyweight for men is ${x2(m2434.p50)} at ages 24 to 34, ${x2(m5059.p50)} at 50 to 59, ${x2(m6069.p50)} at 60 to 69 and ${x2(m70.p50)} at 70 and over. Lifters still competing at those ages are survivors, so the real drop across all men is probably steeper. We found no trial of bench programs in older lifters, so the advice here rests on the NSCA position statement, general periodization research and Jordan's coaching rules.`}
+  sources={[{ text: 'Fragala MS, Cadore EL, Dorgo S, et al. Resistance training for older adults: position statement from the National Strength and Conditioning Association. J Strength Cond Res. 2019;33(8):2019-2052.', doi: '10.1519/JSC.0000000000003230' }, { text: 'Moesgaard L, Beck MM, Christiansen L, Aagaard P, Lundbye-Jensen J. Effects of periodization on strength and muscle hypertrophy in volume-equated resistance training programs: a systematic review and meta-analysis. Sports Med. 2022;52(7):1647-1666.', doi: '10.1007/s40279-021-01636-1' }, { text: 'Rogerson D, Nolan D, Androulakis Korakakis P, Immonen V, Wolf M, Bell L. Deloading practices in strength and physique sports: a cross-sectional survey. Sports Med Open. 2024;10:26.', doi: '10.1186/s40798-024-00691-y' }]}
+  faq={faq}
+  related={[
+    { href: '/bench-press-standards/', label: 'Bench press standards by weight, age and sex' },
+    { href: '/how-to-deload-bench-press-properly/', label: 'How to deload your bench press' },
+    { href: '/rpe-bench-press-program/', label: 'RPE bench press program' },
+    { href: '/bench-press-programming/frequency/', label: 'How often to bench press' },
+  ]}
 >
+  <h2>What age does to a bench press, in real data</h2>
+  <p>The table uses the same powerlifting data as the <a href="/bench-press-standards/">bench press standards</a> page: adults who competed in raw meets. It shows the median bench press as a multiple of bodyweight in each age group.</p>
+  <div class="chart-wrap">
+    <table class="pct-table data-table">
+      <thead><tr><th>Age group</th><th>Men, median</th><th>Men, lifters</th><th>Women, median</th><th>Women, lifters</th></tr></thead>
+      <tbody>
+        {groups.map((g) => { const m = row('M', g); const w = row('F', g); return (<tr><td>{g.replace('-', ' to ')}</td><td>{x2(m.p50)}</td><td>{m.n.toLocaleString('en-US')}</td><td>{x2(w.p50)}</td><td>{w.n.toLocaleString('en-US')}</td></tr>); })}
+      </tbody>
+    </table>
+  </div>
+  <p class="chart-note">Each lifter counts once per age group. The figures describe people who chose to compete, so they are a best case for each age.</p>
+  <p>The shape is a plateau through the 20s and 30s, then a steady slide: for men, from {x2(m2434.p50)} at 24 to 34 down to {x2(m70.p50)} at 70 and over. Because the older lifters in this data kept training and entered meets, the decline in the general population is probably faster.</p>
 
-  <section class="page-hero">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="/">Home</a> <span>›</span>
-        <a href="/bench-press-programming/">Programming</a> <span>›</span>
-        <span>Bench Press Periodization for Older Lifters</span>
-      </nav>
-      <span class="eyebrow">Programming</span>
-      <h1>Bench Press Periodization for Older Lifters</h1>
-      <div class="page-meta mono">
-        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · 2025-12
-      </div>
-    </div>
-  </section>
+  <h2>What the evidence says about training</h2>
+  <p>The National Strength and Conditioning Association's position statement (Fragala and colleagues, 2019) reviews the research on resistance training for older adults. Its conclusion is that countering muscle disuse through resistance training is a powerful way to fight the loss of muscle strength and mass, and the loss of function that comes with it. The statement covers program design variables, physiological adaptations, functional benefits, and considerations for frailty, sarcopenia and other conditions. It is long, so read the full text for its specific recommendations, which we have not reproduced here.</p>
+  <p>On periodization, a meta-analysis by Moesgaard and colleagues (2022) found periodized programs gave better one rep max gains than non-periodized ones when volume was equal, with undulating programs doing best in trained lifters. Its summary reports subgroups by training status, not by age. That is why we say we found no bench press trial in older lifters: the periodization evidence is general.</p>
 
-  <section class="section">
-    <div class="container post-layout">
-      <article class="prose">
+  <h2>Jordan's rules for any age</h2>
+  <ul>
+    <li><strong>Let recovery set the frequency.</strong> Training frequency is based on how quickly you can recover, and it cannot outpace recovery if you want continued quality progress. As long as you can keep up the schedule, recover and keep making gains, that is the right one.</li>
+    <li><strong>Deload when the signs show.</strong> Poor sleep, training that feels like a grind, feeling worn out, and numbers that trend down or have not moved in a long time. The deload he uses cuts volume in half and keeps the weights about the same. See <a href="/how-to-deload-bench-press-properly/">how to deload your bench</a>.</li>
+    <li><strong>Add weight in small steps.</strong> Jordan gave this answer for beginners, and it is a sensible cap for anyone: add 5 pounds, at most 10, at a pace that matches your progress.</li>
+    <li><strong>Time off is not a disaster.</strong> Once training age is higher and training is consistent, readjusting after time off is much quicker. He says the rebound is really quick.</li>
+    <li><strong>Consistency beats strictness.</strong> Do not make promises to yourself you cannot keep. Good form is the foundation of everything, and nothing should replace it for a possible gain.</li>
+    <li><strong>Sleep.</strong> He says to get as much as you possibly can, because more sleep can only benefit your fitness goals.</li>
+  </ul>
 
-        <PPPCta variant="soft" utmContent="bench-press-periodization-for-older-lifters-top" />
+  <h2>Practical points</h2>
+  <p>These are general coaching practice, not findings from the studies above.</p>
+  <ul>
+    <li>Leave a few reps in reserve on most sets, using <a href="/rpe-bench-press-program/">RPE</a>, and save sets close to failure for rare testing days.</li>
+    <li>Use safety arms or a spotter for heavy sets.</li>
+    <li>Warm up thoroughly, with several lighter sets before your first working set.</li>
+    <li>Treat joint pain differently from muscle fatigue. If a shoulder, elbow or wrist hurts, see a doctor or physical therapist instead of pushing through.</li>
+  </ul>
 
-        <p>This guide covers bench press periodization for older lifters from a coaching perspective — based on 16 years of working with 1,300+ athletes at 5 Star Fitness in Scottsdale, Arizona.</p>
-
-        <h2>Key Points</h2>
-        <ul>
-          <li>Understanding the root cause is always the first step</li>
-          <li>Most fixes require addressing both technique and programming simultaneously</li>
-          <li>Consistent application of the correct fix over 4-6 weeks produces measurable results</li>
-        </ul>
-
-        <PPPCta variant="mid" utmContent="bench-press-periodization-for-older-lifters-mid" context="The Primal Press Protocol is 12 weeks of structured, periodized bench press programming with every training weight auto-calculated from your 1RM." />
-
-        <h2>The Coach's Perspective</h2>
-        <p>After working with hundreds of lifters on this exact issue, the pattern is consistent: most people apply generic fixes to specific problems. The right approach is diagnosing what's actually happening first — then prescribing the correct solution.</p>
-
-        <p>If you want a systematic approach to diagnosing and fixing your specific bench press limiter, the Primal Press Protocol walks you through the entire diagnostic framework on Day 1.</p>
-
-        <PPPCta variant="hard" utmContent="bench-press-periodization-for-older-lifters-bottom" />
-
-      </article>
-
-      <aside class="post-sidebar">
-        <div class="sidebar-sticky">
-          <div class="sidebar-widget">
-            <h5>Programming Resources</h5>
-            <a href="/bench-press-programming/" class="sidebar-link">
-              <span>Back to Programming</span><span>→</span>
-            </a>
-            <a href="/bench-press-standards/" class="sidebar-link">
-              <span>Strength Standards</span><span>→</span>
-            </a>
-            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link">
-              <span>1RM Calculator</span><span>→</span>
-            </a>
-          </div>
-          <div class="sidebar-ppp">
-            <span class="eyebrow">The Program</span>
-            <h4>Primal Press Protocol™</h4>
-            <p>The complete 12-week bench press system. $37 one-time.</p>
-            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=post-sidebar&utm_campaign=bench-press-periodization-for-older-lifters" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get PPP — $37 →
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-</BaseLayout>
-
-<style>
-.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
-.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
-.breadcrumb a { color: var(--muted2); text-decoration: none; }
-.breadcrumb a:hover { color: var(--text); }
-.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 5rem); }
-.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
-.page-meta a { color: var(--muted); }
-.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
-.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
-.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
-.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.sidebar-link:last-child { border-bottom: none; }
-.sidebar-link:hover { color: var(--text); }
-.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
-.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
-.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
-@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
-</style>
+  <h2>What we do not know</h2>
+  <p>We did not find controlled evidence on how older lifters should set the frequency, volume or periodization of the bench press specifically. The best approach is the simplest one: train consistently, progress in small steps, deload when the signs appear, and judge each change by your own training log.</p>
+</ArticlePage>

@@ -1,116 +1,53 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PPPCta from '../../components/PPPCta.astro';
+import ArticlePage from '../../layouts/ArticlePage.astro';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Controlling the Eccentric on Bench Press",
-  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
-  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
-  "datePublished": "2025-11-17",
-  "dateModified": "2025-11-17",
-  "mainEntityOfPage": "https://modernmensfitness.com/controlling-eccentric-on-bench-press-tips/"
-};
+const faq = [
+  { q: 'Does a slow eccentric build more muscle?', a: 'Not according to the one meta-analysis we found. Studies that took sets to failure found similar muscle growth with repetition durations from 0.5 to 8 seconds. Very slow reps of more than 10 seconds each looked worse, although few controlled studies exist.' },
+  { q: 'How slow should the lowering phase be?', a: 'Jordan\'s squat example uses a 4 to 5 second eccentric on sets of 4 to 6. For the bench, a 3 second pause at the bottom is his other tool. A lowering time of about 2 to 4 seconds is a reasonable range to try, which is general practice and not a finding from the research above.' },
+  { q: 'Is a paused bench better than touch and go?', a: 'We did not find a controlled study that compares them for strength gains. A paused rep is what a powerlifting meet requires, and it is harder than touch and go, so compare your paused max to meet standards.' },
+  { q: 'Will tempo work lower my numbers?', a: 'Yes, you will need to use lighter weights for slow or paused reps than for your normal reps. Pick the weight that gives the effort you want, not the number from your usual sets.' },
+];
 ---
 
-<BaseLayout
-  title="Controlling the Eccentric on Bench Press | Modern Men's Fitness"
-  description="Controlling the Eccentric on Bench Press — Expert guide by Jordan Hoppel, strength coach with 16 years experience and 1,300+ athletes coached."
+<ArticlePage
+  title="Bench Press Tempo and Eccentric Control: What Slow Reps Do (and Don't)"
+  description="What a slow eccentric or a paused bench press does: Jordan Hoppel's use of tempo and 3 second pauses, what a meta-analysis found about rep speed and muscle growth, and how to program it."
   canonical="https://modernmensfitness.com/controlling-eccentric-on-bench-press-tips/"
-  schema={articleSchema}
-  pageType="article"
-  publishDate="2025-11-17"
-  modifiedDate="2025-11-17"
+  heading="Bench Press Tempo and Eccentric Control: What Slow Reps Do (and Don't)"
+  eyebrow="Technique"
+  updated="2026-11-10"
+  shortAnswer="Slowing the lowering phase of the bench press is a useful tool for technique and for breaking a plateau, but you do not need slow reps to build muscle. Jordan's first move when adding weight every week stops working is to slow the lowering or add a 3 second pause at the bottom. A meta-analysis of 8 studies found similar muscle growth with repetition durations from 0.5 to 8 seconds, with very slow reps (over 10 seconds) looking worse. We found no controlled study comparing paused and touch-and-go benching for strength."
+  sources={[{ text: 'Schoenfeld BJ, Ogborn DI, Krieger JW. Effect of repetition duration during resistance training on muscle hypertrophy: a systematic review and meta-analysis. Sports Med. 2015;45(4):577-585.', doi: '10.1007/s40279-015-0304-0' }, { text: 'Gomo O, van den Tillaar R. The effects of grip width on sticking region in bench press. J Sports Sci. 2016;34(3):232-238.', doi: '10.1080/02640414.2015.1046395' }]}
+  faq={faq}
+  related={[
+    { href: '/bench-press-programming-for-plateaus/', label: 'Bench press programming for plateaus' },
+    { href: '/why-my-bench-press-is-weak/', label: 'Why your bench press is weak' },
+    { href: '/rpe-bench-press-program/', label: 'RPE bench press program' },
+  ]}
 >
+  <h2>What tempo means</h2>
+  <p>Tempo is how long each part of a rep takes. On the bench, that is the lowering phase (the eccentric), any pause on the chest, and the press. "Controlling the eccentric" means lowering the bar on purpose instead of letting it drop. A slow eccentric might be 3 or 4 seconds down. A pause means the bar sits on your chest, without bouncing, for a count before you press.</p>
 
-  <section class="page-hero">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="/">Home</a> <span>›</span>
-        <a href="/bench-press-technique/">Technique</a> <span>›</span>
-        <span>Controlling the Eccentric on Bench Press</span>
-      </nav>
-      <span class="eyebrow">Technique</span>
-      <h1>Controlling the Eccentric on Bench Press</h1>
-      <div class="page-meta mono">
-        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · 2025-11
-      </div>
-    </div>
-  </section>
+  <h2>How Jordan uses it</h2>
+  <ul>
+    <li><strong>When weekly weight jumps stop working.</strong> Assuming the lifter is not overtrained and is recovered, his first steps are to slow the eccentric tempo, or pause the lift at the maximal lengthened position for 3 seconds and then push through. For the bench, that position is the bottom of the rep, on the chest.</li>
+    <li><strong>To add volume.</strong> In his description of an 8 week progression, he says the volume can come from tempo too, which means slower reps count toward the work.</li>
+    <li><strong>In a squat example.</strong> He uses sets such as 10 sets of 6 or 10 sets of 4 with a 4 to 5 second eccentric. That is a squat plan, not a bench plan, but it shows the scale he works at.</li>
+    <li><strong>To find the problem.</strong> When a beginner stalls, he says it is usually form: movements that are not coordinated and smooth. A slow rep makes those flaws easier to see and feel.</li>
+  </ul>
 
-  <section class="section">
-    <div class="container post-layout">
-      <article class="prose">
+  <h2>What the research says about speed and muscle growth</h2>
+  <p>Schoenfeld and colleagues (2015) pooled eight studies that compared different rep tempos, each lasting at least 6 weeks with sets taken to muscle failure. Muscle growth was similar with repetition durations from 0.5 to 8 seconds. Training at volitionally very slow durations, longer than 10 seconds per rep, looked worse for growth, though the authors point out there were too few controlled studies to be definitive. For you: if your goal is a bigger chest, a normal, controlled tempo works. You do not need to crawl.</p>
 
-        <PPPCta variant="soft" utmContent="controlling-eccentric-on-bench-press-tips-top" />
+  <h2>What we do not know</h2>
+  <p>We did not find a controlled study that compares a paused bench with touch-and-go for strength gains. Coaches argue for pauses because meets require them and because they build control off the chest, and some say lifters are a few percent stronger touch-and-go, but those are coaching opinions, not measured results. One related finding from lab work on the lift: Gomo and van den Tillaar tested 12 experienced powerlifters and found a clear sticking region with every grip width, which means the bar slows somewhere on a max rep whichever grip is used. See <a href="/why-my-bench-press-is-weak/">why your bench is weak</a>.</p>
 
-        <p>This guide covers controlling the eccentric on bench press from a coaching perspective — based on 16 years of working with 1,300+ athletes at 5 Star Fitness in Scottsdale, Arizona.</p>
-
-        <h2>Key Points</h2>
-        <ul>
-          <li>Understanding the root cause is always the first step</li>
-          <li>Most fixes require addressing both technique and programming simultaneously</li>
-          <li>Consistent application of the correct fix over 4-6 weeks produces measurable results</li>
-        </ul>
-
-        <PPPCta variant="mid" utmContent="controlling-eccentric-on-bench-press-tips-mid" context="Poor technique is the #1 reason intermediate lifters plateau. The Primal Press Protocol starts with a diagnostic that finds exactly where you're leaking force." />
-
-        <h2>The Coach's Perspective</h2>
-        <p>After working with hundreds of lifters on this exact issue, the pattern is consistent: most people apply generic fixes to specific problems. The right approach is diagnosing what's actually happening first — then prescribing the correct solution.</p>
-
-        <p>If you want a systematic approach to diagnosing and fixing your specific bench press limiter, the Primal Press Protocol walks you through the entire diagnostic framework on Day 1.</p>
-
-        <PPPCta variant="hard" utmContent="controlling-eccentric-on-bench-press-tips-bottom" />
-
-      </article>
-
-      <aside class="post-sidebar">
-        <div class="sidebar-sticky">
-          <div class="sidebar-widget">
-            <h5>Technique Resources</h5>
-            <a href="/bench-press-technique/" class="sidebar-link">
-              <span>Back to Technique</span><span>→</span>
-            </a>
-            <a href="/bench-press-standards/" class="sidebar-link">
-              <span>Strength Standards</span><span>→</span>
-            </a>
-            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link">
-              <span>1RM Calculator</span><span>→</span>
-            </a>
-          </div>
-          <div class="sidebar-ppp">
-            <span class="eyebrow">The Program</span>
-            <h4>Primal Press Protocol™</h4>
-            <p>The complete 12-week bench press system. $37 one-time.</p>
-            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=post-sidebar&utm_campaign=controlling-eccentric-on-bench-press-tips" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get PPP — $37 →
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-</BaseLayout>
-
-<style>
-.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
-.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
-.breadcrumb a { color: var(--muted2); text-decoration: none; }
-.breadcrumb a:hover { color: var(--text); }
-.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 5rem); }
-.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
-.page-meta a { color: var(--muted); }
-.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
-.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
-.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
-.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.sidebar-link:last-child { border-bottom: none; }
-.sidebar-link:hover { color: var(--text); }
-.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
-.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
-.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
-@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
-</style>
+  <h2>How to use tempo on the bench</h2>
+  <p>This section is general coaching practice, not a result from a study.</p>
+  <ul>
+    <li><strong>Drop the weight.</strong> Slow and paused reps are harder than normal ones, so use a lighter bar. Pick the weight that gives the effort you want, for example RPE 7, and use the <a href="/bench-press-tools/rpe-calculator/">RPE calculator</a> to plan it.</li>
+    <li><strong>Keep the same bar path.</strong> The point is control, so the bar should travel the same way as in your normal reps.</li>
+    <li><strong>An example block.</strong> 4 sets of 4 reps with a 3 second lowering and a 1 second pause on the chest, at a weight you could do 7 or 8 reps with, twice a week for 4 weeks, then go back to normal reps and compare.</li>
+    <li><strong>Judge it by your log.</strong> If your normal-speed bench goes up afterward, keep it. If not, drop it.</li>
+  </ul>
+</ArticlePage>
