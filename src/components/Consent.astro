@@ -1,0 +1,204 @@
+---
+// Loads Google Analytics and the Meta Pixel according to the visitor's consent, and shows the choice banner.
+// Rules live in src/lib/consent.ts. When Google AdSense is approved, its certified consent message
+// (AdSense > Privacy & messaging) replaces this banner for ads; revisit this file then.
+---
+<script>
+import {
+  GA4_ID, PIXEL_ID, GA_LINKER_DOMAINS, STORAGE_KEY, REGION_OVERRIDE_KEY,
+  isRestrictedCountry, parseTraceCountry, timezoneLooksRestricted, parseStored, serialise, resolve, isTrackingCookie,
+  type Consent,
+} from '../lib/consent';
+
+const w = window as any;
+let consent: Consent = { analytics: false, marketing: false };
+let restricted = false;
+let gaLoaded = false;
+let pixelLoaded = false;
+
+const store = {
+  get: () => { try { return localStorage.getItem(STORAGE_KEY); } catch { return null; } },
+  set: (v: string) => { try { localStorage.setItem(STORAGE_KEY, v); } catch { /* private mode: the choice lasts for this page only */ } },
+};
+
+async function detectRestricted(): Promise<boolean> {
+  try { if (localStorage.getItem(REGION_OVERRIDE_KEY) === 'restricted') return true; } catch { /* ignore */ }
+  // The answer does not change within a visit, so look it up once per browser session.
+  try { const cached = sessionStorage.getItem('mmf-region'); if (cached === 'restricted' || cached === 'open') return cached === 'restricted'; } catch { /* ignore */ }
+  const remember = (r: boolean) => { try { sessionStorage.setItem('mmf-region', r ? 'restricted' : 'open'); } catch { /* ignore */ } return r; };
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 2500);
+    const res = await fetch('/cdn-cgi/trace', { cache: 'no-store', signal: ctrl.signal });
+    clearTimeout(timer);
+    if (res.ok) {
+      const cc = parseTraceCountry(await res.text());
+      if (cc) return remember(isRestrictedCountry(cc));
+    }
+  } catch { /* fall through to the timezone */ }
+  return remember(timezoneLooksRestricted(Intl.DateTimeFormat().resolvedOptions().timeZone));
+}
+
+function loadGoogleAnalytics(c: Consent) {
+  if (gaLoaded) return;
+  gaLoaded = true;
+  w.dataLayer = w.dataLayer || [];
+  w.gtag = function () { w.dataLayer.push(arguments); };
+  const ads = c.marketing ? 'granted' : 'denied';
+  // Consent defaults must be set before any Google tag runs.
+  w.gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: ads, ad_user_data: ads, ad_personalization: ads });
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+  document.head.appendChild(s);
+  w.gtag('js', new Date());
+  w.gtag('config', GA4_ID, { send_page_view: true, linker: { domains: GA_LINKER_DOMAINS } });
+}
+
+function loadMetaPixel() {
+  if (pixelLoaded) return;
+  pixelLoaded = true;
+  (function (f: any, b: Document, e: string, v: string) {
+    if (f.fbq) return;
+    const n: any = (f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); });
+    if (!f._fbq) f._fbq = n;
+    n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
+    const t = b.createElement(e) as HTMLScriptElement; t.async = true; t.src = v;
+    b.head.appendChild(t);
+  })(w, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+  w.fbq('init', PIXEL_ID);
+  w.fbq('track', 'PageView');
+}
+
+function clearTrackingCookies() {
+  const host = location.hostname;
+  const domains = ['', host, '.' + host, '.' + host.split('.').slice(-2).join('.')];
+  document.cookie.split(';').map((c) => c.split('=')[0].trim()).filter(isTrackingCookie).forEach((name) => {
+    domains.forEach((d) => { document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d ? '; domain=' + d : ''}`; });
+  });
+}
+
+/** Turn scripts on for what is allowed and off for what is not. Scripts that already ran cannot be unloaded, so a withdrawal stops them and clears their cookies. */
+function apply(next: Consent) {
+  const prev = consent;
+  consent = next;
+  if (next.analytics) loadGoogleAnalytics(next);
+  if (next.marketing) loadMetaPixel();
+  if (gaLoaded && prev.analytics && !next.analytics) {
+    w[`ga-disable-${GA4_ID}`] = true;
+    w.gtag?.('consent', 'update', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  }
+  if (gaLoaded && prev.marketing && !next.marketing) {
+    w.gtag?.('consent', 'update', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  }
+  if (pixelLoaded && prev.marketing && !next.marketing) w.fbq?.('consent', 'revoke');
+  if ((prev.analytics && !next.analytics) || (prev.marketing && !next.marketing)) clearTrackingCookies();
+}
+
+// ---------------------------------------------------------------- banner
+let banner: HTMLElement | null = null;
+
+function buildBanner(): HTMLElement {
+  const el = document.createElement('div');
+  el.id = 'mmf-consent';
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-labelledby', 'mmf-consent-title');
+  el.hidden = true;
+  el.innerHTML = `
+    <div class="mmf-consent-inner">
+      <h2 id="mmf-consent-title">Cookies on this site</h2>
+      <p>Analytics cookies from Google tell us which pages people read. Marketing cookies from Meta let us measure our ads on Facebook and Instagram. The site works the same whichever you choose. See the <a href="/privacy-policy/">privacy policy</a>.</p>
+      <div class="mmf-consent-options" hidden>
+        <label><input type="checkbox" data-opt="analytics" /> <span><strong>Analytics</strong> (Google Analytics)</span></label>
+        <label><input type="checkbox" data-opt="marketing" /> <span><strong>Marketing</strong> (Meta Pixel)</span></label>
+      </div>
+      <div class="mmf-consent-actions">
+        <button type="button" data-act="reject">Reject all</button>
+        <button type="button" data-act="choose">Choose</button>
+        <button type="button" data-act="accept">Accept all</button>
+      </div>
+    </div>`;
+  el.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('button[data-act]') as HTMLElement | null;
+    if (!btn) return;
+    const act = btn.dataset.act;
+    const opts = el.querySelector('.mmf-consent-options') as HTMLElement;
+    if (act === 'choose') {
+      if (opts.hidden) {
+        opts.hidden = false;
+        (btn as HTMLButtonElement).textContent = 'Save choices';
+      } else {
+        save({
+          analytics: (el.querySelector('[data-opt=analytics]') as HTMLInputElement).checked,
+          marketing: (el.querySelector('[data-opt=marketing]') as HTMLInputElement).checked,
+        });
+      }
+    } else if (act === 'accept') save({ analytics: true, marketing: true });
+    else if (act === 'reject') save({ analytics: false, marketing: false });
+  });
+  document.body.appendChild(el);
+  return el;
+}
+
+function openBanner(expanded: boolean) {
+  banner = banner || buildBanner();
+  (banner.querySelector('[data-opt=analytics]') as HTMLInputElement).checked = consent.analytics;
+  (banner.querySelector('[data-opt=marketing]') as HTMLInputElement).checked = consent.marketing;
+  const opts = banner.querySelector('.mmf-consent-options') as HTMLElement;
+  const choose = banner.querySelector('[data-act=choose]') as HTMLElement;
+  opts.hidden = !expanded;
+  choose.textContent = expanded ? 'Save choices' : 'Choose';
+  banner.hidden = false;
+  (banner.querySelector('[data-act=reject]') as HTMLElement).focus();
+}
+
+function closeBanner() { if (banner) banner.hidden = true; }
+
+function save(next: Consent) {
+  store.set(serialise(next, Date.now()));
+  apply(next);
+  closeBanner();
+}
+
+// ---------------------------------------------------------------- start
+async function start() {
+  restricted = await detectRestricted();
+  const gpc = (navigator as any).globalPrivacyControl === true;
+  const decision = resolve(restricted, gpc, parseStored(store.get(), Date.now()));
+  apply(decision.consent);
+  if (decision.ask) openBanner(false);
+}
+
+document.addEventListener('click', (e) => {
+  if ((e.target as HTMLElement).closest('[data-consent-open]')) openBanner(true);
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && banner && !banner.hidden && parseStored(store.get(), Date.now())) closeBanner();
+});
+
+start();
+</script>
+
+<style is:global>
+#mmf-consent { position: fixed; left: 0; right: 0; bottom: 0; z-index: 2147483000; padding: 12px; pointer-events: none; }
+#mmf-consent[hidden] { display: none; }
+#mmf-consent .mmf-consent-inner { pointer-events: auto; max-width: 760px; margin: 0 auto; background: #141414; border: 1px solid #2e2e2e; border-top: 2px solid #b8ff00; padding: 20px 22px; box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5); color: #f0f0f0; }
+#mmf-consent h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.03em; margin: 0 0 8px; color: #f0f0f0; }
+#mmf-consent p { margin: 0 0 14px; font-size: 0.85rem; line-height: 1.55; color: #bdbdbd; }
+#mmf-consent a { color: #b8ff00; }
+#mmf-consent .mmf-consent-options { display: grid; gap: 10px; margin: 0 0 16px; }
+#mmf-consent .mmf-consent-options[hidden] { display: none; }
+#mmf-consent label { display: flex; gap: 10px; align-items: center; font-size: 0.85rem; color: #f0f0f0; cursor: pointer; }
+#mmf-consent input[type=checkbox] { width: 18px; height: 18px; accent-color: #b8ff00; }
+#mmf-consent .mmf-consent-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+/* Accept and Reject are deliberately identical in size and weight. */
+#mmf-consent .mmf-consent-actions button { flex: 1 1 130px; background: #1b1b1b; color: #f0f0f0; border: 1px solid #5a5a5a; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 13px 10px; cursor: pointer; }
+#mmf-consent .mmf-consent-actions button:hover, #mmf-consent .mmf-consent-actions button:focus-visible { border-color: #b8ff00; outline: none; }
+@media (max-width: 560px) {
+  #mmf-consent { padding: 0; }
+  #mmf-consent .mmf-consent-inner { border-left: 0; border-right: 0; padding: 16px 16px 18px; }
+  /* three equal columns, so Reject and Accept are always the same size */
+  #mmf-consent .mmf-consent-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  #mmf-consent .mmf-consent-actions button { flex: none; padding: 14px 4px; font-size: 0.64rem; letter-spacing: 0.04em; }
+}
+</style>

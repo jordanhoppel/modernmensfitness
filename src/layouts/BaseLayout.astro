@@ -2,6 +2,7 @@
 import SEOHead from '../components/SEOHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Consent from '../components/Consent.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -34,6 +35,7 @@ const props = { ...Astro.props, noindex: Astro.props.noindex || thin, noindexFol
     <slot />
   </main>
   <Footer />
+  <Consent />
 </body>
 </html>
 
