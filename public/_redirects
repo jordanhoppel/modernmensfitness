@@ -7,7 +7,7 @@
 # ============================================
 /cart/                          https://primalpressprotocol.com    301
 /checkout/                      https://primalpressprotocol.com    301
-/my-account/                    /primal-press-protocol-login/      301
+/my-account/                    https://primalpressprotocol.com    301
 /shop/                          /bench-press-standards/            301
 /product/the-primal-press-protocol/  https://primalpressprotocol.com  301
 
@@ -113,14 +113,14 @@
 /1rmcalculator/                              /bench-press-tools/1rm-calculator/  301
 /bench-press-strength-calculator/            /bench-press-tools/1rm-calculator/  301
 /bench-press/1rm-calculator/                 /bench-press-tools/1rm-calculator/  301
-/barbell-plate-loading-calculator/           /bench-press-tools/  301
-/bench-press/plate-loading-calculator/       /bench-press-tools/  301
-/barbellmath                                 /bench-press-tools/  301
-/barbell-math/                               /bench-press-tools/  301
-/barbell-plate-calculator/                   /bench-press-tools/  301
-/bench-press-assessment-test/                /bench-press-tools/  301
-/how-to-calculate-bench-press-training-max/  /bench-press-tools/  301
-/how-to-calculate-bench-training-weights/    /bench-press-tools/  301
+/barbell-plate-loading-calculator/           /bench-press-tools/plate-loading-calculator/  301
+/bench-press/plate-loading-calculator/       /bench-press-tools/plate-loading-calculator/  301
+/barbellmath                                 /bench-press-tools/plate-loading-calculator/  301
+/barbell-math/                               /bench-press-tools/plate-loading-calculator/  301
+/barbell-plate-calculator/                   /bench-press-tools/plate-loading-calculator/  301
+/bench-press-assessment-test/                /bench-press-tools/assessment-test/  301
+/how-to-calculate-bench-press-training-max/  /bench-press-tools/training-max-calculator/  301
+/how-to-calculate-bench-training-weights/    /bench-press-tools/training-max-calculator/  301
 
 # ============================================
 # PILLAR PAGE LEGACY URLS
@@ -148,4 +148,33 @@
 /bench-press-standards/1rmcalculator/        /bench-press-tools/1rm-calculator/  301
 /author/jordanhoppel/                        /about-jordan-hoppel/      301
 /author/jordanhoppel/*                       /about-jordan-hoppel/      301
+
+# ============================================
+# DELETED PAGES -> NEAREST LIVE PAGE (added 2026-11-10)
+# ============================================
+/primal-press-protocol-2/                              https://primalpressprotocol.com  301
+/weak-shoulders-reducing-bench-press-strength/         /bench-press-plateau/weak-shoulders/  301
+/bench-press-powerbuilding-routine/                    /bench-press-programming/  301
+/how-to-fix-weak-off-the-chest-bench-press/            /bench-press-plateau/weak-off-chest/  301
+/westside-bench-press-accessory-rotation/              /conjugate-method-bench-press-template/  301
+/how-to-bench-press-correctly-for-strength/            /bench-press-technique/  301
+/bench-press-technique-for-powerlifters/               /bench-press-technique/  301
+/how-to-stop-bar-wobbling-bench-press/                 /improving-bench-press-stability-at-heavy-weight/  301
+/bench-press-thumb-around-vs-suicide-grip/             /bench-press-technique/grip/  301
+/how-to-fix-elbow-flare-in-bench-press/                /bench-press-technique/elbow-tuck/  301
+/bench-press-leg-drive-technique-explained/            /bench-press-technique/leg-drive/  301
+/how-to-fix-excessive-lower-back-arch-bench/           /bench-press-technique/arch/  301
+/why-bench-stalls-at-same-weight-every-time/           /bench-press-plateau/  301
+/proper-foot-placement-for-max-bench/                  /should-your-feet-be-flat-or-tucked-under-bench/  301
+/how-to-retract-scapula-bench-press/                   /bench-press-technique/setup/  301
+/how-far-down-to-lower-bench-press/                    /bench-press-technique/  301
+/why-does-the-bar-drift-toward-my-face-benching/       /bench-press-technique/bar-path/  301
+/how-to-correct-asymmetrical-bar-press/                /how-to-fix-a-crooked-bench-press/  301
+/bench-press-overreach-week-examples/                  /bench-press-programming/periodization/  301
+/how-to-create-a-stable-arch-bench-pressing/           /bench-press-technique/arch/  301
+/how-to-bench-press-without-wrist-wraps/               /correct-wrist-angle-for-bench-pressing/  301
+/how-to-fix-shoulder-collapse-on-bench/                /how-to-bench-press-without-shoulder-pain/  301
+/bench-press-range-of-motion-mistakes/                 /common-bench-press-technique-mistakes/  301
+/how-to-brace-properly-for-heavy-bench-press/          /bench-press-technique/setup/  301
+/how-to-strengthen-top-range-bench-pressing/           /how-to-avoid-soft-lockouts-in-bench-press/  301
 /primal-press-protocol-review/ /primal-press-protocol-review.html 200

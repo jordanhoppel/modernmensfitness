@@ -10,4 +10,4 @@ Disallow: /test.txt
 Disallow: /llm.txt/
 
 # Sitemaps
-Sitemap: https://modernmensfitness.com/sitemap-index.xml
+Sitemap: https://modernmensfitness.com/sitemap.xml

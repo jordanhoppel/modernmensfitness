@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found | Modern Men's Fitness"
+  description="This page does not exist. Try the bench press standards, calculators or training guides."
+  noindex={true}
+>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">404</span>
+      <h1>That page is gone</h1>
+      <p>It may have moved. These are the pages people use most:</p>
+      <ul>
+        <li><a href="/bench-press-standards/">Bench press standards</a></li>
+        <li><a href="/bench-press-tools/1rm-calculator/">1RM calculator</a></li>
+        <li><a href="/bench-press-tools/plate-loading-calculator/">Plate loading calculator</a></li>
+        <li><a href="/bench-press-technique/">Bench press technique</a></li>
+        <li><a href="/bench-press-programming/">Bench press programming</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
