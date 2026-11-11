@@ -1,0 +1,129 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+type Source = { text: string; doi?: string };
+type Faq = { q: string; a: string };
+type Related = { href: string; label: string };
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  heading: string;
+  eyebrow: string;
+  updated: string;
+  shortAnswer: string;
+  sources: Source[];
+  faq?: Faq[];
+  related?: Related[];
+  /** Flip to true only when Jordan says he has read the article. */
+  reviewed?: boolean;
+}
+const { title, description, canonical, heading, eyebrow, updated, shortAnswer, sources, faq = [], related = [], reviewed = false } = Astro.props;
+
+const pretty = new Date(updated + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const schema: object[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: heading,
+    description,
+    url: canonical,
+    mainEntityOfPage: canonical,
+    dateModified: updated,
+    datePublished: updated,
+    author: { '@type': 'Organization', name: "Modern Men's Fitness", url: 'https://modernmensfitness.com' },
+    publisher: { '@type': 'Organization', name: "Modern Men's Fitness", url: 'https://modernmensfitness.com' },
+    ...(reviewed ? { reviewedBy: { '@id': 'https://modernmensfitness.com/#jordan-hoppel' } } : {}),
+    citation: sources.filter((s) => s.doi).map((s) => ({ '@type': 'ScholarlyArticle', name: s.text.split('. ').slice(0, 2).join('. '), sameAs: `https://doi.org/${s.doi}` })),
+  },
+];
+if (faq.length) {
+  schema.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  });
+}
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} schema={schema} pageType="article" modifiedDate={updated}>
+  <div class="art">
+    <section class="art-hero">
+      <div class="container">
+        <nav class="art-crumb"><a href="/">Home</a> <span>›</span> <span>{eyebrow}</span></nav>
+        <span class="art-eyebrow">{eyebrow}</span>
+        <h1>{heading}</h1>
+        <p class="art-meta">Modern Men's Fitness · Updated {pretty}</p>
+        <p class="art-review">
+          {reviewed ? 'Reviewed by Jordan Hoppel.' : 'Written with AI assistance from named sources and Jordan Hoppel\'s coaching interview. Jordan has not yet reviewed this article.'}
+          <a href="/editorial-policy/">How we make our content</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="art-body">
+          <div class="art-answer"><span class="art-answer-label">The short answer</span><p set:html={shortAnswer} /></div>
+
+          <div class="prose art-prose"><slot /></div>
+
+          {faq.length > 0 && (
+            <div class="prose art-prose">
+              <h2>Frequently asked questions</h2>
+              {faq.map((f) => (<details class="art-faq"><summary>{f.q}</summary><p set:html={f.a} /></details>))}
+            </div>
+          )}
+
+          {related.length > 0 && (
+            <div class="prose art-prose">
+              <h2>Related</h2>
+              <ul>{related.map((r) => (<li><a href={r.href}>{r.label}</a></li>))}</ul>
+            </div>
+          )}
+
+          <div class="prose art-prose art-sources">
+            <h2>Sources</h2>
+            <ol>
+              {sources.map((s) => (
+                <li>{s.text}{s.doi && (<> <a href={`https://doi.org/${s.doi}`} target="_blank" rel="noopener">doi:{s.doi}</a></>)}</li>
+              ))}
+            </ol>
+            <p class="art-note">Where a point comes from Jordan's coaching interview, the article says so. Where it is general coaching practice and not a finding from a study, it is labelled that way.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style is:global>
+.art .art-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 36px; }
+.art .art-crumb { display: flex; gap: 8px; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 20px; }
+.art .art-crumb a { color: var(--muted2); text-decoration: none; }
+.art .art-eyebrow { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); }
+.art .art-hero h1 { margin: 14px 0 12px; max-width: 900px; }
+.art .art-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted2); margin: 0; }
+.art .art-review { font-size: 0.8rem; color: var(--muted); margin: 10px 0 0; max-width: 760px; }
+.art .art-review a { color: var(--lime); margin-left: 6px; }
+.art .art-body { max-width: 760px; min-width: 0; }
+.art .art-answer { background: var(--card); border-left: 3px solid var(--lime); padding: 20px 24px; margin-bottom: 36px; }
+.art .art-answer-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); display: block; margin-bottom: 8px; }
+.art .art-answer p { margin: 0; color: var(--text); font-size: 1.02rem; line-height: 1.6; }
+.art .art-prose { min-width: 0; max-width: none; margin-bottom: 12px; }
+.art .art-prose a { color: var(--lime); }
+.art .art-prose h2 { margin-top: 44px; }
+.art .art-prose .chart-wrap { overflow-x: auto; margin: 16px 0 8px; }
+.art .art-prose table td, .art .art-prose table th { white-space: nowrap; }
+.art .art-prose table .wrap { white-space: normal; }
+.art .art-note { font-size: 0.8rem; color: var(--muted2); }
+.art .art-faq { border: 1px solid var(--border); border-bottom: none; }
+.art .art-faq:last-of-type { border-bottom: 1px solid var(--border); }
+.art .art-faq summary { padding: 16px 20px; font-weight: 600; cursor: pointer; background: var(--surface); color: var(--text); list-style: none; display: flex; justify-content: space-between; }
+.art .art-faq summary::after { content: '+'; color: var(--lime); }
+.art .art-faq[open] summary::after { content: '−'; }
+.art .art-faq p { padding: 14px 20px; margin: 0; background: var(--card); font-size: 0.9rem; }
+.art .art-sources ol { font-size: 0.82rem; color: var(--muted); }
+.art .art-sources li { margin-bottom: 10px; }
+.art blockquote.art-quote { border-left: 3px solid var(--lime); padding: 4px 0 4px 18px; margin: 20px 0; color: var(--text); }
+</style>

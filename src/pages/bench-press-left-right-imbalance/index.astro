@@ -1,116 +1,69 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PPPCta from '../../components/PPPCta.astro';
+import ArticlePage from '../../layouts/ArticlePage.astro';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Bench Press Left-Right Imbalance Fix",
-  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
-  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
-  "datePublished": "2026-01-03",
-  "dateModified": "2026-01-03",
-  "mainEntityOfPage": "https://modernmensfitness.com/bench-press-left-right-imbalance/"
-};
+const faq = [
+  { q: 'Is it normal for one arm to be stronger on the bench press?', a: 'Some difference is common. A motion-capture study of 27 lifters found the left shoulder moved through a larger range of motion than the right at every load they tested, and the two shoulders differed in speed and acceleration when lowering the bar at 85 to 100 percent of max.' },
+  { q: 'Why does the bar tilt to one side?', a: 'These are the causes coaches usually check, not findings from a study: one side is stronger, the hands are not the same distance from the center of the bar, the shoulder blades or hips are set unevenly, or the lifter is tired late in the set. Filming the set and testing each arm separately helps sort out which one it is.' },
+  { q: 'Will fixing an imbalance raise my bench press max?', a: 'Nobody has shown it does. In the research we reviewed for this article, we did not find a study showing that correcting a left-right difference raises the bench press max. Do the setup fixes anyway, since they cost nothing, and judge the rest by what happens to your own numbers.' },
+  { q: 'How long does it take to even out?', a: 'There is no research timeline. A practical approach is to write down a test result, work on the weaker side for six to eight weeks, and test again.' },
+];
 ---
 
-<BaseLayout
-  title="Bench Press Left-Right Imbalance Fix | Modern Men's Fitness"
-  description="Bench Press Left-Right Imbalance Fix — Expert guide by Jordan Hoppel, strength coach with 16 years experience and 1,300+ athletes coached."
+<ArticlePage
+  title="Bench Press Imbalance: Why One Side Is Stronger and What to Do About It"
+  description="Why one side can be stronger on the bench press, what research found about left-right differences in the lift, how to check whether yours is real, and practical ways to work on it."
   canonical="https://modernmensfitness.com/bench-press-left-right-imbalance/"
-  schema={articleSchema}
-  pageType="article"
-  publishDate="2026-01-03"
-  modifiedDate="2026-01-03"
+  heading="Bench Press Imbalance: Why One Side Is Stronger and What to Do About It"
+  eyebrow="Technique"
+  updated="2026-11-10"
+  shortAnswer="Some left-right difference is normal. In a motion-capture study of 27 people benching, the left shoulder moved through a bigger range than the right at every load, and the shoulders differed in speed when lowering the bar at 85 to 100 percent of max. What nobody has shown is that evening it out raises your bench. So the sensible approach is to check whether the difference is real, fix your setup first, then give the weaker side extra work and see if it changes."
+  sources={[{ text: 'Franco-Garcia JM et al. Shoulder kinematics and symmetry at different load intensities during bench press exercise. Symmetry. 2021;13(10):1859.', doi: '10.3390/sym13101859' }]}
+  faq={faq}
+  related={[
+    { href: '/why-my-bench-press-is-weak/', label: 'Why your bench press is weak: how to find the real reason' },
+    { href: '/bench-press-technique/', label: 'Bench press technique guides' },
+    { href: '/rpe-bench-press-program/', label: 'RPE bench press program' },
+  ]}
 >
+  <h2>What the research says</h2>
+  <p>Franco-Garcia and colleagues measured how each shoulder moved during the bench press in 27 people, using wearable motion sensors, at loads from 55 percent up to 100 percent of their one rep max. They found that:</p>
+  <ul>
+    <li>The left shoulder had a larger range of motion than the right at every load.</li>
+    <li>When lowering the bar at 85 to 100 percent of max, speed and acceleration differed between the two shoulders.</li>
+    <li>When pressing up, the two shoulders mostly matched, apart from one speed measure in the middle load range.</li>
+  </ul>
+  <p>The takeaway is that the two sides of a bench press are rarely identical, even in people who are not complaining about it. We did not find a study showing that correcting a difference raises the bench press max or lowers injury risk, so what follows is practical coaching, and it is labelled that way.</p>
 
-  <section class="page-hero">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="/">Home</a> <span>›</span>
-        <a href="/bench-press-plateau/">Plateau Fix</a> <span>›</span>
-        <span>Bench Press Left-Right Imbalance Fix</span>
-      </nav>
-      <span class="eyebrow">Plateau Fix</span>
-      <h1>Bench Press Left-Right Imbalance Fix</h1>
-      <div class="page-meta mono">
-        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · 2026-01
-      </div>
-    </div>
-  </section>
+  <h2>First, check whether it is real</h2>
+  <p>These checks are general coaching practice, not results from a study.</p>
+  <ul>
+    <li><strong>Film the set.</strong> Put the camera behind your head or at the foot of the bench, at bar height. Pause the video at the chest and at lockout. Is one end of the bar higher at both points, or only late in the set when you are tired?</li>
+    <li><strong>Test each arm alone.</strong> Do a single-arm dumbbell press for a hard set of the same number of reps on each side, with the same range of motion. Write down both weights.</li>
+    <li><strong>Check your setup.</strong> Use the marks on the bar to place your hands the same distance from the center. Set your eyes under the bar, your feet and hips evenly, and both shoulder blades pulled back the same amount. Unrack the same way every time.</li>
+  </ul>
+  <p>A tilt that shows up on every rep from the first one points to setup or strength. A tilt that only appears on the last grinding reps points more to fatigue.</p>
 
-  <section class="section">
-    <div class="container post-layout">
-      <article class="prose">
+  <h2>Common reasons the bar tilts</h2>
+  <p>This is a list coaches check, not a study result.</p>
+  <ul>
+    <li>One side is stronger than the other.</li>
+    <li>The hands are not centered on the bar.</li>
+    <li>The shoulder blades, hips or feet are set unevenly.</li>
+    <li>Fatigue late in the set, with the weaker side giving out first.</li>
+    <li>A past injury or tightness on one side.</li>
+  </ul>
 
-        <PPPCta variant="soft" utmContent="bench-press-left-right-imbalance-top" />
+  <h2>What to do about it</h2>
+  <ol>
+    <li><strong>Fix the setup first.</strong> It costs nothing and removes the easy explanations.</li>
+    <li><strong>Work the weaker side first.</strong> In single-arm work, start with the weaker arm and do the same number of reps on the stronger side. Never let the strong arm do extra.</li>
+    <li><strong>Slow the reps down.</strong> Jordan's first move when a lift stops progressing is to slow the lowering phase or pause at the bottom for 3 seconds. Slow, paused reps also make a side that drifts easier to see and feel.</li>
+    <li><strong>Retest in six to eight weeks</strong> with the same test, and keep the result only if it changed.</li>
+  </ol>
 
-        <p>This guide covers bench press left-right imbalance fix from a coaching perspective — based on 16 years of working with 1,300+ athletes at 5 Star Fitness in Scottsdale, Arizona.</p>
+  <h2>When to get it looked at</h2>
+  <p>If the difference comes with pain, numbness or tingling, a sudden change, or follows an injury, see a doctor or physical therapist before training through it. A coach cannot tell you what is going on inside a joint.</p>
 
-        <h2>Key Points</h2>
-        <ul>
-          <li>Understanding the root cause is always the first step</li>
-          <li>Most fixes require addressing both technique and programming simultaneously</li>
-          <li>Consistent application of the correct fix over 4-6 weeks produces measurable results</li>
-        </ul>
-
-        <PPPCta variant="mid" utmContent="bench-press-left-right-imbalance-mid" context="The Primal Press Protocol classifies your specific plateau type on Day 1 — then prescribes the exact fix. Not generic advice. Your actual problem." />
-
-        <h2>The Coach's Perspective</h2>
-        <p>After working with hundreds of lifters on this exact issue, the pattern is consistent: most people apply generic fixes to specific problems. The right approach is diagnosing what's actually happening first — then prescribing the correct solution.</p>
-
-        <p>If you want a systematic approach to diagnosing and fixing your specific bench press limiter, the Primal Press Protocol walks you through the entire diagnostic framework on Day 1.</p>
-
-        <PPPCta variant="hard" utmContent="bench-press-left-right-imbalance-bottom" />
-
-      </article>
-
-      <aside class="post-sidebar">
-        <div class="sidebar-sticky">
-          <div class="sidebar-widget">
-            <h5>Plateau Fix Resources</h5>
-            <a href="/bench-press-plateau/" class="sidebar-link">
-              <span>Back to Plateau Fix</span><span>→</span>
-            </a>
-            <a href="/bench-press-standards/" class="sidebar-link">
-              <span>Strength Standards</span><span>→</span>
-            </a>
-            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link">
-              <span>1RM Calculator</span><span>→</span>
-            </a>
-          </div>
-          <div class="sidebar-ppp">
-            <span class="eyebrow">The Program</span>
-            <h4>Primal Press Protocol™</h4>
-            <p>The complete 12-week bench press system. $37 one-time.</p>
-            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=post-sidebar&utm_campaign=bench-press-left-right-imbalance" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get PPP — $37 →
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-</BaseLayout>
-
-<style>
-.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
-.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
-.breadcrumb a { color: var(--muted2); text-decoration: none; }
-.breadcrumb a:hover { color: var(--text); }
-.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 5rem); }
-.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
-.page-meta a { color: var(--muted); }
-.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
-.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
-.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
-.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.sidebar-link:last-child { border-bottom: none; }
-.sidebar-link:hover { color: var(--text); }
-.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
-.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
-.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
-@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
-</style>
+  <h2>Do not chase perfect symmetry</h2>
+  <p>The study above found differences between shoulders in people who were lifting without any stated problem. A small difference that does not change your bar path or bother you is not a problem to fix. Spend your effort on a gap you can see on video or feel when you press.</p>
+</ArticlePage>

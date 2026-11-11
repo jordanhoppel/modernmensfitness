@@ -1,0 +1,104 @@
+---
+import ArticlePage from '../../layouts/ArticlePage.astro';
+import { percentOfOneRepMax, weightForSet } from '../../lib/rpe';
+
+const ONE_RM = 275;
+const w = (reps: number, rpe: number) => Math.round(weightForSet(ONE_RM, reps, rpe)!);
+const pct = (reps: number, rpe: number) => percentOfOneRepMax(reps, rpe)!.toFixed(1);
+const round5 = (n: number) => Math.round(n / 5) * 5;
+const exact = w(5, 7);
+
+const plan = [
+  { week: 'Week 1', heavy: ['3 x 5 at RPE 7', w(5, 7)], vol: ['4 x 6 at RPE 7', w(6, 7)] },
+  { week: 'Week 2', heavy: ['3 x 5 at RPE 7.5', w(5, 7.5)], vol: ['4 x 6 at RPE 7.5', w(6, 7.5)] },
+  { week: 'Week 3', heavy: ['3 x 4 at RPE 8', w(4, 8)], vol: ['3 x 6 at RPE 7.5', w(6, 7.5)] },
+  { week: 'Week 4', heavy: ['3 x 3 at RPE 8.5', w(3, 8.5)], vol: ['3 x 5 at RPE 7.5', w(5, 7.5)] },
+] as const;
+
+const faq = [
+  { q: 'Is RPE the same as RIR?', a: 'They describe the same thing from two directions. RIR counts the reps you had left in reserve. RPE is the number on a 10 point scale that goes with it: RPE 10 is no reps left, RPE 9 is one left, RPE 8 is two left. The scale most lifters use was built to link the two (Zourdos et al., 2016).' },
+  { q: 'What RPE should my heaviest bench sets be?', a: 'Most of the plan above sits between RPE 7 and RPE 8.5, which leaves one to three reps in the tank. Sets taken to RPE 10 are best kept for testing. In his coaching interview, Jordan said that in strength training, going to failure often works against you, and that you want to finish the reps you planned.' },
+  { q: 'Can a beginner use RPE?', a: 'You can, but judging effort takes practice, and even trained lifters misjudge it by a rep or two. New lifters usually do better with a simple fixed progression until they have a feel for what a hard set is.' },
+  { q: 'Do I need to know my one rep max to use RPE?', a: 'Not to train by feel, since you just pick the weight that gives the right effort. To plan weights ahead, a recent estimate helps. Jordan uses a 3 or 5 rep max as a stand-in for a true max, and says numbers from sets much higher than that are not very reliable.' },
+];
+---
+
+<ArticlePage
+  title="RPE Bench Press Program: How to Train by RPE (With a 4 Week Plan)"
+  description="How to program the bench press by RPE: what the numbers mean, how accurate your own effort ratings are, a 4 week plan with example weights, and what research says about RPE versus percentages."
+  canonical="https://modernmensfitness.com/rpe-bench-press-program/"
+  heading="RPE Bench Press Program: How to Train by RPE, With a 4 Week Plan"
+  eyebrow="Programming"
+  updated="2026-11-10"
+  shortAnswer="RPE training means you pick the weight that leaves a set number of reps in reserve, instead of using a fixed percentage of your max. It lets your weights follow how you feel on the day. In research, RPE-based and percentage-based programs build strength about equally, so use RPE because it adapts to good days and bad days, not because it is proven to be stronger. It works best on sets of 3 to 6 reps, where lifters judge effort most accurately."
+  sources={[{ text: 'Zourdos MC, Klemp A, Dolan C, et al. Novel resistance training-specific rating of perceived exertion scale measuring repetitions in reserve. J Strength Cond Res. 2016;30(1):267-275.', doi: '10.1519/JSC.0000000000001049' }, { text: 'Helms ER, Cronin J, Storey A, Zourdos MC. Application of the repetitions in reserve-based rating of perceived exertion scale for resistance training. Strength Cond J. 2016;38(4):42-49.', doi: '10.1519/SSC.0000000000000218' }, { text: 'Helms ER, Byrnes RK, Cooke DM, et al. RPE vs. percentage 1RM loading in periodized programs matched for sets and repetitions. Front Physiol. 2018;9:247.', doi: '10.3389/fphys.2018.00247' }, { text: 'Hickmott LM, Chilibeck PD, Shaw KA, Butcher SJ. The effect of load and volume autoregulation on muscular strength and hypertrophy: a systematic review and meta-analysis. Sports Med Open. 2022;8:9.', doi: '10.1186/s40798-021-00404-9' }, { text: 'Hackett DA, Cobley SP, Davies TB, Michael SW, Halaki M. Accuracy in estimating repetitions to failure during resistance exercise. J Strength Cond Res. 2017;31(8):2162-2168.', doi: '10.1519/JSC.0000000000001683' }, { text: 'Zourdos MC, Goldsmith JA, Helms ER, et al. Proximity to failure and total repetitions performed in a set influences accuracy of intraset repetitions in reserve-based rating of perceived exertion. J Strength Cond Res. 2021;35(Suppl 1):S158-S165.', doi: '10.1519/JSC.0000000000002995' }]}
+  faq={faq}
+  related={[
+    { href: '/bench-press-tools/rpe-calculator/', label: 'RPE calculator: turn reps and RPE into a weight' },
+    { href: '/bench-press-tools/1rm-calculator/', label: '1RM calculator' },
+    { href: '/how-to-deload-bench-press-properly/', label: 'How to deload your bench press' },
+    { href: '/bench-press-programming/', label: 'Bench press programming guides' },
+  ]}
+>
+  <h2>What RPE means on the bench press</h2>
+  <p>RPE stands for rate of perceived exertion. The version used in lifting runs from 1 to 10, and each number matches a count of reps you had left when the set ended. The scale was built and tested in squatters by Zourdos and colleagues in 2016, and Helms and colleagues wrote it up for everyday coaching the same year.</p>
+  <div class="chart-wrap">
+    <table class="pct-table data-table">
+      <thead><tr><th>RPE</th><th>Reps left in the tank</th></tr></thead>
+      <tbody>
+        <tr><td>10</td><td>None. You could not have done another rep.</td></tr>
+        <tr><td>9</td><td>One</td></tr>
+        <tr><td>8</td><td>Two</td></tr>
+        <tr><td>7</td><td>Three</td></tr>
+        <tr><td>6</td><td>Four</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Half points count too. RPE 9.5 means no reps left, but you could have added a little weight. The <a href="/bench-press-tools/rpe-calculator/">RPE calculator</a> and its chart turn any combination of reps and RPE into a percentage of your max.</p>
+
+  <h2>RPE or percentages: what the research says</h2>
+  <p>Two pieces of evidence matter most, and neither says RPE is the better method.</p>
+  <ul>
+    <li><strong>One 8 week study.</strong> Helms and colleagues put 21 resistance-trained men on the same squat and bench program three days a week. One group loaded the bar by percentage of max, the other chose weights to hit a target RPE. Both groups got stronger. Bench press max rose 9.6 kg in the percentage group and 10.7 kg in the RPE group. The difference was not statistically significant, and the authors concluded that both methods work, with a possible small edge for RPE.</li>
+    <li><strong>A pooled analysis.</strong> Hickmott and colleagues combined 15 studies, six of them on load prescription. They found no significant difference in one rep max gains between autoregulated methods (RPE based or velocity based) and percentage-based training: 2.07 kg in favour of autoregulation, with a range that included zero.</li>
+  </ul>
+  <p>So pick RPE for what it does well, which is adjusting the weight to the day. If you slept badly, the same percentage can be a grind. If you feel great, it can be too easy.</p>
+  <p>In his coaching interview, Jordan separated two things people mix up. Percentage of max is how heavy the bar is, and effort is how hard the set feels. RPE is a way of controlling the second one.</p>
+
+  <h2>How accurate is your RPE?</h2>
+  <p>This is where RPE can go wrong, and the research is specific about it.</p>
+  <ul>
+    <li><strong>Chest press and leg press, 81 adults (Hackett et al., 2017).</strong> At 70% of max on the chest press, lifters estimated how many reps they had left. Their error was about 1 rep when they were within 5 reps of failure, and more than 2 reps when they were 7 to 10 reps away. Estimates were more accurate on the chest press than the leg press.</li>
+    <li><strong>Squats, 25 men (Zourdos et al., 2021).</strong> The sets averaged about 16 reps. When lifters called a set one rep from failure they were off by about 2 reps on average. When they called it three reps from failure they were off by about 3.7, and at five reps from failure by about 5. Being farther from failure and doing more reps in the set were both linked to bigger misses.</li>
+  </ul>
+  <p>The practical rule: judge RPE on sets of about 3 to 6 reps, where you are close enough to failure to feel it. Do not trust it on a set of 15. Jordan makes a similar point about maxes, using a 3 or 5 rep max as his stand-in because numbers from higher rep sets are not very reliable.</p>
+  <p>Bar speed is a useful cross-check. In the 2016 scale study, average bar speed and RPE were strongly linked in experienced squatters, with slower reps going with higher RPE.</p>
+
+  <h2>How to pick the weight</h2>
+  <ol>
+    <li>Start from a recent number. Use a hard set from last week, or your estimated max from the <a href="/bench-press-tools/1rm-calculator/">1RM calculator</a>.</li>
+    <li>Add the reps you want to leave in reserve to the reps you plan to do. That is how many reps you could do to failure.</li>
+    <li>Read the percentage off the RPE chart and multiply by your max.</li>
+  </ol>
+  <p><strong>Example.</strong> Your max is {ONE_RM} lb and you want 5 reps at RPE 7. RPE 7 leaves 3 in reserve, so the set is 8 reps from failure. The chart gives {pct(5, 7)}% for that, so the weight is {exact} lb, which you would load as {round5(exact)} lb.</p>
+
+  <h2>A 4 week RPE bench plan</h2>
+  <p>This is an example of the structure, not a prescription. It follows the idea Jordan describes for strength blocks: as the weeks go on, the weights get heavier and the total volume comes down. Weights below are for a {ONE_RM} lb max, rounded to the nearest pound, so round to what is on your bar.</p>
+  <div class="chart-wrap">
+    <table class="pct-table data-table">
+      <thead><tr><th></th><th>Heavy day</th><th>Weight</th><th>Volume day</th><th>Weight</th></tr></thead>
+      <tbody>
+        {plan.map((p) => (<tr><td>{p.week}</td><td>{p.heavy[0]}</td><td>{p.heavy[1]} lb</td><td>{p.vol[0]}</td><td>{p.vol[1]} lb</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+  <p>Add a third, easier day each week for technique: 3 sets of 5 with a pause on the chest at RPE 6.5, choosing the weight by feel, since paused reps are harder than your normal reps. Jordan's first move when adding weight stops working is to slow the lowering phase or pause at the bottom for 3 seconds.</p>
+  <p>In week 5, either deload (see <a href="/how-to-deload-bench-press-properly/">how to deload your bench</a>) or test a 3 rep max.</p>
+
+  <h2>When RPE is the wrong tool</h2>
+  <ul>
+    <li><strong>Your first weeks.</strong> Your sense of a hard set is still forming, so fixed weights with small jumps are easier to follow.</li>
+    <li><strong>High rep sets.</strong> Judgement gets worse the farther you are from failure.</li>
+    <li><strong>When you keep rating everything RPE 8.</strong> Check against bar speed or film the set. If the last rep moves fast, it was not RPE 8.</li>
+  </ul>
+</ArticlePage>

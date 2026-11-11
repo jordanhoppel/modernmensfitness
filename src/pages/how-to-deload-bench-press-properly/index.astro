@@ -1,116 +1,73 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PPPCta from '../../components/PPPCta.astro';
+import ArticlePage from '../../layouts/ArticlePage.astro';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "How to Deload Bench Press Properly",
-  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
-  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
-  "datePublished": "2025-11-18",
-  "dateModified": "2025-11-18",
-  "mainEntityOfPage": "https://modernmensfitness.com/how-to-deload-bench-press-properly/"
-};
+const faq = [
+  { q: 'How long should a bench press deload last?', a: 'In a survey of 246 competitive strength athletes, the typical deload lasted about 6 days (6.4 days on average). Jordan describes it as a deload week. There is no controlled research showing a best length.' },
+  { q: 'How often should I deload?', a: 'The athletes in the same survey deloaded about every 5 to 6 weeks on average (5.6 weeks), but with a wide spread between lifters. That is what people do, not a tested rule. Many also deload earlier when performance stalls or their joints and muscles feel beaten up.' },
+  { q: 'Should I take the whole week off the bench?', a: 'Not under either approach described here. Jordan cuts volume in half and keeps the weights about the same. The athletes surveyed reduced sets, reps and often the load, but kept training on the same days and with the same exercises.' },
+];
 ---
 
-<BaseLayout
-  title="How to Deload Bench Press Properly | Modern Men's Fitness"
-  description="How to Deload Bench Press Properly — Expert guide by Jordan Hoppel, strength coach with 16 years experience and 1,300+ athletes coached."
+<ArticlePage
+  title="How to Deload Your Bench Press: What to Cut, for How Long, and When"
+  description="How to deload the bench press: Jordan Hoppel's rule of half the volume at the same weight, what a survey of 246 competitive lifters actually does, the signs you need one, and a sample week."
   canonical="https://modernmensfitness.com/how-to-deload-bench-press-properly/"
-  schema={articleSchema}
-  pageType="article"
-  publishDate="2025-11-18"
-  modifiedDate="2025-11-18"
+  heading="How to Deload Your Bench Press: What to Cut, for How Long, and When"
+  eyebrow="Programming"
+  updated="2026-11-10"
+  shortAnswer="A deload is a short stretch of reduced training stress meant to clear fatigue before you push again. Jordan's rule is simple: keep the weights about the same and cut your volume in half. A survey of 246 competitive lifters found they typically deloaded for about 6 days, roughly every 5 to 6 weeks, kept the same training days and exercises, and cut sets, reps and often load. There is very little controlled research on deloads, so treat these numbers as common practice, not proof."
+  sources={[{ text: 'Bell L, Strafford BW, Coleman M, Androulakis Korakakis P, Nolan D. Integrating deloading into strength and physique sports training programmes: an international Delphi consensus approach. Sports Med Open. 2023;9:87.', doi: '10.1186/s40798-023-00633-0' }, { text: 'Rogerson D, Nolan D, Androulakis Korakakis P, Immonen V, Wolf M, Bell L. Deloading practices in strength and physique sports: a cross-sectional survey. Sports Med Open. 2024;10:26.', doi: '10.1186/s40798-024-00691-y' }]}
+  faq={faq}
+  related={[
+    { href: '/rpe-bench-press-program/', label: 'RPE bench press program with a 4 week plan' },
+    { href: '/why-my-bench-press-is-weak/', label: 'Why your bench press is weak: how to find the real reason' },
+    { href: '/bench-press-programming/', label: 'Bench press programming guides' },
+  ]}
 >
+  <h2>What a deload is</h2>
+  <p>A group of strength and physique coaches reached a shared definition in 2023: a deload is a period of reduced training stress meant to ease physical and mental fatigue, help you recover, and leave you better prepared for the next block of training. Those same authors describe deloading as widely used and under-researched. That matters for everything below. Nobody has run the trial that says how long a deload should be or how far to cut.</p>
 
-  <section class="page-hero">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="/">Home</a> <span>›</span>
-        <a href="/bench-press-programming/">Programming</a> <span>›</span>
-        <span>How to Deload Bench Press Properly</span>
-      </nav>
-      <span class="eyebrow">Programming</span>
-      <h1>How to Deload Bench Press Properly</h1>
-      <div class="page-meta mono">
-        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · 2025-11
-      </div>
-    </div>
-  </section>
+  <h2>Jordan's rule: half the volume, same weights</h2>
+  <p>In his coaching interview, Jordan was asked how he deloads. His answer: drop the volume, keep the intensity generally the same, and cut volume in half.</p>
+  <p>For the bench press, that means the bar stays about as heavy as it was and you do half as many sets. If your normal day is 4 sets of 5 at 220 lb, the deload day is 2 sets of 5 at 220 lb. You still train on your usual days, so the rhythm of the week does not change.</p>
 
-  <section class="section">
-    <div class="container post-layout">
-      <article class="prose">
+  <h2>What 246 competitive lifters do</h2>
+  <p>Rogerson and colleagues surveyed 246 competitive strength and physique athletes in 2024 (181 men and 65 women, average age 29.5, with about 8 years of training). It is a survey, not a trial, and the sample was people who chose to respond. With that said, here is what they reported:</p>
+  <ul>
+    <li>All of them deloaded.</li>
+    <li>A typical deload lasted about 6 days (6.4 on average), and came about every 5 to 6 weeks (5.6 on average), with a wide spread.</li>
+    <li>They planned deloads in advance, or combined a plan with adjusting on the fly.</li>
+    <li>They also deloaded when performance stalled, or when muscles or joints felt sore or achy.</li>
+    <li>They cut volume by doing fewer reps per set and fewer sets per week, but kept training the same number of days.</li>
+    <li>They lowered the load and reduced effort by leaving more reps in reserve.</li>
+    <li>They generally kept the same exercises.</li>
+  </ul>
+  <p>The one place this differs from Jordan's rule is the load. The surveyed athletes generally lowered it. Jordan keeps it. Both cut volume, and both keep you training. If you feel only mildly tired, the same weights with half the sets is a light touch. If you are beaten up, lowering the weight as well is the more cautious version.</p>
 
-        <PPPCta variant="soft" utmContent="how-to-deload-bench-press-properly-top" />
+  <h2>How to tell you need one</h2>
+  <p>Jordan's signs are the ones lifters notice first:</p>
+  <ul>
+    <li>Your sleep is poor.</li>
+    <li>Training feels like a grind.</li>
+    <li>You feel worn out.</li>
+    <li>Your numbers are trending down, or have not gone up in a very long time.</li>
+  </ul>
+  <p>The survey adds two triggers: a stall in performance, and unusual soreness in the muscles or joints. Jordan notes that in a maintenance phase or an in-season phase you are not trying to get stronger, only to recover from game to game, so those signs mean something different there.</p>
 
-        <p>This guide covers how to deload bench press properly from a coaching perspective — based on 16 years of working with 1,300+ athletes at 5 Star Fitness in Scottsdale, Arizona.</p>
+  <h2>A sample deload week for the bench</h2>
+  <p>These numbers are an example to show the idea, not a prescription. The lighter-load version uses 5 to 10 percent off as an illustration. The survey did not specify an amount.</p>
+  <div class="chart-wrap">
+    <table class="pct-table data-table">
+      <thead><tr><th>Day</th><th>Normal week</th><th>Jordan's version</th><th>Lighter version</th></tr></thead>
+      <tbody>
+        <tr><td>Heavy day</td><td>4 x 5 at 220 lb</td><td>2 x 5 at 220 lb</td><td>2 x 5 at 205 lb</td></tr>
+        <tr><td>Volume day</td><td>4 x 8 at 185 lb</td><td>2 x 8 at 185 lb</td><td>2 x 8 at 170 lb</td></tr>
+        <tr><td>Technique day</td><td>3 x 5, paused, at 175 lb</td><td>Skip a set: 2 x 5 at 175 lb</td><td>2 x 5 at 160 lb</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Keep the bar speed crisp and stop each set with plenty in reserve. The point is to feel better at the end of the week than at the start.</p>
 
-        <h2>Key Points</h2>
-        <ul>
-          <li>Understanding the root cause is always the first step</li>
-          <li>Most fixes require addressing both technique and programming simultaneously</li>
-          <li>Consistent application of the correct fix over 4-6 weeks produces measurable results</li>
-        </ul>
-
-        <PPPCta variant="mid" utmContent="how-to-deload-bench-press-properly-mid" context="The Primal Press Protocol is 12 weeks of structured, periodized bench press programming with every training weight auto-calculated from your 1RM." />
-
-        <h2>The Coach's Perspective</h2>
-        <p>After working with hundreds of lifters on this exact issue, the pattern is consistent: most people apply generic fixes to specific problems. The right approach is diagnosing what's actually happening first — then prescribing the correct solution.</p>
-
-        <p>If you want a systematic approach to diagnosing and fixing your specific bench press limiter, the Primal Press Protocol walks you through the entire diagnostic framework on Day 1.</p>
-
-        <PPPCta variant="hard" utmContent="how-to-deload-bench-press-properly-bottom" />
-
-      </article>
-
-      <aside class="post-sidebar">
-        <div class="sidebar-sticky">
-          <div class="sidebar-widget">
-            <h5>Programming Resources</h5>
-            <a href="/bench-press-programming/" class="sidebar-link">
-              <span>Back to Programming</span><span>→</span>
-            </a>
-            <a href="/bench-press-standards/" class="sidebar-link">
-              <span>Strength Standards</span><span>→</span>
-            </a>
-            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link">
-              <span>1RM Calculator</span><span>→</span>
-            </a>
-          </div>
-          <div class="sidebar-ppp">
-            <span class="eyebrow">The Program</span>
-            <h4>Primal Press Protocol™</h4>
-            <p>The complete 12-week bench press system. $37 one-time.</p>
-            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=post-sidebar&utm_campaign=how-to-deload-bench-press-properly" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get PPP — $37 →
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-</BaseLayout>
-
-<style>
-.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
-.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
-.breadcrumb a { color: var(--muted2); text-decoration: none; }
-.breadcrumb a:hover { color: var(--text); }
-.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 5rem); }
-.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
-.page-meta a { color: var(--muted); }
-.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
-.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
-.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
-.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.sidebar-link:last-child { border-bottom: none; }
-.sidebar-link:hover { color: var(--text); }
-.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
-.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
-.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
-@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
-</style>
+  <h2>What to do after</h2>
+  <p>Go back to your normal volume and weights. If your numbers come back up, the deload did its job. If they do not, Jordan's list for a lift that stops going up is overtraining, under-recovery, or an injury you may not know about. He says being at your genetic limit is possible but rare outside professional lifters. Rule those out, then look at <a href="/why-my-bench-press-is-weak/">technique and programming</a>.</p>
+</ArticlePage>

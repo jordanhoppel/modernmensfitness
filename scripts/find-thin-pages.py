@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """Find templated stub pages and write src/data/thinPages.json (pages the layout marks noindex, follow).
 
-  npx astro build && python3 -I scripts/find-thin-pages.py
+  npx astro build && python3 -I scripts/find-thin-pages.py && npx astro build
+
+The second build matters: pages read src/data/thinPages.json at build time, so the first build still
+uses the old list. Run the script again afterwards; if the count does not change, the list is stable.
 
 A page is flagged when BOTH are true:
   - its main text is under MAX_WORDS words, and

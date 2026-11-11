@@ -1,116 +1,71 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PPPCta from '../../components/PPPCta.astro';
+import ArticlePage from '../../layouts/ArticlePage.astro';
 
-const articleSchema = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Why My Bench Press Is Weak",
-  "author": { "@id": "https://modernmensfitness.com/#jordan-hoppel" },
-  "publisher": { "@type": "Organization", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
-  "datePublished": "2026-01-02",
-  "dateModified": "2026-01-02",
-  "mainEntityOfPage": "https://modernmensfitness.com/why-my-bench-press-is-weak/"
-};
+const faq = [
+  { q: 'How long will it take for my bench press to go up?', a: 'It depends on your training age, so there is no single answer. In his coaching interview, Jordan said to give a first program 8 to 12 weeks, because early progress is mostly neurological and it takes longer for changes to take hold in the muscle. If you only do the first week of every program, you never see how it is built to progress.' },
+  { q: 'Could it be my genetics?', a: 'It is possible, but Jordan says it is rare outside professional lifters and bodybuilders. Before blaming genetics, look at technique, recovery, injuries you may not know about, and whether your program has actually been changing.' },
+  { q: 'Should I just add more volume?', a: 'Not as a first move. More volume on top of poor recovery or poor technique tends to make a stall worse. Find the cause first. A deload is a cheap test of whether fatigue is the problem.' },
+];
 ---
 
-<BaseLayout
-  title="Why My Bench Press Is Weak | Modern Men's Fitness"
-  description="Why My Bench Press Is Weak — Expert guide by Jordan Hoppel, strength coach with 16 years experience and 1,300+ athletes coached."
+<ArticlePage
+  title="Why Your Bench Press Is Weak: How to Find the Real Reason"
+  description="Why a bench press stops going up: technique, recovery, programming and the sticking region. How to test for each one, what research shows about where the bar slows, and what Jordan Hoppel looks at first."
   canonical="https://modernmensfitness.com/why-my-bench-press-is-weak/"
-  schema={articleSchema}
-  pageType="article"
-  publishDate="2026-01-02"
-  modifiedDate="2026-01-02"
+  heading="Why Your Bench Press Is Weak: How to Find the Real Reason"
+  eyebrow="Plateau Fix"
+  updated="2026-11-10"
+  shortAnswer="A bench that will not go up usually comes down to one of four things: technique, recovery, programming, or a leverage problem at one point in the lift. Jordan says stalls in new lifters are usually technique, and that for lifters who stall later he checks overtraining, under-recovery and hidden injuries before blaming genetics. Research shows the bench press has a built-in sticking region where the mechanics are poor, and where it shows up depends on things like grip width. Find where your bar slows, change one thing, and judge it over 8 to 12 weeks."
+  sources={[{ text: 'van den Tillaar R, Ettema G. A comparison of muscle activity in concentric and counter movement maximum bench press. J Hum Kinet. 2013;38:63-71.', doi: '10.2478/hukin-2013-0046' }, { text: 'Gomo O, van den Tillaar R. The effects of grip width on sticking region in bench press. J Sports Sci. 2016;34(3):232-238.', doi: '10.1080/02640414.2015.1046395' }]}
+  faq={faq}
+  related={[
+    { href: '/how-to-deload-bench-press-properly/', label: 'How to deload your bench press' },
+    { href: '/rpe-bench-press-program/', label: 'RPE bench press program' },
+    { href: '/bench-press-left-right-imbalance/', label: 'Bench press imbalance' },
+    { href: '/bench-press-standards/', label: 'Bench press standards by weight, age and sex' },
+  ]}
 >
+  <h2>First, check you are comparing to the right people</h2>
+  <p>"Weak" is relative. The <a href="/bench-press-standards/">bench press standards</a> page shows percentiles from real powerlifting results, and separate working benchmarks for people who train but do not compete. Check where your number sits before deciding something is wrong. If you are actually stalled, the rest of this page helps.</p>
 
-  <section class="page-hero">
-    <div class="container">
-      <nav class="breadcrumb">
-        <a href="/">Home</a> <span>›</span>
-        <a href="/bench-press-plateau/">Plateau Fix</a> <span>›</span>
-        <span>Why My Bench Press Is Weak</span>
-      </nav>
-      <span class="eyebrow">Plateau Fix</span>
-      <h1>Why My Bench Press Is Weak</h1>
-      <div class="page-meta mono">
-        By <a href="/about-jordan-hoppel/">Jordan Hoppel</a> · 16 years coaching · 2026-01
-      </div>
-    </div>
-  </section>
+  <h2>The four usual causes</h2>
+  <div class="chart-wrap">
+    <table class="pct-table data-table">
+      <thead><tr><th>Cause</th><th>What it looks like</th><th>How to test it</th></tr></thead>
+      <tbody>
+        <tr><td>Technique</td><td class="wrap">The bar path wobbles, your body shifts during the set, the reps are not smooth or repeatable.</td><td class="wrap">Film a set and do paused reps. If form breaks down well below your max, technique is the limit.</td></tr>
+        <tr><td>Recovery</td><td class="wrap">Poor sleep, training feels like a grind, you feel worn out, and your numbers drift down or stay flat.</td><td class="wrap">Run a deload week and see if the bar moves better afterward.</td></tr>
+        <tr><td>Programming</td><td class="wrap">The same sets, reps and weights for months, or a new program every two weeks.</td><td class="wrap">Look back at your log. Has the weight or the reps gone up, or has it all stayed the same?</td></tr>
+        <tr><td>Leverage</td><td class="wrap">The bar slows at the same spot on every heavy rep.</td><td class="wrap">Film from the side and note where the bar slows: off the chest, midway, or near lockout.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The symptoms and tests in this table are general coaching practice. The points below come from Jordan's coaching interview and from the research.</p>
 
-  <section class="section">
-    <div class="container post-layout">
-      <article class="prose">
+  <h2>What Jordan checks first</h2>
+  <ul>
+    <li><strong>Technique, for newer lifters.</strong> Jordan says that when a beginner stalls it is usually a form problem: not positioning the body correctly, not using the right muscles in the right order, or movements that are not coordinated and smooth.</li>
+    <li><strong>Recovery and injuries, for everyone else.</strong> Asked why a squat stops going up, he named three things first: being overtrained, being under-recovered, or an underlying injury the lifter does not realize is holding them back. He says the nervous system is generally what is fatigued.</li>
+    <li><strong>Programming.</strong> If the same load is used forever, there is no new stress to adapt to. His first fix is to add reps, then add weight. When adding weight every week stops working, he slows the lowering phase or adds a 3 second pause at the bottom.</li>
+    <li><strong>Patience.</strong> He suggests 8 to 12 weeks on a first program, because progress early on is mostly neurological and the muscle takes longer to respond.</li>
+  </ul>
 
-        <PPPCta variant="soft" utmContent="why-my-bench-press-is-weak-top" />
+  <h2>The sticking region</h2>
+  <p>Most lifters notice the bar slows at some point on a heavy rep. That point is called the sticking region, and two studies from the same research group help explain it.</p>
+  <ul>
+    <li><strong>It shows up even without the stretch.</strong> van den Tillaar and Ettema tested 11 men on a one rep max bench press done normally and as a pure concentric lift, with no lowering phase before the press. A sticking region showed up in both. The authors concluded that fading stretch-shortening help from the lowering phase does not explain it, and that it is more likely a poor mechanical position.</li>
+    <li><strong>Where it appears changes with your grip.</strong> Gomo and van den Tillaar had 12 experienced powerlifters do one rep maxes with narrow, medium and wide grips. Everyone had a clear sticking region with all three, but it did not occur at the same elbow and shoulder angles from one grip to the next. The authors point to differences in how far the bar sits from the elbow joint.</li>
+  </ul>
+  <p>What that means in practice: a sticking point is partly built into the lift, and it is not only a sign of a weak muscle. Where yours sits depends on your body and your grip. If the bar always slows in the same spot, grip width is one thing you can test, but make that your only change for a few weeks, so you know what did it.</p>
 
-        <p>This guide covers why my bench press is weak from a coaching perspective — based on 16 years of working with 1,300+ athletes at 5 Star Fitness in Scottsdale, Arizona.</p>
+  <h2>A simple order to work in</h2>
+  <ol>
+    <li><strong>Film a heavy set</strong> from the side and from behind your head, and note where the bar slows.</li>
+    <li><strong>Rule out fatigue.</strong> Take a deload week (see <a href="/how-to-deload-bench-press-properly/">how to deload</a>) and test again.</li>
+    <li><strong>Change one thing.</strong> A grip adjustment, a pause, a slower lowering phase, or a different weekly structure. Not all four.</li>
+    <li><strong>Give it 8 to 12 weeks</strong> before you judge it, and keep a log so you can see what changed.</li>
+  </ol>
 
-        <h2>Key Points</h2>
-        <ul>
-          <li>Understanding the root cause is always the first step</li>
-          <li>Most fixes require addressing both technique and programming simultaneously</li>
-          <li>Consistent application of the correct fix over 4-6 weeks produces measurable results</li>
-        </ul>
-
-        <PPPCta variant="mid" utmContent="why-my-bench-press-is-weak-mid" context="The Primal Press Protocol classifies your specific plateau type on Day 1 — then prescribes the exact fix. Not generic advice. Your actual problem." />
-
-        <h2>The Coach's Perspective</h2>
-        <p>After working with hundreds of lifters on this exact issue, the pattern is consistent: most people apply generic fixes to specific problems. The right approach is diagnosing what's actually happening first — then prescribing the correct solution.</p>
-
-        <p>If you want a systematic approach to diagnosing and fixing your specific bench press limiter, the Primal Press Protocol walks you through the entire diagnostic framework on Day 1.</p>
-
-        <PPPCta variant="hard" utmContent="why-my-bench-press-is-weak-bottom" />
-
-      </article>
-
-      <aside class="post-sidebar">
-        <div class="sidebar-sticky">
-          <div class="sidebar-widget">
-            <h5>Plateau Fix Resources</h5>
-            <a href="/bench-press-plateau/" class="sidebar-link">
-              <span>Back to Plateau Fix</span><span>→</span>
-            </a>
-            <a href="/bench-press-standards/" class="sidebar-link">
-              <span>Strength Standards</span><span>→</span>
-            </a>
-            <a href="/bench-press-tools/1rm-calculator/" class="sidebar-link">
-              <span>1RM Calculator</span><span>→</span>
-            </a>
-          </div>
-          <div class="sidebar-ppp">
-            <span class="eyebrow">The Program</span>
-            <h4>Primal Press Protocol™</h4>
-            <p>The complete 12-week bench press system. $37 one-time.</p>
-            <a href="https://primalpressprotocol.com?utm_source=mmf&utm_medium=post-sidebar&utm_campaign=why-my-bench-press-is-weak" class="btn-primary" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
-              Get PPP — $37 →
-            </a>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
-</BaseLayout>
-
-<style>
-.page-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 40px; }
-.breadcrumb { display: flex; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; flex-wrap: wrap; }
-.breadcrumb a { color: var(--muted2); text-decoration: none; }
-.breadcrumb a:hover { color: var(--text); }
-.page-hero h1 { margin: 16px 0 16px; font-size: clamp(2rem, 5vw, 5rem); }
-.page-meta { font-family: var(--font-mono); font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; }
-.page-meta a { color: var(--muted); }
-.post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: start; }
-.sidebar-sticky { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 12px; }
-.sidebar-widget { background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; }
-.sidebar-widget h5 { color: var(--muted2); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-.sidebar-link { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.825rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-.sidebar-link:last-child { border-bottom: none; }
-.sidebar-link:hover { color: var(--text); }
-.sidebar-ppp { background: var(--surface); border: 1px solid var(--border); border-top: 2px solid var(--lime); padding: 20px; }
-.sidebar-ppp h4 { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.02em; margin: 8px 0 10px; }
-.sidebar-ppp p { font-size: 0.825rem; font-weight: 300; margin-bottom: 14px; }
-@media (max-width: 900px) { .post-layout { grid-template-columns: 1fr; } .post-sidebar { display: none; } }
-</style>
+  <h2>What not to do</h2>
+  <p>Do not read soreness as a sign of a good session. Jordan describes it as a byproduct of working out, not a predictor of progress. And do not try to progress too fast: he lists not over-progressing yourself among the things he would tell any new lifter.</p>
+</ArticlePage>
