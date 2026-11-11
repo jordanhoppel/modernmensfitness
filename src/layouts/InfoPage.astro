@@ -1,0 +1,42 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props { title: string; description: string; canonical: string; heading: string; updated?: string; schemaType?: string }
+const { title, description, canonical, heading, updated, schemaType = 'WebPage' } = Astro.props;
+const schema = {
+  "@context": "https://schema.org",
+  "@type": schemaType,
+  "name": heading,
+  "url": canonical,
+  "isPartOf": { "@type": "WebSite", "name": "Modern Men's Fitness", "url": "https://modernmensfitness.com" },
+  ...(updated ? { "dateModified": updated } : {}),
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical} schema={schema}>
+  <section class="info-hero">
+    <div class="container">
+      <nav class="info-crumb"><a href="/">Home</a> <span>›</span> <span>{heading}</span></nav>
+      <h1>{heading}</h1>
+      {updated && <p class="info-updated">Last updated {new Date(updated + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>}
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="prose info-body">
+        <slot />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+.info-hero { background: var(--surface); border-bottom: 1px solid var(--border); padding: 48px 0 36px; }
+.info-crumb { display: flex; gap: 8px; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 20px; }
+.info-crumb a { color: var(--muted2); text-decoration: none; }
+.info-crumb a:hover { color: var(--text); }
+.info-updated { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted2); margin-top: 10px; }
+.info-body { min-width: 0; }
+.info-body a { color: var(--lime); }
+.info-body h2 { margin-top: 44px; }
+</style>

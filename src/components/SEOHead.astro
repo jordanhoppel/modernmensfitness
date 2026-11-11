@@ -9,6 +9,7 @@ interface Props {
   publishDate?: string;
   modifiedDate?: string;
   noindex?: boolean;
+  noindexFollow?: boolean;
 }
 
 const {
@@ -20,7 +21,8 @@ const {
   pageType = 'webpage',
   publishDate,
   modifiedDate,
-  noindex = false
+  noindex = false,
+  noindexFollow = false
 } = Astro.props;
 
 const GA4_ID = 'G-4HJJ0X54P3';
@@ -86,7 +88,7 @@ if (schema) {
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{noindex && <meta name="robots" content={noindexFollow ? 'noindex, follow' : 'noindex, nofollow'} />}
 {!noindex && <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
 
 <!-- Open Graph -->
