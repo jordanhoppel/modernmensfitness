@@ -236,9 +236,15 @@
   </url>
   <url>
     <loc>https://modernmensfitness.com/privacy-policy/</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://modernmensfitness.com/privacy-policy/browser-extensions/</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
   </url>
   <url>
     <loc>https://modernmensfitness.com/terms-of-use/</loc>

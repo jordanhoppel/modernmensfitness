@@ -1,0 +1,55 @@
+---
+import InfoPage from '../../../layouts/InfoPage.astro';
+---
+
+<InfoPage
+  title="Browser Extension Privacy Policy"
+  description="Privacy policy for the Modern Men's Fitness Chrome extensions, Bench Press Percentile Checker and Plate Math: what they read, what they store, and what they never send."
+  canonical="https://modernmensfitness.com/privacy-policy/browser-extensions/"
+  heading="Browser Extension Privacy Policy"
+  updated="2026-11-11"
+>
+  <p>This policy covers the Chrome extensions made by Modern Men's Fitness: <strong>Bench Press Percentile Checker</strong> and <strong>Plate Math</strong>. The short version: they make no network requests, they send nothing to us or anyone else, and what you select on a page is used only to show you an answer.</p>
+
+  <h2>What the extensions read</h2>
+  <p>Each extension reads the text you have selected on a page, and only when you choose its item from the right-click menu. It looks for a weight and, for the percentile checker, a number of reps. That text is processed inside your browser to calculate the result and is then discarded. It is not saved, logged or transmitted.</p>
+
+  <h2>What the extensions store</h2>
+  <p>Settings you choose in the extension popup are saved in your browser using Chrome's local storage, so they are still there next time. They stay on your device and are not sent to us.</p>
+  <ul>
+    <li><strong>Bench Press Percentile Checker:</strong> your preferred weight unit, and, if you enter them, your sex and bodyweight. These are used to work out which weight class and percentile to show.</li>
+    <li><strong>Plate Math:</strong> your preferred weight unit and your bar weight.</li>
+  </ul>
+  <p>You can remove these settings at any time by removing the extension, or from chrome://extensions under the extension's site data.</p>
+
+  <h2>What the extensions do not do</h2>
+  <ul>
+    <li>They make no network requests. Calculations and the percentile tables run entirely inside the extension.</li>
+    <li>They do not collect, sell, share or transfer personal information.</li>
+    <li>They do not use analytics, advertising, tracking pixels or remote code.</li>
+    <li>They do not read pages in the background. They act only on text you select and then ask them to check.</li>
+    <li>They do not require an account.</li>
+  </ul>
+
+  <h2>Why each permission is needed</h2>
+  <ul>
+    <li><strong>contextMenus:</strong> adds the right-click item for selected text.</li>
+    <li><strong>activeTab and scripting:</strong> draw the result card on the page where you used the right-click item. The extension gets access to that tab only at that moment.</li>
+    <li><strong>storage:</strong> remembers the settings listed above.</li>
+  </ul>
+
+  <h2>The link in the result</h2>
+  <p>The result card includes a link to a page on modernmensfitness.com. Nothing happens unless you click it. If you do, the link carries a tag showing it came from the extension, so we can count visits, and our <a href="/privacy-policy/">site Privacy Policy</a> then applies to your visit.</p>
+
+  <h2>Data source</h2>
+  <p>The Bench Press Percentile Checker uses percentile tables built from OpenPowerlifting's public meet results and bundled inside the extension. They are published on our <a href="/bench-press-standards/data/">standards data page</a>.</p>
+
+  <h2>Chrome Web Store user data</h2>
+  <p>We do not collect user data through these extensions. The use of information received from Google APIs will adhere to the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If this policy changes, the date at the top of the page will change. Material changes will be explained on this page.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about the extensions or this policy: <a href="mailto:jordan@modernmensfitness.com">jordan@modernmensfitness.com</a>.</p>
+</InfoPage>
