@@ -295,6 +295,8 @@
 /why-bench-press-feels-heavy-suddenly/                       /why-bench-press-stalls-despite-good-diet/  301
 /weak-shoulders-bench-press/                                 /bench-press-plateau/weak-shoulders/  301
 
+/what-is-a-good-bench-press-natural-lifter/       /bench-press-standards/  301
+
 # Splat rule last: Cloudflare counts every rule after a splat as dynamic (max 100).
 /author/jordanhoppel/*                       /about-jordan-hoppel/      301
 /primal-press-protocol-review/ /primal-press-protocol-review.html 200
